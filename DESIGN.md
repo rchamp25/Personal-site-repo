@@ -21,17 +21,18 @@ The above are some reference sites that I enjoyed the UI and components of. The 
 
 AGENTS:
 
-Direction: a drafting-table / lab-notebook page. Hierarchy and navigation should be as clear as the utility references (Airbnb, PayPal, Lemonade, Gatsby). Motion should be short and physical, in the spirit of Linear and Cuberto, and limited to first paint, page change, and hover. The page should feel written by a person, not assembled from a component kit. Mobile uses the same system, stacked. There is no separate mobile theme.
+Direction: a dark lab notebook, closer to Linear and Iota in value (near-black ground, light type, thin lines) and as clear as the utility references (Airbnb, PayPal, Lemonade, Gatsby). The structure stays a written index: rules, a running margin, and prose. It is not a clone of Linear’s indigo product UI. Motion is short and physical, in the spirit of Linear and Cuberto, and limited to first paint, page change, and hover. The page should feel written by a person, not assembled from a component kit. Mobile uses the same system, stacked. v1 is dark only. There is no theme toggle and no separate mobile theme.
 
 ## Color
 
-- Ground: `#f3efe6` (page background)
-- Ink: `#1c1915` (text, rules that must read as type)
-- Hairline: `#d8d1c4` (dividers, index rules, borders)
-- Accent: `#c4562a` (oxide). Use it once per view: one link, one marker, or one rule. Never as a large fill.
-- No second accent. No gradient fills. No dark-mode theme in v1.
+- Ground: `#12110f` (page background; warm black, not cool slate)
+- Ink: `#f4f0e6` (text)
+- Muted: `#b7b1a6` (secondary lines such as dates). Verify WCAG AA before using it at small sizes.
+- Hairline: `#2c2924` (dividers, index rules, borders)
+- Accent: `#e07a4a` (oxide). Use it once per view: one marker or one rule. Never as a large fill, and not as small body text unless contrast is checked and passes.
+- No second accent. No gradient fills. No light theme in v1.
 
-Text on ground must meet WCAG AA contrast. Ink on ground does. Oxide on ground is for large text or non-text marks only; small oxide text is not allowed unless contrast is checked and passes.
+Text on ground must meet WCAG AA contrast. Ink on ground does. Links are ink with an underline, not oxide-colored words.
 
 ## Type
 
@@ -56,7 +57,9 @@ Prose line length stays around 60–75 characters. Headlines can run wider. Do n
 - Header and footer use the same ink, hairline, and mono index. Header is sticky and compact on small screens.
 - Projects index: horizontal rules and type (title, one line, year, stack). Not a grid of equal rounded cards.
 - Project pages: problem, what was built, role, stack, links, dates. Images only when a real image is in content.
-- Home holds identity, a short bio, three selected projects, a “now” line, and contact links. It is not a second copy of every page.
+- Home holds the name Ross Champlin, a one-line role, a short bio, three selected projects, a short personal note, and contact links. It is not a second copy of every page.
+- Project pages include an optional commentary field: the author’s own note, separate from the problem and what was built.
+- Experience holds education, roles, and other life achievements that are not jobs. Each entry can include a short commentary.
 
 ## Motion
 
@@ -88,5 +91,6 @@ Do not ship any of these:
 Append visualization notes below this line. Date them and name the agent. Do not delete earlier notes.
 
 - 2026-09-30 — Auto: Recorded the visual system above from the approved planning pass. Reference list at the top of this file stays the source for taste; this section is the source for what to build.
+- 2026-09-30 — Auto: Ross chose a dark page, closer to Linear and Iota. Replaced the paper ground with warm black `#12110f`, ink `#f4f0e6`, hairline `#2c2924`, and oxide `#e07a4a` still used once per view. v1 stays dark only. Layout, type, and motion are unchanged.
 
 
