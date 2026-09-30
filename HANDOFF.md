@@ -7,7 +7,7 @@ Agents append to the log. Do not rewrite earlier entries. Keep **Current** accur
 - Done: Planning documents, updated after Ross’s answers. Stack, dark visual system, site map, content list, and the 14-task checklist are written. No application code.
 - In progress: None.
 - Next: PLAN.md task 1 — scaffold Astro, Tailwind, `.gitignore`, scripts, and a one-screen README, on its own branch.
-- Gotchas: Display name is Ross Champlin. Theme is dark (`#12110f` / `#f4f0e6` / oxide `#e07a4a` once per view). Bio, projects, achievements, resume PDF, email, and LinkedIn are still missing; use placeholders that say they are placeholders. GitHub account is `rchamp25`. Do not invent facts. The site is a record of school work, personal projects, a bio, and other achievements, with commentary fields. It is not an internship landing page.
+- Gotchas: Display name is Ross Champlin. Theme is dark (`#12110f` / `#f4f0e6` / oxide `#e07a4a` once per view). Bio, projects, achievements, resume PDF, email, and LinkedIn are still missing; use placeholders that say they are placeholders. GitHub account is `rchamp25`. Do not invent facts. The site is a record of school work, personal projects, a bio, and other achievements, with commentary fields. It is not an internship landing page. Scaffold: npm, TypeScript strict, Tailwind v4, `site` `https://rosschamplin.com`, `base` `/`. Task 1 does not add content collections, design tokens, DNS, or the Pages workflow.
 
 ## Log
 
@@ -26,3 +26,9 @@ Agents append to the log. Do not rewrite earlier entries. Keep **Current** accur
 - [AGENTS.md](AGENTS.md): display name Ross Champlin; public email, GitHub, and LinkedIn; placeholders until content exists; purpose is school work, personal projects, a bio, other achievements, and commentary.
 - [PLAN.md](PLAN.md): tasks 2, 5, 8, and 9 and the route list now include the personal note, commentary, and life achievements.
 - [HANDOFF.md](HANDOFF.md): updated Current and appended this entry.
+
+### 2026-09-30 — Auto
+
+- Recorded scaffold answers. Domain `rosschamplin.com` (`base` `/`). npm. TypeScript strict. Empty folder skeleton and a placeholder home page for task 1.
+- Recommended Tailwind v4 and recorded it: CSS-first `@theme`, no `tailwind.config.js`, which matches task 3’s CSS variables. Ross had asked for a recommendation.
+- [AGENTS.md](AGENTS.md), [PLAN.md](PLAN.md), [HANDOFF.md](HANDOFF.md): scaffold constraints added. No application code.
