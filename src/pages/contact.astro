@@ -12,7 +12,7 @@ const links = (await getCollection("links")).sort((a, b) => a.data.order - b.dat
   <!-- The page's single accent use. Decorative. -->
   <div aria-hidden="true" class="mt-6 w-16 border-t-2 border-accent"></div>
 
-  <dl class="mt-12 max-w-measure border-t border-hairline">
+  <dl class="mt-12 max-w-measure border-t border-hairline" data-reveal>
     {
       links.map(({ data }) => (
         <div class="border-b border-hairline py-4 sm:grid sm:grid-cols-[8rem_minmax(0,1fr)] sm:items-baseline sm:gap-x-6">

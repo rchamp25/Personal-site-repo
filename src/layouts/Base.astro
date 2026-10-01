@@ -1,5 +1,7 @@
 ---
+import type { TransitionDirectionalAnimations } from "astro";
 import { getEntry } from "astro:content";
+import { ClientRouter } from "astro:transitions";
 import "../styles/global.css";
 import SectionLabel from "../components/SectionLabel.astro";
 import SiteFooter from "../components/SiteFooter.astro";
@@ -10,20 +12,42 @@ interface Props {
   title?: string;
   // Running index label for this page, e.g. "Home".
   label: string;
+  // Home only: the label joins the first-load sequence (see global.css).
+  intro?: boolean;
 }
-const { title, label } = Astro.props;
+const { title, label, intro = false } = Astro.props;
 
 const profile = await getEntry("profile", "ross");
 if (!profile) throw new Error('Missing profile entry "ross" in src/content/profile.yaml');
 // "Ross Champlin" on the home page, "Projects · Ross Champlin" elsewhere.
 const documentTitle = title ? `${title} · ${profile.data.name}` : profile.data.name;
+
+// Page change: the content leaves with a short rise and fade (page-leave) and
+// the next page arrives the same way (page-arrive), both directions, on the
+// motion tokens; the keyframes are in global.css. Header and footer are named
+// separately with "none" (SiteHeader, SiteFooter), so they hold still. Reduced
+// motion turns all of it off (global.css, plus Astro's own rule).
+const pageMotion = {
+  duration: "var(--duration-page)",
+  easing: "var(--ease-out-quart)",
+  fillMode: "both",
+};
+const pageChange = {
+  old: { ...pageMotion, name: "page-leave" },
+  new: { ...pageMotion, name: "page-arrive" },
+};
+const pageTransition: TransitionDirectionalAnimations = {
+  forwards: pageChange,
+  backwards: pageChange,
+};
 ---
 
-<html lang="en">
+<html lang="en" transition:animate={pageTransition}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{documentTitle}</title>
+    <ClientRouter />
   </head>
   <body class="flex min-h-dvh flex-col bg-ground font-body text-ink">
     <a
@@ -42,11 +66,52 @@ const documentTitle = title ? `${title} · ${profile.data.name}` : profile.data.
       tabindex="-1"
       class="outline-none mx-auto w-full max-w-page flex-1 px-4 py-10 sm:px-8 md:grid md:grid-cols-[11rem_minmax(0,1fr)] md:gap-x-8 md:py-16"
     >
-      <SectionLabel class="mb-8 md:sticky md:top-24 md:mb-0 md:self-start">{label}</SectionLabel>
+      <SectionLabel
+        class="mb-8 md:sticky md:top-24 md:mb-0 md:self-start"
+        data-intro={intro ? "" : undefined}
+      >
+        {label}
+      </SectionLabel>
       <div>
         <slot />
       </div>
     </main>
     <SiteFooter />
+    <script>
+      // Client-side visits: mark the incoming page so the Home first-load
+      // sequence (data-intro in global.css) does not replay. Astro copies the
+      // new document's <html> attributes onto the page during the swap.
+      document.addEventListener("astro:before-swap", (event) => {
+        event.newDocument.documentElement.dataset.nav = "client";
+      });
+
+      // Scroll reveal: data-reveal elements that start below the fold are
+      // hidden (data-reveal-pending) and shown once, when they scroll into
+      // view. Elements already in view are left alone. Reduced motion skips it.
+      let observer: IntersectionObserver | undefined;
+      document.addEventListener("astro:page-load", () => {
+        observer?.disconnect();
+        if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+        observer = new IntersectionObserver(
+          (entries) => {
+            for (const entry of entries) {
+              if (!entry.isIntersecting) continue;
+              (entry.target as HTMLElement).removeAttribute("data-reveal-pending");
+              observer?.unobserve(entry.target);
+            }
+          },
+          { rootMargin: "0px 0px -8% 0px" },
+        );
+        for (const el of document.querySelectorAll<HTMLElement>("[data-reveal]")) {
+          if (el.getBoundingClientRect().top < innerHeight) continue;
+          el.dataset.revealPending = "";
+          observer.observe(el);
+        }
+      });
+
+      // iOS Safari only applies :active (the row press state) when a touch
+      // listener exists.
+      document.addEventListener("touchstart", () => {}, { passive: true });
+    </script>
   </body>
 </html>

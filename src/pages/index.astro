@@ -8,7 +8,7 @@ const profile = await getEntry("profile", "ross");
 if (!profile) throw new Error('Missing profile entry "ross" in src/content/profile.yaml');
 const { name, role, bio, note } = profile.data;
 
-// One span per word for the first-paint stagger. The spaces stay as text, so
+// One span per word for the first-load stagger. The spaces stay as text, so
 // the heading still reads as the plain name.
 const nameWords = name.split(/\s+/);
 
@@ -17,28 +17,53 @@ const featured = (await getCollection("projects", ({ data }) => data.featured))
   .slice(0, 3);
 ---
 
-<Base label="Home">
+<!-- First load only (global.css, data-intro): the section label at 0ms, the
+     name word by word from 80ms, the oxide rule draws at 280ms, then role,
+     bio, and note, and Selected work at 600ms; all settled by about 840ms.
+     The only staggered load on the site. -->
+<Base label="Home" intro>
   <Measure>
     <h1 class="text-5xl leading-[1.05] sm:text-6xl md:text-7xl">
       {
         nameWords.map((word, i) => (
           <>
             {i > 0 && " "}
-            <span class="stagger" style={`--i: ${i}`}>{word}</span>
+            <span class="inline-block" data-intro style={`--intro-delay: ${80 + i * 80}ms`}>
+              {word}
+            </span>
           </>
         ))
       }
     </h1>
-    <!-- The page's single accent use. Decorative. -->
-    <div aria-hidden="true" class="mt-6 w-16 border-t-2 border-accent"></div>
-    <p class="mt-6 text-xl sm:text-2xl">{role}</p>
-    <p class="mt-8 text-lg leading-relaxed">{bio}</p>
-    <p class="mt-10 border-l border-hairline pl-4 leading-relaxed text-muted">{note}</p>
+    <!-- The page's accent rule. Decorative. It steps back to hairline while a
+         project row below holds the accent (global.css, data-page-accent). -->
+    <div
+      aria-hidden="true"
+      class="mt-6 w-16 border-t-2 border-accent"
+      data-page-accent
+      data-intro="draw"
+      style="--intro-delay: 280ms"
+    >
+    </div>
+    <p class="mt-6 text-xl sm:text-2xl" data-intro style="--intro-delay: 360ms">{role}</p>
+    <p class="mt-8 text-lg leading-relaxed" data-intro style="--intro-delay: 440ms">{bio}</p>
+    <p
+      class="mt-10 border-l border-hairline pl-4 leading-relaxed text-muted"
+      data-intro
+      style="--intro-delay: 520ms"
+    >
+      {note}
+    </p>
   </Measure>
 
   {
     featured.length > 0 && (
-      <section aria-labelledby="selected-work" class="mt-16 md:mt-24">
+      <section
+        aria-labelledby="selected-work"
+        class="mt-16 md:mt-24"
+        data-intro
+        style="--intro-delay: 600ms"
+      >
         <h2 id="selected-work" class="font-meta text-xs uppercase tracking-wider text-muted">
           Selected work
         </h2>
@@ -58,19 +83,3 @@ const featured = (await getCollection("projects", ({ data }) => data.featured))
   }
 </Base>
 
-<style>
-  /* First paint only. The resting state is fully visible, so the global
-     prefers-reduced-motion rule (animation: none) leaves the name in place. */
-  .stagger {
-    display: inline-block;
-    animation: rise var(--duration-page) var(--ease-out-quart) both;
-    animation-delay: calc(var(--i) * 80ms);
-  }
-
-  @keyframes rise {
-    from {
-      opacity: 0;
-      transform: translateY(0.2em);
-    }
-  }
-</style>

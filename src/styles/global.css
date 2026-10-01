@@ -53,6 +53,12 @@
   /* Page change stays under 300ms. Ease-out quart: no bounce or overshoot. */
   --duration-page: 240ms;
   --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+  /* Scroll reveals settle more slowly than a page change. */
+  --duration-reveal: 480ms;
+  /* Hover and press on rows. */
+  --duration-hover: 180ms;
+  /* How far a hovered row title travels. Reduced motion sets it to 0. */
+  --shift-hover: 4px;
   /* Hover image scale from DESIGN.md. Reduced motion sets it to 1. */
   --scale-hover: 1.02;
 }
@@ -108,11 +114,105 @@
   }
 }
 
+/* Motion. DESIGN.md "Motion" is the source; every rule below is switched off
+   by the reduced-motion block at the end of this file. */
+
+@keyframes page-leave {
+  to {
+    opacity: 0;
+    translate: 0 -0.5rem;
+  }
+}
+
+@keyframes page-arrive {
+  from {
+    opacity: 0;
+    translate: 0 0.75rem;
+  }
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    translate: 0 0.5rem;
+  }
+}
+
+@keyframes draw {
+  from {
+    scale: 0 1;
+  }
+}
+
+/* Page change (Astro ClientRouter, see Base.astro). Header and footer are
+   named and set to "none", so they hold still; the page content leaves and
+   arrives with page-leave and page-arrive. The backdrop is ground, so the
+   short rise never shows a light edge. The browser's group animation gets the
+   same timing instead of its default 250ms. */
+::view-transition {
+  background-color: var(--color-ground);
+}
+
+::view-transition-group(*) {
+  animation-duration: var(--duration-page);
+  animation-timing-function: var(--ease-out-quart);
+}
+
+/* Home first load: elements with data-intro rise in on their own delay
+   (--intro-delay); data-intro="draw" draws a rule from the left instead.
+   A client-side visit sets data-nav="client" on <html> (Base.astro), so the
+   sequence only plays on a real first load. */
+html:not([data-nav="client"]) [data-intro] {
+  animation: rise var(--duration-page) var(--ease-out-quart) both;
+  animation-delay: var(--intro-delay, 0ms);
+}
+
+html:not([data-nav="client"]) [data-intro="draw"] {
+  animation-name: draw;
+  transform-origin: left;
+}
+
+/* Scroll reveal: Base.astro marks data-reveal elements that start below the
+   fold as data-reveal-pending and clears it once, when they enter the view.
+   Elements already in view are never hidden. */
+@media (prefers-reduced-motion: no-preference) {
+  [data-reveal] {
+    transition:
+      opacity var(--duration-reveal) var(--ease-out-quart),
+      translate var(--duration-reveal) var(--ease-out-quart);
+  }
+
+  [data-reveal-pending] {
+    opacity: 0;
+    translate: 0 1rem;
+  }
+}
+
+/* The page's accent rule steps back to hairline while a project row is
+   hovered, pressed, or keyboard-focused, so the accent sits on that row only
+   (see ProjectRow.astro). */
+[data-page-accent] {
+  transition: border-color var(--duration-hover) var(--ease-out-quart);
+}
+
+@media (hover: hover) {
+  body:has(.project-row:hover) [data-page-accent] {
+    border-color: var(--color-hairline);
+  }
+}
+
+body:has(.project-row:active) [data-page-accent],
+body:has(.project-row a:focus-visible) [data-page-accent] {
+  border-color: var(--color-hairline);
+}
+
 /* Reduced motion: no transitions, no animations (view transitions included),
-   and the hover scale becomes a no-op. */
+   no hover travel, and the hover scale becomes a no-op. Content is never
+   hidden: the reveal's hidden state only exists under no-preference. */
 @media (prefers-reduced-motion: reduce) {
   :root {
     --scale-hover: 1;
+    --shift-hover: 0px;
   }
 
   *,

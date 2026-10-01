@@ -63,11 +63,16 @@ Prose line length stays around 60–75 characters. Headlines can run wider. Do n
 
 ## Motion
 
-- One staggered first paint, on the home headline only.
-- Astro view transitions under 300ms.
-- Hover: underline, or image scale of `1.02`. Nothing else.
-- `prefers-reduced-motion: reduce` disables the stagger, the view transition, and the image scale.
-- No animation library. CSS only, plus Astro’s built-in view transitions.
+Short, physical, and in service of reading, at the level of the fluidity references (Cuberto, Fuselab, Linear, Stripe). The page always scrolls normally. Tokens: `--duration-page` 240ms, `--duration-reveal` 480ms, `--duration-hover` 180ms, `--ease-out-quart`, `--shift-hover` 4px.
+
+- Page change: Astro view transitions (`ClientRouter`). The header and footer hold still. The page content leaves with a short rise and fade, and the next page arrives with a short rise and fade, on `--duration-page` and `--ease-out-quart`. No slide that moves the header.
+- First load, Home only: one sequence, settled in under a second. The section label, the headline word by word, the oxide rule drawing to its width, then role, bio, and note, then Selected work. It does not replay on client-side visits. It is the only staggered load on the site.
+- Scroll reveal: sections and rows that start below the fold settle in (a short rise and fade) as they enter the view, once. Nothing replays on scroll-up, and anything already in view at load is shown as is. Used on Home, Projects, project pages, and Experience; Contact reveals its list once.
+- Project rows (Home and `/projects`): on hover, press, or keyboard focus, the rule under the row brightens and the oxide accent draws along it. The accent travels to that row: the page's own accent rule steps back to hairline while the row holds it, so a view still shows one accent. From `md` up the title also moves a few pixels. Touch devices get the press state, never a hover that sticks.
+- Other hover: underline, or image scale of `1.02`.
+- Phones get the same ideas. Any move that would cause sideways overflow, hide the nav, or trap scrolling at 390px is dropped on small screens (for example, the row title does not move there).
+- `prefers-reduced-motion: reduce` turns off the page change, the first-load sequence, the scroll reveals, the hover travel, and the image scale. Content is fully visible; color changes on hover and press stay.
+- No animation library, no scroll hijacking, no custom cursor. CSS, Astro’s built-in view transitions, and one small script for the reveals.
 
 ## Anti-patterns
 
@@ -94,3 +99,4 @@ Append visualization notes below this line. Date them and name the agent. Do not
 - 2026-09-30 — Auto: Ross chose a dark page, closer to Linear and Iota. Replaced the paper ground with warm black `#12110f`, ink `#f4f0e6`, hairline `#2c2924`, and oxide `#e07a4a` still used once per view. v1 stays dark only. Layout, type, and motion are unchanged.
 
 
+- 2026-10-01 — Claude (Opus 5.5): Raised motion to the fluidity references at Ross's request: page change keeps the header and footer still while the content rises out and in; Home has a first-load sequence; sections and rows reveal once on scroll; project rows brighten their rule and take the oxide accent on hover and press, with the page's own accent rule stepping back meanwhile. Rewrote the Motion section to match. Colors, type, and layout unchanged.

@@ -2,6 +2,13 @@
 // One ruled row in a project index: title, one-line summary, then year and
 // stack when content has them. The title link is stretched over the row so
 // the whole row is clickable, while its accessible name stays the title.
+//
+// Hover (devices that can hover), press (all devices), and keyboard focus:
+// the rule under the row brightens and an oxide mark draws along it, so the
+// accent sits on this row only (global.css dims the page's own accent rule
+// meanwhile). From md up, hover and press also move the title a few pixels;
+// phones skip that move so it can never cause sideways overflow. The row
+// reveals on scroll (data-reveal, see Base.astro).
 interface Props {
   slug: string;
   title: string;
@@ -18,10 +25,15 @@ const hasMeta = Boolean(year) || stack.length > 0;
 ---
 
 <li
-  class="relative border-b border-hairline py-5 md:grid md:grid-cols-[minmax(0,16rem)_minmax(0,1fr)_auto] md:items-baseline md:gap-x-8"
+  class="project-row relative py-5 md:grid md:grid-cols-[minmax(0,16rem)_minmax(0,1fr)_auto] md:items-baseline md:gap-x-8"
+  data-reveal
 >
   <Heading class="text-2xl leading-tight">
-    <a href={`/projects/${slug}`} class="after:absolute after:inset-0">{title}</a>
+    <a href={`/projects/${slug}`} class="after:absolute after:inset-0">
+      <!-- The title moves on this inner span, not the link: a translated link
+           would become the containing block for its stretched ::after. -->
+      <span class="row-title">{title}</span>
+    </a>
   </Heading>
   <p class="mt-1 md:mt-0">{summary}</p>
   {
@@ -33,4 +45,70 @@ const hasMeta = Boolean(year) || stack.length > 0;
       </p>
     )
   }
+  <span aria-hidden="true" class="row-rule"></span>
+  <span aria-hidden="true" class="row-accent"></span>
 </li>
+
+<style>
+  .row-title {
+    display: inline-block;
+    /* inline-block stops the link's underline from reaching the text, so the
+       span draws the same underline itself. */
+    text-decoration: inherit;
+    transition: translate var(--duration-hover) var(--ease-out-quart);
+  }
+
+  .row-rule,
+  .row-accent {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 1px;
+    pointer-events: none;
+  }
+
+  .row-rule {
+    right: 0;
+    background-color: var(--color-hairline);
+    transition: background-color var(--duration-hover) var(--ease-out-quart);
+  }
+
+  .row-accent {
+    width: 4rem;
+    background-color: var(--color-accent);
+    scale: 0 1;
+    transform-origin: left;
+    transition: scale var(--duration-page) var(--ease-out-quart);
+  }
+
+  @media (hover: hover) {
+    .project-row:hover .row-rule {
+      background-color: var(--color-muted);
+    }
+    .project-row:hover .row-accent {
+      scale: 1 1;
+    }
+  }
+
+  .project-row:active .row-rule,
+  .project-row:has(a:focus-visible) .row-rule {
+    background-color: var(--color-muted);
+  }
+
+  .project-row:active .row-accent,
+  .project-row:has(a:focus-visible) .row-accent {
+    scale: 1 1;
+  }
+
+  @media (hover: hover) and (min-width: 48rem) {
+    .project-row:hover .row-title {
+      translate: var(--shift-hover) 0;
+    }
+  }
+
+  @media (min-width: 48rem) {
+    .project-row:active .row-title {
+      translate: var(--shift-hover) 0;
+    }
+  }
+</style>

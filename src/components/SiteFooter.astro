@@ -11,7 +11,12 @@ const links = (await getCollection("links", ({ data }) => !data.placeholder && d
 const year = new Date().getFullYear();
 ---
 
-<footer class="border-t border-hairline font-meta text-xs">
+<!-- Named for the page change with "none": it holds still (see Base.astro). -->
+<footer
+  class="border-t border-hairline font-meta text-xs"
+  transition:name="site-footer"
+  transition:animate="none"
+>
   <div class="mx-auto flex max-w-page flex-wrap items-center gap-x-8 gap-y-2 px-4 py-6 sm:px-8">
     <p class="text-muted md:w-44">© {year} {profile.data.name}</p>
     {

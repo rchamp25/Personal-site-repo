@@ -16,7 +16,13 @@ const isCurrent = (href: string) =>
   href === "/" ? path === "/" : path === href || path.startsWith(`${href}/`);
 ---
 
-<header class="sticky top-0 z-10 border-b border-hairline bg-ground font-meta text-xs sm:text-sm">
+<!-- Named for the page change with "none": it holds still while the page
+     content leaves and arrives (see Base.astro). -->
+<header
+  class="sticky top-0 z-10 border-b border-hairline bg-ground font-meta text-xs sm:text-sm"
+  transition:name="site-header"
+  transition:animate="none"
+>
   <div class="mx-auto flex max-w-page items-center gap-x-8 px-4 py-2 sm:justify-between sm:px-8 sm:py-3 md:justify-start">
     <!-- Hidden on phones so the four nav labels fit on one row; "Home" covers it. -->
     <p class="hidden shrink-0 sm:block md:w-44">{profile.data.name}</p>
