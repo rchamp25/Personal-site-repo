@@ -1,0 +1,42 @@
+---
+import "../styles/global.css";
+import SectionLabel from "../components/SectionLabel.astro";
+import SiteFooter from "../components/SiteFooter.astro";
+import SiteHeader from "../components/SiteHeader.astro";
+
+interface Props {
+  title: string;
+  // Running index label for this page, e.g. "Home".
+  label: string;
+}
+const { title, label } = Astro.props;
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+  </head>
+  <body class="flex min-h-dvh flex-col bg-ground font-body text-ink">
+    <a
+      href="#main"
+      class="sr-only font-meta text-xs focus:not-sr-only focus:absolute focus:top-2 focus:left-4 focus:z-20 focus:bg-ground focus:px-3 focus:py-2"
+    >
+      Skip to content
+    </a>
+    <SiteHeader />
+    <!-- Wide screens: index label in the left margin, content to its right.
+         Small screens: the label stacks above the content. -->
+    <main
+      id="main"
+      class="mx-auto w-full max-w-page flex-1 px-4 py-10 sm:px-8 md:grid md:grid-cols-[11rem_minmax(0,1fr)] md:gap-x-8 md:py-16"
+    >
+      <SectionLabel class="mb-8 md:sticky md:top-24 md:mb-0 md:self-start">{label}</SectionLabel>
+      <div>
+        <slot />
+      </div>
+    </main>
+    <SiteFooter />
+  </body>
+</html>

@@ -1,0 +1,17 @@
+# Public contact links. Set placeholder to false once a real href is in place.
+email:
+  label: Email
+  text: "Placeholder: email address not added yet."
+  order: 1
+  placeholder: true
+github:
+  label: GitHub
+  text: rchamp25
+  href: https://github.com/rchamp25
+  order: 2
+  placeholder: false
+linkedin:
+  label: LinkedIn
+  text: "Placeholder: LinkedIn URL not added yet."
+  order: 3
+  placeholder: true

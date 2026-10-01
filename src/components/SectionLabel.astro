@@ -1,0 +1,17 @@
+---
+// Running index label. Sits in the left margin on wide screens and above the
+// content on small ones (the layout decides where).
+interface Props {
+  class?: string;
+}
+const { class: className } = Astro.props;
+---
+
+<p
+  class:list={[
+    "border-t border-hairline pt-3 font-meta text-xs uppercase tracking-wider text-muted",
+    className,
+  ]}
+>
+  <slot />
+</p>

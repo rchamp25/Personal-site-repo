@@ -1,12 +1,13 @@
 # Personal portfolio site: Ross, CS sophomore at Binghamton University
 
 Read DESIGN.md before any UI work, and HANDOFF.md at the start of every session.
-Stack: Astro (static, TypeScript strict) + Tailwind CSS v4 + Markdown content collections. Package manager: npm. Deploy with GitHub Actions to GitHub Pages on `rchamp25/Personal-site-repo`, served at `https://rosschamplin.com` (`base: '/'`).
+Stack: Astro (static, TypeScript strict) + Tailwind CSS v4 + Markdown content collections. Package manager: npm. Deploy target: Vercel static (`dist`, no SSR adapter). The public URL is the project’s `https://<name>.vercel.app` host. Do not guess `<name>`. `base` is `/`. No custom domain in this build.
 
 ## Rules
-- Work on one PLAN.md task at a time, on its own branch. Commit small and often.
-- Before stopping or when I say "wrap up": update HANDOFF.md (done / in progress / next / gotchas) and commit.
-- Never invent projects, stats, or bio facts. Use content from /content or ask me.
+- Work on one PLAN.md task at a time, on the current local branch. Do not start the next task in the same session.
+- Do not commit, push, or open pull requests. Ross commits.
+- Before stopping or when Ross says "wrap up": update HANDOFF.md (done / in progress / next / gotchas) and leave the changes in the working tree.
+- Never invent projects, stats, or bio facts. Use content from `src/content` or ask Ross.
 - Follow the anti-patterns list in DESIGN.md strictly.
 - Check your work in the browser at mobile and desktop widths before calling it done.
 
@@ -14,7 +15,7 @@ Stack: Astro (static, TypeScript strict) + Tailwind CSS v4 + Markdown content co
 
 Astro output is a static site. TypeScript is strict. Tailwind v4 is CSS-first (`@theme` in one stylesheet) and is only for the tokens and layout primitives in DESIGN.md. Motion is CSS plus Astro view transitions. There is no React app, database, CMS, animation library, or `tailwind.config.js`.
 
-Why this stack: one language to maintain, content edited as Markdown, and GitHub Pages with no extra host. Local loop is `npm run dev` and `npm run build`.
+Why this stack: one language to maintain, content edited as Markdown, and a static build Vercel can host with no server. Local loop is `npm run dev` and `npm run build`.
 
 ## Decisions from Ross
 
@@ -23,8 +24,10 @@ Why this stack: one language to maintain, content edited as Markdown, and GitHub
 - Purpose: a record of school and personal projects, a bio, and other life achievements, with room for personal commentary. Not an internship landing page.
 - Contact: email, GitHub, and LinkedIn are all public. Do not invent the addresses. The GitHub account on this repo is `rchamp25`. Email and LinkedIn URLs are still missing.
 - Copy: build with labeled placeholders until Ross adds files. Do not wait, and do not mine a resume that is not in the repo.
-- Domain: `rosschamplin.com`. Astro `site` is `https://rosschamplin.com` and `base` is `/`. DNS and the GitHub Pages workflow belong to PLAN task 14, not the scaffold.
-- Scaffold: npm, TypeScript strict, Tailwind v4. Task 1 creates empty `src/pages`, `src/layouts`, `src/components`, and `src/content`, plus one home page whose copy says it is a placeholder. No content collections in task 1. No design tokens yet (task 3).
+- Hosting: Vercel, static output, public URL `https://<name>.vercel.app`. Ross connects the project in Vercel. Agents do not create the Vercel project, attach a custom domain, register a domain, or edit DNS. No GitHub Pages workflow. No `@astrojs/vercel` SSR adapter. `base` is `/`.
+- Astro `site`: leave it unset until the real `*.vercel.app` hostname exists. Then set `site` to that exact URL. Do not set it to `rosschamplin.com` or any other host.
+- Git: agents work together in this local checkout. Ross commits. Agents do not commit or push.
+- Scaffold: npm, TypeScript strict, Tailwind v4. Task 1 creates empty `src/pages`, `src/layouts`, `src/components`, and `src/content`, plus one home page whose copy says it is a placeholder. No content collections in task 1. No design tokens yet (task 3). Fonts, when task 3 adds them, are self-hosted files in `public/fonts` (not Google Fonts, not a runtime Fontshare request).
 
 ## Site map
 
@@ -60,8 +63,10 @@ Facts live in `src/content` (and `public/` for files). Layout code does not hard
 
 ## Technical log
 
-Append decisions here. Date them and name the agent. Do not delete earlier entries.
+Append decisions here. Date them and name the agent. Do not delete earlier entries. If an older entry conflicts with the stack line or **Decisions from Ross**, follow those sections. The log is history.
 
 - 2026-09-30 — Auto: Chose Astro static, Tailwind, Markdown content collections, and GitHub Pages. Documented the site map, content rules, and folder map. No application code yet.
 - 2026-09-30 — Auto: Recorded Ross’s answers. Display name Ross Champlin. Dark theme. Placeholders until content arrives. Public contact is email, GitHub, and LinkedIn, with email and LinkedIn still unknown. Purpose is a record of school work, personal projects, a bio, and other achievements, plus commentary fields on projects and experience.
-- 2026-09-30 — Auto: Scaffold choices. npm, TypeScript strict, Tailwind v4 (CSS-first, no tailwind.config.js) because task 3 maps DESIGN.md tokens through `@theme`. `site` is `https://rosschamplin.com`, `base` is `/`. Task 1 is an empty folder skeleton and a placeholder home page. Content collections stay in task 2. DNS and Pages workflow stay in task 14.
+- 2026-09-30 — Auto: Scaffold choices. npm, TypeScript strict, Tailwind v4 (CSS-first, no tailwind.config.js) because task 3 maps DESIGN.md tokens through `@theme`. `base` is `/`. Task 1 is an empty folder skeleton and a placeholder home page. Content collections stay in task 2.
+- 2026-09-30 — Auto: Ross will commit. Agents stay on the current local branch, do one PLAN task, update HANDOFF, and stop. No commits, pushes, or pull requests from agents. Deploy is Vercel static, not GitHub Pages. Fonts will be self-hosted in `public/fonts`.
+- 2026-09-30 — Auto: Ross confirmed the public URL is the Vercel `*.vercel.app` host. No custom domain in this build. Do not guess the subdomain. Leave Astro `site` unset until that hostname exists.

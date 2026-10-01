@@ -1,0 +1,36 @@
+---
+// One ruled row in a project index: title, one-line summary, then year and
+// stack when content has them. The title link is stretched over the row so
+// the whole row is clickable, while its accessible name stays the title.
+interface Props {
+  slug: string;
+  title: string;
+  summary: string;
+  // "YYYY" or "YYYY-MM"; only the year is shown.
+  start?: string;
+  stack?: string[];
+  headingLevel?: 2 | 3;
+}
+const { slug, title, summary, start, stack = [], headingLevel = 3 } = Astro.props;
+const Heading = `h${headingLevel}` as "h2" | "h3";
+const year = start?.slice(0, 4);
+const hasMeta = Boolean(year) || stack.length > 0;
+---
+
+<li
+  class="relative border-b border-hairline py-5 md:grid md:grid-cols-[minmax(0,16rem)_minmax(0,1fr)_auto] md:items-baseline md:gap-x-8"
+>
+  <Heading class="text-2xl leading-tight">
+    <a href={`/projects/${slug}`} class="after:absolute after:inset-0">{title}</a>
+  </Heading>
+  <p class="mt-1 md:mt-0">{summary}</p>
+  {
+    hasMeta && (
+      <p class="mt-2 font-meta text-xs text-muted md:mt-0 md:text-right">
+        {year && <span>{year}</span>}
+        {year && stack.length > 0 && <span aria-hidden="true"> · </span>}
+        {stack.length > 0 && <span>{stack.join(", ")}</span>}
+      </p>
+    )
+  }
+</li>

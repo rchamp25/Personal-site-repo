@@ -40,7 +40,7 @@ Text on ground must meet WCAG AA contrast. Ink on ground does. Links are ink wit
 - Body: Newsreader
 - Dates, tags, nav indexes, and other meta: IBM Plex Mono
 
-Load these from a privacy-friendly source (self-hosted files in `public/fonts`, or Fontshare / the official IBM Plex repo). Do not pull fonts from Google Fonts.
+Self-host the font files in `public/fonts`. Download Instrument Serif and Newsreader from Fontshare, and IBM Plex Mono from the official IBM Plex repository. Do not request fonts from Google Fonts or from any CDN at runtime.
 
 Fallbacks, in order:
 

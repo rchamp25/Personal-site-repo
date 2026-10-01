@@ -1,0 +1,76 @@
+---
+import { getCollection, getEntry } from "astro:content";
+import Measure from "../components/Measure.astro";
+import ProjectRow from "../components/ProjectRow.astro";
+import Base from "../layouts/Base.astro";
+
+const profile = await getEntry("profile", "ross");
+if (!profile) throw new Error('Missing profile entry "ross" in src/content/profile.yaml');
+const { name, role, bio, note } = profile.data;
+
+// One span per word for the first-paint stagger. The spaces stay as text, so
+// the heading still reads as the plain name.
+const nameWords = name.split(/\s+/);
+
+const featured = (await getCollection("projects", ({ data }) => data.featured))
+  .sort((a, b) => a.data.order - b.data.order)
+  .slice(0, 3);
+---
+
+<Base title={name} label="Home">
+  <Measure>
+    <h1 class="text-5xl leading-[1.05] sm:text-6xl md:text-7xl">
+      {
+        nameWords.map((word, i) => (
+          <>
+            {i > 0 && " "}
+            <span class="stagger" style={`--i: ${i}`}>{word}</span>
+          </>
+        ))
+      }
+    </h1>
+    <!-- The page's single accent use. Decorative. -->
+    <div aria-hidden="true" class="mt-6 w-16 border-t-2 border-accent"></div>
+    <p class="mt-6 text-xl sm:text-2xl">{role}</p>
+    <p class="mt-8 text-lg leading-relaxed">{bio}</p>
+    <p class="mt-10 border-l border-hairline pl-4 leading-relaxed text-muted">{note}</p>
+  </Measure>
+
+  {
+    featured.length > 0 && (
+      <section aria-labelledby="selected-work" class="mt-16 md:mt-24">
+        <h2 id="selected-work" class="font-meta text-xs uppercase tracking-wider text-muted">
+          Selected work
+        </h2>
+        <ul class="mt-4 border-t border-hairline">
+          {featured.map(({ id, data }) => (
+            <ProjectRow
+              slug={id}
+              title={data.title}
+              summary={data.summary}
+              start={data.start}
+              stack={data.stack}
+            />
+          ))}
+        </ul>
+      </section>
+    )
+  }
+</Base>
+
+<style>
+  /* First paint only. The resting state is fully visible, so the global
+     prefers-reduced-motion rule (animation: none) leaves the name in place. */
+  .stagger {
+    display: inline-block;
+    animation: rise var(--duration-page) var(--ease-out-quart) both;
+    animation-delay: calc(var(--i) * 80ms);
+  }
+
+  @keyframes rise {
+    from {
+      opacity: 0;
+      transform: translateY(0.2em);
+    }
+  }
+</style>

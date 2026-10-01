@@ -1,0 +1,29 @@
+---
+import { getCollection, getEntry } from "astro:content";
+
+const profile = await getEntry("profile", "ross");
+if (!profile) throw new Error('Missing profile entry "ross" in src/content/profile.yaml');
+
+// Only links Ross has supplied; placeholders stay off the footer.
+const links = (await getCollection("links", ({ data }) => !data.placeholder && data.href))
+  .sort((a, b) => a.data.order - b.data.order);
+
+const year = new Date().getFullYear();
+---
+
+<footer class="border-t border-hairline font-meta text-xs">
+  <div class="mx-auto flex max-w-page flex-wrap items-center gap-x-8 gap-y-2 px-4 py-6 sm:px-8">
+    <p class="text-muted md:w-44">© {year} {profile.data.name}</p>
+    {
+      links.length > 0 && (
+        <ul class="flex flex-wrap gap-x-6 gap-y-2">
+          {links.map(({ data }) => (
+            <li>
+              <a href={data.href}>{data.label}</a>
+            </li>
+          ))}
+        </ul>
+      )
+    }
+  </div>
+</footer>
