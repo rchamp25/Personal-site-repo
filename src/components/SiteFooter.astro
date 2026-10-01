@@ -1,10 +1,11 @@
 ---
 import { getCollection, getEntry } from "astro:content";
+import Icon from "./Icon.astro";
 
 const profile = await getEntry("profile", "ross");
 if (!profile) throw new Error('Missing profile entry "ross" in src/content/profile.yaml');
 
-// Only links Ross has supplied; placeholders stay off the footer.
+// Only links Ross has supplied, as logos; placeholders stay off the footer.
 const links = (await getCollection("links", ({ data }) => !data.placeholder && data.href))
   .sort((a, b) => a.data.order - b.data.order);
 
@@ -21,10 +22,17 @@ const year = new Date().getFullYear();
     <p class="text-muted md:w-44">© {year} {profile.data.name}</p>
     {
       links.length > 0 && (
-        <ul class="flex flex-wrap gap-x-6 gap-y-2">
+        <ul class="-m-1.5 flex flex-wrap gap-x-3">
           {links.map(({ data }) => (
             <li>
-              <a href={data.href}>{data.label}</a>
+              <a
+                href={data.href}
+                aria-label={data.label}
+                title={data.text}
+                class="flex p-1.5 text-muted transition-[color] duration-(--duration-hover) ease-(--ease-out-quart) hover:text-ink"
+              >
+                <Icon name={data.icon} class="size-4" />
+              </a>
             </li>
           ))}
         </ul>

@@ -1,17 +1,25 @@
-# Public contact links. Set placeholder to false once a real href is in place.
+# Public contact links, shown as logos on the Contact page and in the footer.
+# label: the link's accessible name. text: the full address or URL (shown as
+# the logo's hover title). icon: email, github, or linkedin. A link is live
+# only when placeholder is false and href is set.
 email:
   label: Email
-  text: "Placeholder: email address not added yet."
+  text: rosschamplin25@gmail.com
+  icon: email
+  href: mailto:rosschamplin25@gmail.com
   order: 1
-  placeholder: true
+  placeholder: false
 github:
   label: GitHub
-  text: rchamp25
+  text: https://github.com/rchamp25
+  icon: github
   href: https://github.com/rchamp25
   order: 2
   placeholder: false
 linkedin:
   label: LinkedIn
-  text: "Placeholder: LinkedIn URL not added yet."
+  text: https://www.linkedin.com/in/ross-champlin/
+  icon: linkedin
+  href: https://www.linkedin.com/in/ross-champlin/
   order: 3
-  placeholder: true
+  placeholder: false

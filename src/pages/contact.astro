@@ -1,9 +1,11 @@
 ---
 import { getCollection } from "astro:content";
+import Icon from "../components/Icon.astro";
 import Base from "../layouts/Base.astro";
 
-// Every entry in src/content/links.yaml. Only real links (not placeholders,
-// with an href) become anchors; placeholders show their text as written.
+// Every entry in src/content/links.yaml, as a logo with its label. A live link
+// (placeholder false, href set) goes to the full address; its hover title shows
+// that address. A placeholder shows its logo and text, not as a link.
 const links = (await getCollection("links")).sort((a, b) => a.data.order - b.data.order);
 ---
 
@@ -12,16 +14,25 @@ const links = (await getCollection("links")).sort((a, b) => a.data.order - b.dat
   <!-- The page's single accent use. Decorative. -->
   <div aria-hidden="true" class="mt-6 w-16 border-t-2 border-accent"></div>
 
-  <dl class="mt-12 max-w-measure border-t border-hairline" data-reveal>
+  <ul class="mt-12 max-w-measure border-t border-hairline" data-reveal>
     {
       links.map(({ data }) => (
-        <div class="border-b border-hairline py-4 sm:grid sm:grid-cols-[8rem_minmax(0,1fr)] sm:items-baseline sm:gap-x-6">
-          <dt class="font-meta text-xs uppercase tracking-wider text-muted">{data.label}</dt>
-          <dd class="mt-1 text-lg sm:mt-0">
-            {!data.placeholder && data.href ? <a href={data.href}>{data.text}</a> : data.text}
-          </dd>
-        </div>
+        <li class="border-b border-hairline py-4">
+          {!data.placeholder && data.href ? (
+            <a href={data.href} title={data.text} class="inline-flex items-center gap-4 py-1 text-lg">
+              <Icon name={data.icon} class="size-6" />
+              <span>{data.label}</span>
+            </a>
+          ) : (
+            <p class="inline-flex items-center gap-4 py-1 text-lg text-muted">
+              <Icon name={data.icon} class="size-6" />
+              <span>
+                {data.label}: {data.text}
+              </span>
+            </p>
+          )}
+        </li>
       ))
     }
-  </dl>
+  </ul>
 </Base>

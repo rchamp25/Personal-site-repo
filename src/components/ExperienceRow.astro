@@ -1,16 +1,46 @@
 ---
-// One ruled row on the experience page: title, then org and dates when
-// present, bullets, an optional Markdown body, and commentary last.
+// One ruled row on the experience page.
+// Roles and achievements: title, then org and dates when present, bullets, an
+// optional Markdown body, and commentary last.
+// Education: the school as the title, then degree and major, graduation
+// ("Expected <date>" while ahead) and GPA, honors, involvement, then bullets,
+// body, and commentary. Every field shows only when content has it.
 import { render, type CollectionEntry } from "astro:content";
-import { formatRange } from "../lib/dates";
+import { formatDate, formatRange } from "../lib/dates";
 
 interface Props {
   entry: CollectionEntry<"experience">;
 }
 const { entry } = Astro.props;
-const { title, org, start, end, bullets, commentary } = entry.data;
-const dates = formatRange(start, end);
-const meta = [org, dates].filter(Boolean);
+const {
+  kind,
+  title,
+  org,
+  start,
+  end,
+  degree,
+  major,
+  expected,
+  gpa,
+  honors,
+  involvement,
+  bullets,
+  commentary,
+} = entry.data;
+const isEducation = kind === "education";
+
+const dates =
+  isEducation && expected && end ? `Expected ${formatDate(end)}` : formatRange(start, end);
+const study = [degree, major].filter(Boolean).join(", ");
+const meta = (isEducation ? [dates, gpa && `GPA ${gpa}`] : [org, dates]).filter(
+  (part): part is string => Boolean(part),
+);
+// Labeled lists, education only.
+const lists = [
+  { label: "Honors", items: honors },
+  { label: "Involvement", items: involvement },
+].filter((list) => isEducation && list.items.length > 0);
+
 const hasBody = Boolean(entry.body?.trim());
 const { Content } = hasBody ? await render(entry) : { Content: null };
 ---
@@ -18,6 +48,7 @@ const { Content } = hasBody ? await render(entry) : { Content: null };
 <li class="border-b border-hairline py-6" data-reveal>
   <div class="max-w-measure">
     <h3 class="text-2xl leading-tight">{title}</h3>
+    {study && <p class="mt-2 text-lg">{study}</p>}
     {
       meta.length > 0 && (
         <p class="mt-2 font-meta text-xs text-muted">
@@ -29,6 +60,18 @@ const { Content } = hasBody ? await render(entry) : { Content: null };
           ))}
         </p>
       )
+    }
+    {
+      lists.map(({ label, items }) => (
+        <div class="mt-4">
+          <p class="font-meta text-xs uppercase tracking-wider text-muted">{label}</p>
+          <ul class="mt-2 list-disc space-y-1 pl-5 leading-relaxed marker:text-muted">
+            {items.map((item) => (
+              <li>{item}</li>
+            ))}
+          </ul>
+        </div>
+      ))
     }
     {
       bullets.length > 0 && (

@@ -22,7 +22,7 @@ Why this stack: one language to maintain, content edited as Markdown, and a stat
 - Display name: Ross Champlin.
 - Look: dark, closer to Linear and Iota. Tokens are in DESIGN.md. v1 has no light theme.
 - Purpose: a record of school and personal projects, a bio, and other life achievements, with room for personal commentary. Not an internship landing page.
-- Contact: email, GitHub, and LinkedIn are all public. Do not invent the addresses. The GitHub account on this repo is `rchamp25`. Email and LinkedIn URLs are still missing.
+- Contact: email, GitHub, and LinkedIn are all public: `rosschamplin25@gmail.com`, `https://github.com/rchamp25`, and `https://www.linkedin.com/in/ross-champlin/` (in `src/content/links.yaml`). They show as logo links that go to the full address; the address itself is not printed on the page. Do not invent other contact methods.
 - Copy: build with labeled placeholders until Ross adds files. Do not wait, and do not mine a resume that is not in the repo.
 - Hosting: Vercel, static output. Public URL: `https://personal-site-pearl-tau-17.vercel.app`. Agents do not create another Vercel project, attach a custom domain, register a domain, or edit DNS. No GitHub Pages workflow. No `@astrojs/vercel` SSR adapter. `base` is `/`.
 - Astro `site` is `https://personal-site-pearl-tau-17.vercel.app`. Do not change it and do not set it to `rosschamplin.com`.
@@ -46,7 +46,7 @@ Agents do not invent these. Until a fact is in `/content`, the page shows a plac
 - Experience and achievements: org or context, role or what it was, dates, bullets you wrote, optional commentary
 - Education (Binghamton, major, expected graduation) only as you want it stated
 - Resume PDF
-- Email address and LinkedIn URL. GitHub is `https://github.com/rchamp25` unless you say otherwise.
+- Email, GitHub, and LinkedIn: supplied (see Decisions from Ross).
 - Photo only if you provide one. Otherwise the site is type-only.
 
 ## Folders
@@ -71,3 +71,5 @@ Append decisions here. Date them and name the agent. Do not delete earlier entri
 - 2026-09-30 — Auto: Ross will commit. Agents stay on the current local branch, do one PLAN task, update HANDOFF, and stop. No commits, pushes, or pull requests from agents. Deploy is Vercel static, not GitHub Pages. Fonts will be self-hosted in `public/fonts`.
 - 2026-09-30 — Auto: Ross confirmed the public URL is the Vercel `*.vercel.app` host. No custom domain in this build. Do not guess the subdomain. Leave Astro `site` unset until that hostname exists.
 - 2026-10-01 — Auto: Ross deployed. The live host is `https://personal-site-pearl-tau-17.vercel.app`. Set Astro `site` to that origin.
+- 2026-10-01 — Auto: Ross deferred PLAN.md task 13 (font size, image pipeline, unused JS). Do not start it unless he asks. The ClientRouter script and the motion script stay.
+- 2026-10-01 — Claude (Opus 5.5): Ross supplied his email (`rosschamplin25@gmail.com`) and LinkedIn (`https://www.linkedin.com/in/ross-champlin/`). Updated Decisions from Ross and Content you must supply. Contact links are logo links to the full address.

@@ -21,9 +21,15 @@ const profile = defineCollection({
     note: z.string().min(1),
     resume: z.object({
       label: z.string().min(1),
-      // Unset until the PDF is in public/.
+      // Unset until the PDF is in public/. Once set, the Experience page shows
+      // a button that opens it in a new tab.
       href: href.optional(),
     }),
+    // Optional portrait. The file goes in public/images/profile/; `src` is its
+    // path, e.g. "/images/profile/ross.jpg". Unset means a type-only site.
+    photo: z
+      .object({ src: z.string().startsWith("/images/"), alt: z.string().min(1) })
+      .optional(),
   }),
 });
 
@@ -31,9 +37,13 @@ const links = defineCollection({
   loader: file("src/content/links.yaml"),
   schema: z
     .object({
+      // Accessible name of the logo link, e.g. "LinkedIn".
       label: z.string().min(1),
-      // Text shown for the link, e.g. the address or handle.
+      // The full address or URL. Not printed on the page; shown as the logo's
+      // hover title.
       text: z.string().min(1),
+      // Which logo the link shows (src/components/Icon.astro).
+      icon: z.enum(["email", "github", "linkedin"]),
       href: z.union([z.url(), z.string().startsWith("mailto:")]).optional(),
       order: z.number().int(),
       placeholder: z.boolean().default(false),
@@ -81,21 +91,36 @@ const experience = defineCollection({
   schema: z
     .object({
       kind: z.enum(["education", "role", "achievement"]),
-      // The role, degree, or what the achievement was.
+      // Roles and achievements: the role, or what the achievement was.
+      // Education: the school.
       title: z.string().min(1),
-      // Organization or context.
+      // Organization or context (roles and achievements).
       org: z.string().optional(),
       start: monthOrYear.optional(),
-      // Omit while ongoing. For education this can be the expected graduation.
+      // Omit while ongoing. For education, the graduation date.
       end: monthOrYear.optional(),
+      // Education only. `expected: true` shows `end` as "Expected <date>".
+      degree: z.string().min(1).optional(),
+      major: z.string().min(1).optional(),
+      expected: z.boolean().default(false),
+      // As Ross wants it shown, e.g. "3.8" or "3.8 / 4.0".
+      gpa: z.string().min(1).optional(),
+      honors: z.array(z.string().min(1)).default([]),
+      involvement: z.array(z.string().min(1)).default([]),
       bullets: z.array(z.string().min(1)).default([]),
       order: z.number().int().default(0),
       commentary: z.string().optional(),
       placeholder: z.boolean().default(false),
     })
-    .refine((e) => e.placeholder || (e.org && e.start), {
-      message: "An entry that is not a placeholder needs org and start",
-    }),
+    .refine(
+      (e) =>
+        e.placeholder ||
+        (e.kind === "education" ? e.degree && e.major && e.end : e.org && e.start),
+      {
+        message:
+          "An entry that is not a placeholder needs org and start (education: degree, major, and end)",
+      },
+    ),
 });
 
 export const collections = { profile, links, projects, experience };

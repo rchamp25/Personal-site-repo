@@ -1,6 +1,7 @@
 ---
 import { getCollection, getEntry } from "astro:content";
 import ExperienceRow from "../components/ExperienceRow.astro";
+import Icon from "../components/Icon.astro";
 import Base from "../layouts/Base.astro";
 
 const entries = (await getCollection("experience")).sort(
@@ -48,7 +49,16 @@ const { resume } = profile.data;
     {
       resume.href ? (
         <p class="mt-4">
-          <a href={resume.href}>{resume.label}</a>
+          <a
+            href={resume.href}
+            target="_blank"
+            rel="noopener"
+            class="inline-flex items-center gap-3 border border-hairline px-4 py-3 font-meta text-sm no-underline transition-[border-color] duration-(--duration-hover) ease-(--ease-out-quart) hover:border-muted"
+          >
+            {resume.label}
+            <Icon name="external" class="size-3.5" />
+            <span class="sr-only">(opens in a new tab)</span>
+          </a>
         </p>
       ) : (
         <p class="mt-4">{resume.label}</p>
