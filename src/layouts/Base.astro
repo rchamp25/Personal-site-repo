@@ -1,22 +1,29 @@
 ---
+import { getEntry } from "astro:content";
 import "../styles/global.css";
 import SectionLabel from "../components/SectionLabel.astro";
 import SiteFooter from "../components/SiteFooter.astro";
 import SiteHeader from "../components/SiteHeader.astro";
 
 interface Props {
-  title: string;
+  // Page name for the document title. Omit on the home page.
+  title?: string;
   // Running index label for this page, e.g. "Home".
   label: string;
 }
 const { title, label } = Astro.props;
+
+const profile = await getEntry("profile", "ross");
+if (!profile) throw new Error('Missing profile entry "ross" in src/content/profile.yaml');
+// "Ross Champlin" on the home page, "Projects · Ross Champlin" elsewhere.
+const documentTitle = title ? `${title} · ${profile.data.name}` : profile.data.name;
 ---
 
 <html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>{title}</title>
+    <title>{documentTitle}</title>
   </head>
   <body class="flex min-h-dvh flex-col bg-ground font-body text-ink">
     <a
@@ -27,10 +34,13 @@ const { title, label } = Astro.props;
     </a>
     <SiteHeader />
     <!-- Wide screens: index label in the left margin, content to its right.
-         Small screens: the label stacks above the content. -->
+         Small screens: the label stacks above the content.
+         tabindex="-1" lets the skip link move focus here; main is not a control,
+         so it shows no focus ring. -->
     <main
       id="main"
-      class="mx-auto w-full max-w-page flex-1 px-4 py-10 sm:px-8 md:grid md:grid-cols-[11rem_minmax(0,1fr)] md:gap-x-8 md:py-16"
+      tabindex="-1"
+      class="outline-none mx-auto w-full max-w-page flex-1 px-4 py-10 sm:px-8 md:grid md:grid-cols-[11rem_minmax(0,1fr)] md:gap-x-8 md:py-16"
     >
       <SectionLabel class="mb-8 md:sticky md:top-24 md:mb-0 md:self-start">{label}</SectionLabel>
       <div>

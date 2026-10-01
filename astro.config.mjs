@@ -2,8 +2,9 @@
 import { defineConfig } from "astro/config";
 import tailwindcss from "@tailwindcss/vite";
 
-// `site` stays unset until Vercel assigns the real *.vercel.app host (see AGENTS.md).
+// Canonical host Vercel assigned. No custom domain in this build.
 export default defineConfig({
+  site: "https://personal-site-pearl-tau-17.vercel.app",
   output: "static",
   base: "/",
   vite: {

@@ -1,0 +1,168 @@
+---
+import { getCollection, render, type CollectionEntry } from "astro:content";
+import Measure from "../../components/Measure.astro";
+import Base from "../../layouts/Base.astro";
+
+export async function getStaticPaths() {
+  const projects = await getCollection("projects");
+  return projects.map((project) => ({ params: { slug: project.id }, props: { project } }));
+}
+
+interface Props {
+  project: CollectionEntry<"projects">;
+}
+const { project } = Astro.props;
+const { title, summary, problem, role, start, end, stack, repo, demo, image, commentary } =
+  project.data;
+const { Content } = await render(project);
+
+// "2025" -> "2025"; "2025-09" -> "Sep 2025".
+const formatDate = (value: string) => {
+  const [year, month] = value.split("-");
+  if (!month) return year;
+  const label = new Date(Date.UTC(Number(year), Number(month) - 1)).toLocaleString("en-US", {
+    month: "short",
+    timeZone: "UTC",
+  });
+  return `${label} ${year}`;
+};
+
+// A missing end means ongoing.
+const dates = start
+  ? end && end !== start
+    ? `${formatDate(start)} – ${formatDate(end)}`
+    : end
+      ? formatDate(start)
+      : `${formatDate(start)} – ongoing`
+  : undefined;
+
+const details = [
+  { label: "Role", value: role },
+  { label: "Dates", value: dates },
+  { label: "Stack", value: stack.length > 0 ? stack.join(", ") : undefined },
+].filter((d): d is { label: string; value: string } => Boolean(d.value));
+
+const links = [
+  { label: "Repository", href: repo },
+  { label: "Demo", href: demo },
+].filter((l): l is { label: string; href: string } => Boolean(l.href));
+---
+
+<Base title={title} label="Projects">
+  <article>
+    <h1 class="text-5xl leading-[1.05] sm:text-6xl">{title}</h1>
+    <!-- The page's single accent use. Decorative. -->
+    <div aria-hidden="true" class="mt-6 w-16 border-t-2 border-accent"></div>
+    <Measure>
+      <p class="mt-6 text-xl sm:text-2xl">{summary}</p>
+
+      <section aria-labelledby="problem" class="mt-12">
+        <h2 id="problem" class="font-meta text-xs uppercase tracking-wider text-muted">Problem</h2>
+        <p class="mt-3 text-lg leading-relaxed">{problem}</p>
+      </section>
+
+      <section aria-labelledby="built" class="mt-12">
+        <h2 id="built" class="font-meta text-xs uppercase tracking-wider text-muted">
+          What was built
+        </h2>
+        <div class="body mt-3 text-lg leading-relaxed">
+          <Content />
+        </div>
+      </section>
+
+      {
+        details.length > 0 && (
+          <dl class="mt-12 border-t border-hairline">
+            {details.map(({ label, value }) => (
+              <div class="grid grid-cols-[6rem_minmax(0,1fr)] gap-x-4 border-b border-hairline py-3">
+                <dt class="font-meta text-xs uppercase tracking-wider text-muted">{label}</dt>
+                <dd>{value}</dd>
+              </div>
+            ))}
+          </dl>
+        )
+      }
+
+      {
+        links.length > 0 && (
+          <ul class="mt-8 flex flex-wrap gap-x-6 gap-y-2 font-meta text-sm">
+            {links.map(({ label, href }) => (
+              <li>
+                <a href={href}>{label}</a>
+              </li>
+            ))}
+          </ul>
+        )
+      }
+
+      {
+        image && (
+          <img
+            src={image.src}
+            alt={image.alt}
+            loading="lazy"
+            decoding="async"
+            class="mt-12 h-auto w-full border border-hairline"
+          />
+        )
+      }
+
+      {
+        commentary && (
+          <section aria-labelledby="commentary" class="mt-16 border-t border-hairline pt-8">
+            <h2 id="commentary" class="font-meta text-xs uppercase tracking-wider text-muted">
+              Commentary
+            </h2>
+            <p class="mt-3 border-l border-hairline pl-4 leading-relaxed text-muted">
+              {commentary}
+            </p>
+          </section>
+        )
+      }
+    </Measure>
+  </article>
+</Base>
+
+<style>
+  /* Minimal type for the Markdown body (Tailwind's reset strips the defaults).
+     Ink, muted, and hairline only. */
+  .body :global(* + *) {
+    margin-top: 1em;
+  }
+  .body :global(h2),
+  .body :global(h3) {
+    margin-top: 1.75em;
+    font-size: 1.5rem;
+    line-height: 1.2;
+  }
+  .body :global(ul) {
+    list-style: disc;
+    padding-left: 1.25em;
+  }
+  .body :global(ol) {
+    list-style: decimal;
+    padding-left: 1.25em;
+  }
+  .body :global(li + li) {
+    margin-top: 0.25em;
+  }
+  .body :global(blockquote) {
+    border-left: 1px solid var(--color-hairline);
+    padding-left: 1rem;
+    color: var(--color-muted);
+  }
+  .body :global(code) {
+    font-family: var(--font-meta);
+    font-size: 0.85em;
+  }
+  .body :global(pre) {
+    overflow-x: auto;
+    border: 1px solid var(--color-hairline);
+    padding: 1rem;
+    font-size: 0.875rem;
+  }
+  .body :global(img) {
+    max-width: 100%;
+    height: auto;
+  }
+</style>

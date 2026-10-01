@@ -17,7 +17,7 @@ const featured = (await getCollection("projects", ({ data }) => data.featured))
   .slice(0, 3);
 ---
 
-<Base title={name} label="Home">
+<Base label="Home">
   <Measure>
     <h1 class="text-5xl leading-[1.05] sm:text-6xl md:text-7xl">
       {

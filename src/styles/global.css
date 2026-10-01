@@ -64,6 +64,9 @@
     color: var(--color-ink);
     /* Keeps in-page jumps clear of the sticky header. */
     scroll-padding-top: 5rem;
+    /* Reserve the scrollbar's space on every page, so the centered column
+       does not shift between short pages and tall ones. */
+    scrollbar-gutter: stable;
   }
 
   /* Instrument Serif ships one weight (400). Never let the browser fake a bold. */

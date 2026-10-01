@@ -1,0 +1,30 @@
+---
+import { getCollection } from "astro:content";
+import ProjectRow from "../../components/ProjectRow.astro";
+import Base from "../../layouts/Base.astro";
+
+// Every project, school and personal, featured or not.
+const projects = (await getCollection("projects")).sort(
+  (a, b) => a.data.order - b.data.order || a.data.title.localeCompare(b.data.title),
+);
+---
+
+<Base title="Projects" label="Projects">
+  <h1 class="text-5xl leading-[1.05] sm:text-6xl">Projects</h1>
+  {
+    projects.length > 0 && (
+      <ul class="mt-10 border-t border-hairline md:mt-12">
+        {projects.map(({ id, data }) => (
+          <ProjectRow
+            slug={id}
+            title={data.title}
+            summary={data.summary}
+            start={data.start}
+            stack={data.stack}
+            headingLevel={2}
+          />
+        ))}
+      </ul>
+    )
+  }
+</Base>
