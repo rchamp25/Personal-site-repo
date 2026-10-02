@@ -4,6 +4,7 @@ import { getEntry } from "astro:content";
 import { ClientRouter } from "astro:transitions";
 import Analytics from "@vercel/analytics/astro";
 import "../styles/global.css";
+import GraphiteDust from "../components/GraphiteDust.astro";
 import SectionLabel from "../components/SectionLabel.astro";
 import SiteFooter from "../components/SiteFooter.astro";
 import SiteHeader from "../components/SiteHeader.astro";
@@ -84,7 +85,10 @@ const pageTransition: TransitionDirectionalAnimations = {
     <meta name="twitter:card" content="summary_large_image" />
     <ClientRouter />
   </head>
-  <body class="flex min-h-dvh flex-col bg-ground font-body text-ink">
+  <!-- No background on <body>: <html> paints the ground, so the graphite
+       dust canvas (z-index -1) shows through behind the content. -->
+  <body class="flex min-h-dvh flex-col font-body text-ink">
+    <GraphiteDust />
     <a
       href="#main"
       class="sr-only font-meta text-xs focus:not-sr-only focus:absolute focus:top-2 focus:left-4 focus:z-20 focus:bg-ground focus:px-3 focus:py-2"

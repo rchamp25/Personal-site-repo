@@ -1,10 +1,10 @@
 # Personal portfolio site: Ross, CS sophomore at Binghamton University
 
 Read DESIGN.md before any UI work, and HANDOFF.md at the start of every session.
-Stack: Astro (static, TypeScript strict) + Tailwind CSS v4 + Markdown content collections. Package manager: npm. Deploy target: Vercel static (`dist`, no SSR adapter). Public URL: `https://rosschamplin.com` (custom domain on Vercel). Astro `site` is that origin. `base` is `/`. No custom domain in this build.
+Stack: Astro (static, TypeScript strict) + Tailwind CSS v4 + Markdown content collections. Package manager: npm. Deploy target: Vercel static (`dist`, no SSR adapter). Public URL: `https://rosschamplin.com` (custom domain on Vercel). Astro `site` is that origin. `base` is `/`.
 
 ## Rules
-- Work on one PLAN.md task at a time, on the current local branch. Do not start the next task in the same session.
+- Do what Ross asks in the session, on the current local branch. When the request is a PLAN.md task, do that one task and stop. Larger direction changes (motion, content, sharing) come from Ross directly; record them in HANDOFF.md and, when they change the design, in DESIGN.md.
 - Do not commit, push, or open pull requests. Ross commits.
 - Before stopping or when Ross says "wrap up": update HANDOFF.md (done / in progress / next / gotchas) and leave the changes in the working tree.
 - Never invent projects, stats, or bio facts. Use content from `src/content` or ask Ross.
@@ -13,51 +13,60 @@ Stack: Astro (static, TypeScript strict) + Tailwind CSS v4 + Markdown content co
 
 ## Stack
 
-Astro output is a static site. TypeScript is strict. Tailwind v4 is CSS-first (`@theme` in one stylesheet) and is only for the tokens and layout primitives in DESIGN.md. Motion is CSS plus Astro view transitions. There is no React app, database, CMS, animation library, or `tailwind.config.js`.
+Astro output is a static site. TypeScript is strict. Tailwind v4 is CSS-first (`@theme` in one stylesheet) and is only for the tokens and layout primitives in DESIGN.md. Motion is CSS, Astro view transitions (`ClientRouter`), one small inline script (Home first-load gate, scroll reveals, running index), and one canvas (the graphite dust background); all hand-written. Integrations: `@astrojs/sitemap` and `@vercel/analytics`. There is no React app, database, CMS, animation library, or `tailwind.config.js`.
 
 Why this stack: one language to maintain, content edited as Markdown, and a static build Vercel can host with no server. Local loop is `npm run dev` and `npm run build`.
 
 ## Decisions from Ross
 
 - Display name: Ross Champlin.
-- Look: dark, closer to Linear and Iota. Tokens are in DESIGN.md. v1 has no light theme.
+- Look: a dark lab notebook, closer to Linear and Iota, with motion at the level of the fluidity references (Linear, Stripe, Cuberto, Fuselab). Tokens and motion rules are in DESIGN.md. v1 has no light theme.
+- Background: graphite dust on every page, a fine muted speck field the cursor (or a finger) brushes aside and scrolling stirs; no cursor change, trail, or click burst; switches itself off on slow devices. Approved 2026-10-01.
+- Home visual: Ross's photo (`src/content/images/ross-champlin.jpg`, cropped from `BallTuxFull.JPEG`), styled after matthewgresock.com: no frame, edges fading into the ground, right column on desktop, full width above the name on phones.
 - Purpose: a record of school and personal projects, a bio, and other life achievements, with room for personal commentary. Not an internship landing page.
 - Contact: email, GitHub, and LinkedIn are all public: `rosschamplin25@gmail.com`, `https://github.com/rchamp25`, and `https://www.linkedin.com/in/ross-champlin/` (in `src/content/links.yaml`). They show as logo links that go to the full address; the address itself is not printed on the page. Do not invent other contact methods.
 - Copy: build with labeled placeholders until Ross adds files. Do not wait, and do not mine a resume that is not in the repo.
 - Hosting: Vercel, static output. Public URL: `https://rosschamplin.com`, a custom domain Ross owns. DNS is on Cloudflare (A record `@` to Vercel, `www` CNAME to Vercel, both DNS only, not proxied); `www.rosschamplin.com` redirects to `rosschamplin.com`. Ross manages Vercel and Cloudflare. Agents do not create another Vercel project, change domains, or edit DNS. No GitHub Pages workflow. No `@astrojs/vercel` SSR adapter. `base` is `/`.
 - Astro `site` is `https://rosschamplin.com`. Do not change it.
 - Git: agents work together in this local checkout. Ross commits. Agents do not commit or push.
-- Scaffold: npm, TypeScript strict, Tailwind v4. Task 1 creates empty `src/pages`, `src/layouts`, `src/components`, and `src/content`, plus one home page whose copy says it is a placeholder. No content collections in task 1. No design tokens yet (task 3). Fonts, when task 3 adds them, are self-hosted files in `public/fonts` (not Google Fonts, not a runtime Fontshare request).
+- Stack basics: npm, TypeScript strict, Tailwind v4. Fonts are self-hosted files in `public/fonts` (never Google Fonts or a runtime font CDN).
+- Analytics: Vercel Web Analytics only (no cookies). No other tracking.
+- Resume: a PDF in `public/`, opened in a new tab from a button on Experience. When Ross adds it, he will ask for its contents to be sorted into education, roles, and achievements.
+- Content grows over time: keep it in `src/content`, easy to add to, and delete placeholder entries as real ones arrive.
 
 ## Site map
 
-- `/` Home: Ross Champlin, one-line role, short bio, three selected projects, a short personal note, contact links.
+- `/` Home: Ross Champlin, one-line role, short bio, a short personal note, Ross's photo, and up to three featured projects.
 - `/projects` Ruled index of school and personal work (title, one line, year, stack).
 - `/projects/[slug]` Problem, what was built, role, stack, links, dates, and an optional commentary field. Images only when content includes them.
-- `/experience` Education, roles, other life achievements, and a link to a resume PDF. Entries may include commentary.
-- `/contact` Email, GitHub, and LinkedIn. No contact form in v1.
+- `/experience` Education (degree, major, expected graduation, GPA, honors, involvement; no courses), roles, other life achievements, and a resume button that opens the PDF in a new tab. Entries may include commentary.
+- `/contact` Email, GitHub, and LinkedIn as logo links. No contact form in v1.
+- Every page: header nav, footer with the same three logo links, graphite dust background.
 
 ## Content you must supply
 
-Agents do not invent these. Until a fact is in `/content`, the page shows a placeholder that says it is a placeholder.
+Agents do not invent these. Until a fact is in `src/content`, the page shows a placeholder that says it is a placeholder. How to fill each file is in `src/content/README.md`.
 
-- Role line, 2–4 sentence bio, and the short personal note for the home page. The display name is already Ross Champlin.
-- Each project: title, slug, one-line summary, problem, what you did, tech, dates, repo and demo URLs, featured on the home page or not, optional commentary, optional image. School work and personal work both belong here.
+- 2–4 sentence bio and the short personal note for the home page. Name (Ross Champlin) and role line ("CS Student at Binghamton University") are supplied.
+- Each project: title, slug, one-line summary, problem, what you did, tech, dates, repo and demo URLs, featured on the home page or not, optional commentary, optional image. School work and personal work both belong here. MixTwin and NailsByGabs exist by name only; a third and fourth are coming.
 - Experience and achievements: org or context, role or what it was, dates, bullets you wrote, optional commentary
-- Education (Binghamton, major, expected graduation) only as you want it stated
-- Resume PDF
+- Education: supplied from the resumes (Binghamton University and Webster Schroeder High School)
+- Resume PDF for the Experience button: Ross is choosing which version to publish (the general resume shows his home address and phone). Education, roles, and achievements are already filled from both resumes, except TOPSoccer (not started yet), the AP Water Quality project, and the technical skills list (outdated).
 - Email, GitHub, and LinkedIn: supplied (see Decisions from Ross).
-- Photo only if you provide one. Otherwise the site is type-only.
+- Photo: supplied and on Home.
 
 ## Folders
 
 Once the app exists, keep this map:
 
 - `src/pages` — routes
-- `src/layouts` — page shell
-- `src/components` — header, footer, index row, and other primitives
-- `src/content` — profile, projects, experience, links (Markdown and config)
-- `public/` — resume PDF, fonts, and images you supplied
+- `src/layouts` — page shell (`Base.astro`: head tags, header, running index, footer, scripts)
+- `src/components` — header, footer, project and experience rows, icons, graphite dust, and other primitives
+- `src/content` — profile, projects, experience, links (Markdown and YAML), plus `README.md` on how to fill them; the schema is `src/content.config.ts`
+- `src/lib` — small helpers (dates)
+- `src/styles/global.css` — the one stylesheet: tokens, base rules, motion
+- `scripts/` — `make-share-images.mjs` (`npm run share-images`): favicon PNG/ICO and the social preview image
+- `public/` — fonts, favicon and share images, `robots.txt`, resume PDF, and images (`public/images/profile/` for the photo)
 
 Facts live in `src/content` (and `public/` for files). Layout code does not hard-code bio or project copy.
 
@@ -74,3 +83,5 @@ Append decisions here. Date them and name the agent. Do not delete earlier entri
 - 2026-10-01 — Auto: Ross deferred PLAN.md task 13 (font size, image pipeline, unused JS). Do not start it unless he asks. The ClientRouter script and the motion script stay.
 - 2026-10-01 — Claude (Opus 5.5): Ross supplied his email (`rosschamplin25@gmail.com`) and LinkedIn (`https://www.linkedin.com/in/ross-champlin/`). Updated Decisions from Ross and Content you must supply. Contact links are logo links to the full address.
 - 2026-10-01 — Claude (Opus 5.5): Ross bought `rosschamplin.com` and connected it on Vercel with Cloudflare DNS. Public URL and Astro `site` are now `https://rosschamplin.com`; `www` redirects to it. Updated Stack, Decisions from Ross (Hosting, Astro `site`), PLAN.md task 14, README, and HANDOFF.
+- 2026-10-01 — Claude (Opus 5.5): Brought this file up to date with the current direction at Ross's request: removed the stale "no custom domain" line; rules now cover Ross's direct requests beyond PLAN.md; Stack lists the motion script, the graphite dust canvas, and the sitemap and analytics integrations; Decisions add the look and motion level, the graphite dust background, the photo-only Home visual, analytics, the resume button, and growing content; the site map, content list, and folder map match the site as built.
+- 2026-10-02 — Claude (Opus 5.5): Ross added two resumes and two photos to `src/content`. Experience now holds 2 education, 2 roles, and 6 achievements from the resumes (excluding TOPSoccer, the AP Water Quality project, and the skills list, at Ross's instruction); MixTwin details came from the technical resume. Home shows the cropped `BallTuxFull.JPEG` photo through Astro's image pipeline. No address, phone, or school email is published. Education `major` became optional (a high school diploma has none).

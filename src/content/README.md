@@ -13,13 +13,15 @@ One entry, `ross`: `name`, `role` (the line under your name), `bio`, `note`, `re
 The social preview image (`public/og.png`, what shows when the link is shared) prints your name and role. After changing either, run `npm run share-images` to rebuild it and the icons.
 
 - **Resume:** put the PDF in `public/` (for example `public/resume.pdf`), then set `href: /resume.pdf` and a `label` such as `Resume (PDF)`. The Experience page then shows a button that opens it in a new tab.
-- **Photo:** put the image in `public/images/profile/`, then add:
+- **Photo:** the Home photo is `images/ross-champlin.jpg` in this folder (cropped head to waist, 1200×1500, metadata stripped). Astro makes small AVIF and WebP copies at build time. To change it, replace that file (or add another and point `src` at it, relative to `profile.yaml`):
 
   ```yaml
   photo:
-    src: /images/profile/your-file.jpg
+    src: ./images/ross-champlin.jpg
     alt: Short description of the photo
   ```
+
+  Keep large originals out of this folder's `images/`; crop and resize first (a 4:5 portrait around 1200px wide is plenty).
 
 ## links.yaml
 
@@ -60,4 +62,4 @@ A real project needs `kind`, `role`, `start`, and at least one `stack` item. To 
 One Markdown file per entry. `kind` is `education`, `role`, or `achievement`; the Experience page groups them in that order and sorts by `order`. Every entry can have `bullets`, `commentary`, and a Markdown body.
 
 - **Roles and achievements:** `title` (the role, or what it was), `org`, `start`, `end`. A real one needs `org` and `start`.
-- **Education:** `title` is the school, then `degree`, `major`, `end` (graduation) with `expected: true` while it is ahead, `gpa` (as you want it shown), `honors` and `involvement` (lists). A real one needs `degree`, `major`, and `end`. Courses are not shown.
+- **Education:** `title` is the school, `org` the college or place, then `degree`, optional `major`, `end` (graduation) with `expected: true` while it is ahead, `gpa` (as you want it shown), `honors` and `involvement` (lists). A real one needs `degree` and `end`. Courses are not shown.

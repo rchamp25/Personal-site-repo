@@ -214,6 +214,13 @@ body:has(.project-row a:focus-visible) [data-page-accent] {
   z-index: 1;
 }
 
+/* The graphite dust canvas (GraphiteDust.astro) is named with "none" so it
+   holds still and keeps drawing through a page change; it stays behind the
+   content while the transition runs. */
+::view-transition-group(graphite-dust) {
+  z-index: -1;
+}
+
 /* Running index (Base.astro): the margin list of the page's sections. The
    current one (aria-current, set by Base's script) is ink, the rest muted. */
 .index-link {

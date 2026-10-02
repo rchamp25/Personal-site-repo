@@ -21,7 +21,7 @@ The above are some reference sites that I enjoyed the UI and components of. The 
 
 AGENTS:
 
-Direction: a dark lab notebook, closer to Linear and Iota in value (near-black ground, light type, thin lines) and as clear as the utility references (Airbnb, PayPal, Lemonade, Gatsby). The structure stays a written index: rules, a running margin, and prose. It is not a clone of Linear’s indigo product UI. Motion is short and physical, in the spirit of Linear and Cuberto, and limited to first paint, page change, and hover. The page should feel written by a person, not assembled from a component kit. Mobile uses the same system, stacked. v1 is dark only. There is no theme toggle and no separate mobile theme.
+Direction: a dark lab notebook, closer to Linear and Iota in value (near-black ground, light type, thin lines) and as clear as the utility references (Airbnb, PayPal, Lemonade, Gatsby). The structure stays a written index: rules, a running margin, and prose. It is not a clone of Linear’s indigo product UI. Motion is short and physical, in the spirit of Linear, Stripe, and Cuberto: page change, Home's first load, scroll reveals, hover and press, a running index that follows the scroll, and a graphite dust background that answers the cursor. The page should feel written by a person, not assembled from a component kit. Mobile uses the same system, stacked. v1 is dark only. There is no theme toggle and no separate mobile theme.
 
 ## Color
 
@@ -29,7 +29,8 @@ Direction: a dark lab notebook, closer to Linear and Iota in value (near-black g
 - Ink: `#f4f0e6` (text)
 - Muted: `#b7b1a6` (secondary lines such as dates). Verify WCAG AA before using it at small sizes.
 - Hairline: `#2c2924` (dividers, index rules, borders)
-- Accent: `#e07a4a` (oxide). Use it once per view: one marker or one rule. Never as a large fill, and not as small body text unless contrast is checked and passes.
+- Accent: `#e07a4a` (oxide). Use it once per view: one marker or one rule. Never as a large fill, and not as small body text unless contrast is checked and passes. It may travel: while a project row is hovered, pressed, or focused, the accent draws on that row and the page's own rule steps back to hairline, so a view still shows one accent at a time.
+- Graphite dust uses muted only, dimmed behind text, never the accent.
 - No second accent. No gradient fills. No light theme in v1.
 
 Text on ground must meet WCAG AA contrast. Ink on ground does. Links are ink with an underline, not oxide-colored words.
@@ -40,7 +41,7 @@ Text on ground must meet WCAG AA contrast. Ink on ground does. Links are ink wit
 - Body: Newsreader
 - Dates, tags, nav indexes, and other meta: IBM Plex Mono
 
-Self-host the font files in `public/fonts`. Download Instrument Serif and Newsreader from Fontshare, and IBM Plex Mono from the official IBM Plex repository. Do not request fonts from Google Fonts or from any CDN at runtime.
+Self-host the font files in `public/fonts`. Instrument Serif and Newsreader come from their official GitHub repositories (Fontshare does not carry them), and IBM Plex Mono from the official IBM Plex repository. Do not request fonts from Google Fonts or from any CDN at runtime.
 
 Fallbacks, in order:
 
@@ -57,7 +58,7 @@ Prose line length stays around 60–75 characters. Headlines can run wider. Do n
 - Header and footer use the same ink, hairline, and mono index. Header is sticky and compact on small screens.
 - Projects index: horizontal rules and type (title, one line, year, stack). Not a grid of equal rounded cards.
 - Project pages: problem, what was built, role, stack, links, dates. Images only when a real image is in content.
-- Home holds the name Ross Champlin, a one-line role, a short bio, three selected projects, a short personal note, and contact links. It is not a second copy of every page.
+- Home holds the name Ross Champlin, a one-line role, a short bio, a short personal note, and up to three featured projects. Its visual is Ross's photo (a head-to-waist crop), in the spirit of matthewgresock.com: no frame, toned slightly toward the warm dark palette, its edges fading into the ground (softly at the top and right, strongly at the left and bottom). From `lg` it sits in a right column beside the text; on phones it runs full width above the name. Contact links live in the footer on every page. Home is not a second copy of every page.
 - Project pages include an optional commentary field: the author’s own note, separate from the problem and what was built.
 - Experience holds education, roles, and other life achievements that are not jobs. Each entry can include a short commentary.
 
@@ -71,10 +72,11 @@ Short, physical, and in service of reading, at the level of the fluidity referen
 - First load, Home only: one sequence, settled in under a second. The section label, the headline word by word, the oxide rule drawing to its width, then role, bio, and note, then Selected work. It does not replay on client-side visits. It is the only staggered load on the site.
 - Scroll reveal: sections and rows that start below the fold settle in (a short rise and fade) as they enter the view, once. Nothing replays on scroll-up, and anything already in view at load is shown as is. Used on Home, Projects, project pages, and Experience; Contact reveals its list once.
 - Project rows (Home and `/projects`): on hover, press, or keyboard focus, the rule under the row brightens and the oxide accent draws along it. The accent travels to that row: the page's own accent rule steps back to hairline while the row holds it, so a view still shows one accent. From `md` up the title also moves a few pixels. Touch devices get the press state, never a hover that sticks.
+- Graphite dust: a fixed canvas behind every page with fine muted specks that drift. The cursor (or a dragging finger) brushes them aside and they settle back; scrolling stirs them against its direction. No trail, no click burst, and the cursor itself never changes. Specks behind text are much dimmer so reading is never affected. It persists through page changes and switches itself off for the visit if the device cannot hold the frame rate.
 - Other hover: underline, or image scale of `1.02`.
 - Phones get the same ideas. Any move that would cause sideways overflow, hide the nav, or trap scrolling at 390px is dropped on small screens (for example, the row title does not move there).
-- `prefers-reduced-motion: reduce` turns off the page change, the title morph, the first-load sequence, the scroll reveals, the progress fills, the rule drawing (rules show in full), the hover travel, and the image scale. Content is fully visible; color changes on hover and press, and the running index's current section, stay.
-- No animation library, no scroll hijacking, no custom cursor. CSS, Astro’s built-in view transitions, and one small script for the reveals.
+- `prefers-reduced-motion: reduce` turns off the page change, the title morph, the first-load sequence, the scroll reveals, the progress fills, the rule drawing (rules show in full), the hover travel, and the image scale, and the graphite dust becomes one still frame. Content is fully visible; color changes on hover and press, and the running index's current section, stay.
+- No animation library, no scroll hijacking, no custom cursor. CSS, Astro’s built-in view transitions, one small script (first-load gate, reveals, running index), and one hand-written canvas for the dust.
 
 ## Anti-patterns
 
@@ -84,7 +86,7 @@ Do not ship any of these:
 - Purple-to-blue gradients, gradient text, or neon glow
 - Three identical icon cards, or any “features” row
 - Glassmorphism, blur panels, or soft floating cards as the layout
-- Custom cursors
+- Custom cursors (a background that reacts to the cursor, like the graphite dust, is allowed; the cursor itself never changes)
 - Scroll hijacking or scroll-jacked horizontal galleries
 - Skill-logo walls (React, Python, and so on as a grid of brand icons)
 - Invented metrics, fake testimonials, or lorem used as if it were real
@@ -103,3 +105,5 @@ Append visualization notes below this line. Date them and name the agent. Do not
 
 - 2026-10-01 — Claude (Opus 5.5): Raised motion to the fluidity references at Ross's request: page change keeps the header and footer still while the content rises out and in; Home has a first-load sequence; sections and rows reveal once on scroll; project rows brighten their rule and take the oxide accent on hover and press, with the page's own accent rule stepping back meanwhile. Rewrote the Motion section to match. Colors, type, and layout unchanged.
 - 2026-10-01 — Claude (Opus 5.5): Added the title morph (project row title to project page headline) and the running index (numbered section list in the desktop margin with a filling progress track, header progress on phones, list rules drawing in on scroll), at Ross's choice. Motion section updated.
+- 2026-10-01 — Claude (Opus 5.5): Added the graphite dust background at Ross's request (muted specks on every page, cursor and touch push, scroll stir, self-disabling on slow devices). Updated Direction, Color (accent may travel; dust is muted only), Type (font sources), Layout (Home: photo plate, no contact block), Motion, and the custom-cursor anti-pattern note to match the site as built.
+- 2026-10-02 — Claude (Opus 5.5): Home photo added at Ross's request, styled after matthewgresock.com rather than as a framed plate: head-to-waist crop, slight tone shift, edge fades into the ground (an alpha mask on the photo, not a gradient fill), right column from `lg`, full width above the name on phones.

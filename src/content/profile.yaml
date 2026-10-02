@@ -7,3 +7,7 @@ ross:
   resume:
     label: "Placeholder: resume PDF not added yet."
     # Set href to "/resume.pdf" (or similar) once the file is in public/.
+  # Cropped from BallTuxFull.JPEG (head to waist, metadata stripped).
+  photo:
+    src: ./images/ross-champlin.jpg
+    alt: Ross Champlin smiling in a navy suit and patterned tie, leaning against a stone column

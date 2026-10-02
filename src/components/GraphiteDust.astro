@@ -1,0 +1,311 @@
+---
+// Graphite dust: a fixed canvas behind every page. Fine specks drift; the
+// cursor (or a dragging finger) brushes them aside, and scrolling stirs them.
+// Muted color only, much dimmer behind text, never the accent, no cursor
+// change. It survives page changes (transition:persist) and holds still
+// behind the content during them (global.css, view-transition z-index).
+// Reduced motion draws one still frame. If the device cannot keep the frame
+// rate, it switches itself off for the rest of the visit.
+---
+
+<canvas
+  id="graphite-dust"
+  aria-hidden="true"
+  transition:persist
+  transition:name="graphite-dust"
+  transition:animate="none"
+></canvas>
+
+<style>
+  #graphite-dust {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    width: 100%;
+    height: 100lvh;
+    pointer-events: none;
+  }
+</style>
+
+<script>
+  type Speck = {
+    x: number;
+    y: number;
+    vx: number;
+    vy: number;
+    // Own drift direction and speed; the direction wanders slowly.
+    angle: number;
+    speed: number;
+    // How strongly scrolling stirs this speck (0.3 to 1).
+    stir: number;
+    size: number;
+    bright: boolean;
+  };
+
+  const OFF_KEY = "graphite-dust-off";
+  const MUTED = "#b7b1a6";
+  // Alpha for open areas and for specks behind text.
+  const ALPHA = { brightOpen: 0.7, dimOpen: 0.35, brightText: 0.14, dimText: 0.07 };
+  // Text mask cell size in CSS pixels.
+  const CELL = 16;
+
+  const canvas = document.getElementById("graphite-dust") as HTMLCanvasElement | null;
+  const ctx = canvas?.getContext("2d", { alpha: true }) ?? null;
+  const reduce = matchMedia("(prefers-reduced-motion: reduce)");
+
+  const isOff = () => {
+    try {
+      return sessionStorage.getItem(OFF_KEY) === "1";
+    } catch {
+      return false;
+    }
+  };
+
+  if (canvas && ctx && !isOff()) {
+    let width = 0;
+    let height = 0;
+    let dpr = 1;
+    let specks: Speck[] = [];
+    let mask = new Uint8Array(0);
+    let cols = 0;
+    let rows = 0;
+    let maskDirty = true;
+    let pointer: { x: number; y: number } | null = null;
+    let lastScrollY = scrollY;
+    let stir = 0;
+    let frame = 0;
+    let lastTime = 0;
+    let running = false;
+    let stopped = false;
+    // Frame-time watchdog.
+    const samples: number[] = [];
+    let warmup = 0;
+    // True while a page change runs; the watchdog ignores those frames.
+    let hold = false;
+
+    const rand = (a: number, b: number) => a + Math.random() * (b - a);
+
+    const makeSpecks = () => {
+      const area = width * height;
+      const count = Math.round(Math.min(480, Math.max(140, area / 2700)));
+      specks = Array.from({ length: count }, () => ({
+        x: Math.random() * width,
+        y: Math.random() * height,
+        vx: 0,
+        vy: 0,
+        angle: Math.random() * Math.PI * 2,
+        speed: rand(0.08, 0.3),
+        stir: rand(0.3, 1),
+        size: Math.random() < 0.28 ? 2 : 1,
+        bright: Math.random() < 0.45,
+      }));
+    };
+
+    const resize = () => {
+      // The canvas's own box: the viewport minus any reserved scrollbar
+      // gutter (html has scrollbar-gutter: stable), at 100lvh tall.
+      const box = canvas.getBoundingClientRect();
+      const w = Math.round(box.width);
+      // Height only grows, so a phone's sliding address bar does not
+      // reallocate the canvas on every scroll.
+      const h = Math.max(Math.round(box.height), height);
+      if (w === width && h === height) return;
+      const widthChanged = w !== width;
+      width = w;
+      height = h;
+      dpr = Math.min(devicePixelRatio || 1, 1.5);
+      canvas.width = Math.round(width * dpr);
+      canvas.height = Math.round(height * dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      if (widthChanged || specks.length === 0) makeSpecks();
+      maskDirty = true;
+    };
+
+    // Coarse grid of where text sits on screen, so specks behind it dim.
+    const buildMask = () => {
+      maskDirty = false;
+      cols = Math.ceil(width / CELL);
+      rows = Math.ceil(height / CELL);
+      mask = new Uint8Array(cols * rows);
+      const blocks = document.querySelectorAll(
+        "main h1, main h2, main h3, main p, main li, main dt, main dd, main a, header, footer",
+      );
+      for (const el of blocks) {
+        const r = el.getBoundingClientRect();
+        if (r.bottom < 0 || r.top > height || r.width === 0) continue;
+        const c0 = Math.max(0, Math.floor(r.left / CELL));
+        const c1 = Math.min(cols - 1, Math.floor(r.right / CELL));
+        const r0 = Math.max(0, Math.floor(r.top / CELL));
+        const r1 = Math.min(rows - 1, Math.floor(r.bottom / CELL));
+        for (let row = r0; row <= r1; row++) mask.fill(1, row * cols + c0, row * cols + c1 + 1);
+      }
+    };
+
+    const behindText = (s: Speck) => {
+      const c = (s.x / CELL) | 0;
+      const r = (s.y / CELL) | 0;
+      return c >= 0 && r >= 0 && c < cols && r < rows && mask[r * cols + c] === 1;
+    };
+
+    const draw = () => {
+      if (maskDirty) buildMask();
+      ctx.clearRect(0, 0, width, height);
+      ctx.fillStyle = MUTED;
+      // Four passes, so alpha changes only four times per frame.
+      for (const bright of [true, false]) {
+        for (const text of [false, true]) {
+          ctx.globalAlpha = bright
+            ? text ? ALPHA.brightText : ALPHA.brightOpen
+            : text ? ALPHA.dimText : ALPHA.dimOpen;
+          for (const s of specks) {
+            if (s.bright !== bright || behindText(s) !== text) continue;
+            ctx.fillRect(s.x, s.y, s.size, s.size);
+          }
+        }
+      }
+      ctx.globalAlpha = 1;
+    };
+
+    const step = (dt: number) => {
+      // dt is in 60fps frames, so motion is the same at any refresh rate.
+      const damping = Math.pow(0.9, dt);
+      const radius = width < 768 ? 90 : 120;
+      const push = 1.6;
+      const impulse = stir;
+      stir = 0;
+      for (const s of specks) {
+        s.angle += rand(-0.08, 0.08) * dt;
+        if (pointer) {
+          const dx = s.x - pointer.x;
+          const dy = s.y - pointer.y;
+          const d2 = dx * dx + dy * dy;
+          if (d2 < radius * radius && d2 > 0.01) {
+            const d = Math.sqrt(d2);
+            const f = (1 - d / radius) ** 2 * push * dt;
+            s.vx += (dx / d) * f;
+            s.vy += (dy / d) * f;
+          }
+        }
+        if (impulse !== 0) {
+          s.vy += impulse * s.stir;
+          s.vx += impulse * s.stir * rand(-0.25, 0.25);
+        }
+        s.vx *= damping;
+        s.vy *= damping;
+        s.x += (Math.cos(s.angle) * s.speed + s.vx) * dt;
+        s.y += (Math.sin(s.angle) * s.speed + s.vy) * dt;
+        if (s.x < -2) s.x += width + 4;
+        else if (s.x > width + 2) s.x -= width + 4;
+        if (s.y < -2) s.y += height + 4;
+        else if (s.y > height + 2) s.y -= height + 4;
+      }
+    };
+
+    const switchOff = () => {
+      stopped = true;
+      running = false;
+      cancelAnimationFrame(frame);
+      ctx.clearRect(0, 0, width, height);
+      try {
+        sessionStorage.setItem(OFF_KEY, "1");
+      } catch {
+        // Private mode: it simply stays off for this page.
+      }
+    };
+
+    // Turn off if the median frame time over 2 seconds is above 28ms (under
+    // about 36fps). Ignores the first frames after starting or resuming, and
+    // frames during a page change.
+    const watch = (ms: number) => {
+      if (warmup > 0) {
+        warmup--;
+        return;
+      }
+      if (hold) return;
+      samples.push(ms);
+      if (samples.length < 120) return;
+      const median = [...samples].sort((a, b) => a - b)[60];
+      samples.length = 0;
+      if (median > 28) switchOff();
+    };
+
+    const loop = (time: number) => {
+      if (!running) return;
+      const ms = lastTime ? time - lastTime : 16.7;
+      lastTime = time;
+      watch(ms);
+      if (stopped) return;
+      step(Math.min(ms / 16.7, 3));
+      draw();
+      frame = requestAnimationFrame(loop);
+    };
+
+    const start = () => {
+      if (stopped || running || document.hidden || reduce.matches) return;
+      running = true;
+      lastTime = 0;
+      warmup = 30;
+      samples.length = 0;
+      frame = requestAnimationFrame(loop);
+    };
+
+    const stop = () => {
+      running = false;
+      cancelAnimationFrame(frame);
+    };
+
+    const still = () => {
+      stop();
+      resize();
+      draw();
+    };
+
+    resize();
+    if (reduce.matches) still();
+    else start();
+
+    reduce.addEventListener("change", () => (reduce.matches ? still() : start()));
+    document.addEventListener("visibilitychange", () => (document.hidden ? stop() : start()));
+    addEventListener("resize", () => {
+      resize();
+      if (!running && !stopped) draw();
+    });
+    addEventListener(
+      "scroll",
+      () => {
+        const dy = scrollY - lastScrollY;
+        lastScrollY = scrollY;
+        maskDirty = true;
+        // Stir against the scroll direction, capped; the scroll itself is
+        // never touched.
+        stir = Math.max(-5, Math.min(5, stir - dy * 0.05));
+        if (!running && !stopped) draw();
+      },
+      { passive: true },
+    );
+    // Mouse and pen: hover position. Touch is handled below, because the
+    // browser cancels pointer events once a touch starts to scroll.
+    addEventListener("pointermove", (e) => {
+      if (e.pointerType !== "touch") pointer = { x: e.clientX, y: e.clientY };
+    });
+    document.documentElement.addEventListener("pointerleave", () => (pointer = null));
+    const touch = (e: TouchEvent) => {
+      const t = e.touches[0];
+      if (t) pointer = { x: t.clientX, y: t.clientY };
+    };
+    addEventListener("touchstart", touch, { passive: true });
+    addEventListener("touchmove", touch, { passive: true });
+    addEventListener("touchend", () => (pointer = null), { passive: true });
+    addEventListener("touchcancel", () => (pointer = null), { passive: true });
+
+    // Page changes: new content, so rebuild the text mask; skip watchdog
+    // samples while the transition runs.
+    document.addEventListener("astro:before-preparation", () => (hold = true));
+    document.addEventListener("astro:page-load", () => {
+      maskDirty = true;
+      lastScrollY = scrollY;
+      setTimeout(() => (hold = false), 600);
+      if (!running && !stopped) draw();
+    });
+  }
+</script>

@@ -1,4 +1,5 @@
 ---
+import { Picture } from "astro:assets";
 import { getCollection, getEntry } from "astro:content";
 import Measure from "../components/Measure.astro";
 import ProjectRow from "../components/ProjectRow.astro";
@@ -6,7 +7,7 @@ import Base from "../layouts/Base.astro";
 
 const profile = await getEntry("profile", "ross");
 if (!profile) throw new Error('Missing profile entry "ross" in src/content/profile.yaml');
-const { name, role, bio, note } = profile.data;
+const { name, role, bio, note, photo } = profile.data;
 
 // One span per word for the first-load stagger. The spaces stay as text, so
 // the heading still reads as the plain name.
@@ -28,39 +29,70 @@ const sections = [
      bio, and note, and Selected work at 600ms; all settled by about 840ms.
      The only staggered load on the site. -->
 <Base label="Home" intro sections={sections}>
-  <Measure id="intro">
-    <h1 class="text-5xl leading-[1.05] sm:text-6xl md:text-7xl">
-      {
-        nameWords.map((word, i) => (
-          <>
-            {i > 0 && " "}
-            <span class="inline-block" data-intro style={`--intro-delay: ${80 + i * 80}ms`}>
-              {word}
-            </span>
-          </>
-        ))
-      }
-    </h1>
-    <!-- The page's accent rule. Decorative. It steps back to hairline while a
-         project row below holds the accent (global.css, data-page-accent). -->
-    <div
-      aria-hidden="true"
-      class="mt-6 w-16 border-t-2 border-accent"
-      data-page-accent
-      data-intro="draw"
-      style="--intro-delay: 280ms"
-    >
-    </div>
-    <p class="mt-6 text-xl sm:text-2xl" data-intro style="--intro-delay: 360ms">{role}</p>
-    <p class="mt-8 text-lg leading-relaxed" data-intro style="--intro-delay: 440ms">{bio}</p>
-    <p
-      class="mt-10 border-l border-hairline pl-4 leading-relaxed text-muted"
-      data-intro
-      style="--intro-delay: 520ms"
-    >
-      {note}
-    </p>
-  </Measure>
+  <!-- Intro: text, then the photo. Phones: the photo shows first, full width,
+       fading out at the bottom. From lg: text left, photo right, fading into
+       the ground on its left and bottom edges. -->
+  <div
+    id="intro"
+    class:list={[
+      "flex flex-col",
+      photo && "lg:grid lg:grid-cols-[minmax(0,1fr)_22rem] lg:gap-x-12 xl:grid-cols-[minmax(0,1fr)_26rem]",
+    ]}
+  >
+    <Measure class="lg:col-start-1 lg:row-start-1">
+      <h1 class="text-5xl leading-[1.05] sm:text-6xl md:text-7xl">
+        {
+          nameWords.map((word, i) => (
+            <>
+              {i > 0 && " "}
+              <span class="inline-block" data-intro style={`--intro-delay: ${80 + i * 80}ms`}>
+                {word}
+              </span>
+            </>
+          ))
+        }
+      </h1>
+      <!-- The page's accent rule. Decorative. It steps back to hairline while a
+           project row below holds the accent (global.css, data-page-accent). -->
+      <div
+        aria-hidden="true"
+        class="mt-6 w-16 border-t-2 border-accent"
+        data-page-accent
+        data-intro="draw"
+        style="--intro-delay: 280ms"
+      >
+      </div>
+      <p class="mt-6 text-xl sm:text-2xl" data-intro style="--intro-delay: 360ms">{role}</p>
+      <p class="mt-8 text-lg leading-relaxed" data-intro style="--intro-delay: 440ms">{bio}</p>
+      <p
+        class="mt-10 border-l border-hairline pl-4 leading-relaxed text-muted"
+        data-intro
+        style="--intro-delay: 520ms"
+      >
+        {note}
+      </p>
+    </Measure>
+    {
+      photo && (
+        <div
+          class="hero-photo order-first -mx-4 mb-10 sm:mx-0 lg:order-none lg:col-start-2 lg:row-start-1 lg:mb-0"
+          data-intro
+          style="--intro-delay: 200ms"
+        >
+          <Picture
+            src={photo.src}
+            alt={photo.alt}
+            formats={["avif", "webp"]}
+            widths={[480, 720, 960, 1200]}
+            sizes="(min-width: 1280px) 26rem, (min-width: 1024px) 22rem, (min-width: 640px) 36rem, 100vw"
+            loading="eager"
+            fetchpriority="high"
+            class="block aspect-[4/5] h-auto w-full object-cover"
+          />
+        </div>
+      )
+    }
+  </div>
 
   {
     featured.length > 0 && (
@@ -89,3 +121,22 @@ const sections = [
   }
 </Base>
 
+
+<style>
+  /* The photo melts into the ground like the reference: every edge fades,
+     softly at the top (and right from lg), strongly at the bottom (and left
+     from lg). A slight tone shift keeps it in the warm dark palette. */
+  .hero-photo :global(img) {
+    filter: contrast(1.04) brightness(0.9) saturate(0.9);
+    mask-image: linear-gradient(to bottom, transparent, #000 6%, #000 70%, transparent);
+  }
+
+  @media (min-width: 64rem) {
+    .hero-photo :global(img) {
+      mask-image:
+        linear-gradient(to right, transparent, #000 22%, #000 92%, transparent),
+        linear-gradient(to bottom, transparent, #000 8%, #000 72%, transparent);
+      mask-composite: intersect;
+    }
+  }
+</style>

@@ -2,9 +2,10 @@
 // One ruled row on the experience page.
 // Roles and achievements: title, then org and dates when present, bullets, an
 // optional Markdown body, and commentary last.
-// Education: the school as the title, then degree and major, graduation
-// ("Expected <date>" while ahead) and GPA, honors, involvement, then bullets,
-// body, and commentary. Every field shows only when content has it.
+// Education: the school as the title, then degree and major, then college or
+// place, graduation ("Expected <date>" while ahead), and GPA, then honors,
+// involvement, bullets, body, and commentary. Every field shows only when
+// content has it.
 import { render, type CollectionEntry } from "astro:content";
 import { formatDate, formatRange } from "../lib/dates";
 
@@ -32,7 +33,7 @@ const isEducation = kind === "education";
 const dates =
   isEducation && expected && end ? `Expected ${formatDate(end)}` : formatRange(start, end);
 const study = [degree, major].filter(Boolean).join(", ");
-const meta = (isEducation ? [dates, gpa && `GPA ${gpa}`] : [org, dates]).filter(
+const meta = (isEducation ? [org, dates, gpa && `GPA ${gpa}`] : [org, dates]).filter(
   (part): part is string => Boolean(part),
 );
 // Labeled lists, education only.

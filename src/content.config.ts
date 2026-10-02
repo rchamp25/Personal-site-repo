@@ -14,23 +14,23 @@ const href = z.union([z.url(), z.string().startsWith("/")]);
 
 const profile = defineCollection({
   loader: file("src/content/profile.yaml"),
-  schema: z.object({
-    name: z.string().min(1),
-    role: z.string().min(1),
-    bio: z.string().min(1),
-    note: z.string().min(1),
-    resume: z.object({
-      label: z.string().min(1),
-      // Unset until the PDF is in public/. Once set, the Experience page shows
-      // a button that opens it in a new tab.
-      href: href.optional(),
+  schema: ({ image }) =>
+    z.object({
+      name: z.string().min(1),
+      role: z.string().min(1),
+      bio: z.string().min(1),
+      note: z.string().min(1),
+      resume: z.object({
+        label: z.string().min(1),
+        // Unset until the PDF is in public/. Once set, the Experience page
+        // shows a button that opens it in a new tab.
+        href: href.optional(),
+      }),
+      // Optional portrait for Home. `src` is a path relative to profile.yaml,
+      // e.g. "./images/ross-champlin.jpg"; Astro builds responsive AVIF and
+      // WebP copies at build time. Unset means a type-only Home.
+      photo: z.object({ src: image(), alt: z.string().min(1) }).optional(),
     }),
-    // Optional portrait. The file goes in public/images/profile/; `src` is its
-    // path, e.g. "/images/profile/ross.jpg". Unset means a type-only site.
-    photo: z
-      .object({ src: z.string().startsWith("/images/"), alt: z.string().min(1) })
-      .optional(),
-  }),
 });
 
 const links = defineCollection({
@@ -115,10 +115,10 @@ const experience = defineCollection({
     .refine(
       (e) =>
         e.placeholder ||
-        (e.kind === "education" ? e.degree && e.major && e.end : e.org && e.start),
+        (e.kind === "education" ? e.degree && e.end : e.org && e.start),
       {
         message:
-          "An entry that is not a placeholder needs org and start (education: degree, major, and end)",
+          "An entry that is not a placeholder needs org and start (education: degree and end)",
       },
     ),
 });
