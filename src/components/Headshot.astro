@@ -1,0 +1,31 @@
+---
+// Ross's headshot: square (like the photo, so nothing is cropped), no filter,
+// no fade, a 2px oxide frame matching the rule under the page heading (Ross's
+// choice; the accent exception on Home and Contact). Used on Home and Contact.
+// `sizes` describes the rendered width for the responsive image; extra
+// attributes (class, data-intro, style) go on the frame.
+import type { HTMLAttributes } from "astro/types";
+import { Picture } from "astro:assets";
+import type { ImageMetadata } from "astro";
+
+type Props = HTMLAttributes<"div"> & {
+  photo: { src: ImageMetadata; alt: string };
+  sizes: string;
+  eager?: boolean;
+};
+const { photo, sizes, eager = false, class: className, ...rest } = Astro.props;
+---
+
+<div class:list={["border-2 border-accent", className]} {...rest}>
+  <Picture
+    src={photo.src}
+    alt={photo.alt}
+    formats={["avif", "webp"]}
+    widths={[480, 720, 960, 1254]}
+    quality={90}
+    sizes={sizes}
+    loading={eager ? "eager" : "lazy"}
+    fetchpriority={eager ? "high" : "auto"}
+    class="block aspect-square h-full w-full object-cover"
+  />
+</div>

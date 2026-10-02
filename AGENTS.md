@@ -21,7 +21,7 @@ Why this stack: one language to maintain, content edited as Markdown, and a stat
 
 - Display name: Ross Champlin.
 - Look: a dark lab notebook, closer to Linear and Iota, with motion at the level of the fluidity references (Linear, Stripe, Cuberto, Fuselab). Tokens and motion rules are in DESIGN.md. v1 has no light theme.
-- Background: graphite dust on every page, a fine muted speck field the cursor (or a finger) brushes aside and scrolling stirs; no cursor change, trail, or click burst; switches itself off on slow devices. Approved 2026-10-01.
+- Background: graphite dust on every page, a fine muted speck field the cursor (or a finger) brushes aside and scrolling stirs; no cursor change, trail, or click burst; switches itself off on slow devices. Approved 2026-10-01. It stays on every page, cursor response included, with no per-page opt-out (Ross, 2026-10-02).
 - Home visual: Ross's original studio headshot, unedited (`src/content/images/ross-headshot.png`; do not crop, extend, re-encode, or filter it), large, no color filter, no edge fade, a 2px oxide border matching the rule under the name (Ross's chosen second accent on Home); square (never cropped), in the right column on desktop and full width above the name on phones. The first photo (`BallTuxFull.JPEG`) was rejected as over-filtered and pale.
 - Purpose: a record of school and personal projects, a bio, and other life achievements, with room for personal commentary. Not an internship landing page.
 - Contact: email, GitHub, and LinkedIn are all public: `rosschamplin25@gmail.com`, `https://github.com/rchamp25`, and `https://www.linkedin.com/in/ross-champlin/` (in `src/content/links.yaml`). They show as logo links that go to the full address; the address itself is not printed on the page. Do not invent other contact methods.
@@ -37,10 +37,10 @@ Why this stack: one language to maintain, content edited as Markdown, and a stat
 ## Site map
 
 - `/` Home: Ross Champlin, one-line role, short bio, a short personal note, Ross's headshot, and up to four featured projects.
-- `/projects` Ruled index of school and personal work (title, one line, year, stack).
+- `/projects` Every school and personal project's full breakdown on one page, each name underlined in oxide; no hover rows.
 - `/projects/[slug]` Problem, what was built, role, stack, links, dates, and an optional commentary field. Images only when content includes them.
 - `/experience` Education (degree, major, expected graduation, GPA, honors, involvement; no courses), roles, other life achievements, and a resume button that opens the PDF in a new tab. Entries may include commentary.
-- `/contact` Email, GitHub, and LinkedIn as logo links. No contact form in v1.
+- `/contact` Email, GitHub, and LinkedIn as logo links, with Ross's framed headshot beside them. No contact form in v1.
 - Every page: header nav, footer with the same three logo links, graphite dust background.
 
 ## Content you must supply
@@ -94,3 +94,5 @@ Append decisions here. Date them and name the agent. Do not delete earlier entri
 - 2026-10-02 — Claude (Opus 5.5): Home has no left margin column (no label or running index; the header nav is enough there); `Base`'s `label` is optional and omitting it drops the column. Home's oxide rule and photo frame stay oxide during project-row hover.
 - 2026-10-02 — Claude (Opus 5.5): Projects and Contact dropped their left margin column at Ross's request (no `label` passed to `Base`), matching Home.
 - 2026-10-02 — Claude (Opus 5.5): Added BingMCP (placeholder) and Personal Site (this site) as featured projects; Home shows up to four. NailsByGabs links to its live site, currently `http://nailsbygabs.com` because the domain has no working HTTPS yet.
+- 2026-10-02 — Claude (Opus 5.5): `/projects` shows full breakdowns (shared `ProjectBreakdown` component) with oxide-underlined names and no cursor effects; Contact shows the headshot (shared `Headshot` component) as tall as its text.
+- 2026-10-02 — Claude (Opus 5.5): Ross reversed the calm dust on `/projects`: the dust answers the cursor on every page, permanently. `data-cursor-calm` is removed.

@@ -20,10 +20,10 @@ One task per session, on the current local branch. Do not commit or push; Ross c
 Routes, for the tasks above:
 
 - `/` Home: Ross Champlin, one-line role, short bio, a short personal note, Ross's headshot, and up to four featured projects.
-- `/projects` Index: title, one line, year, stack. School and personal work.
+- `/projects` Index: every project's full breakdown, school and personal work.
 - `/projects/[slug]` Problem, what was built, role, stack, links, dates, optional commentary. Images only if provided.
 - `/experience` Education, roles, other life achievements, optional commentary, and a resume button that opens the PDF in a new tab.
-- `/contact` Email, GitHub, and LinkedIn as logo links (all supplied).
+- `/contact` Email, GitHub, and LinkedIn as logo links (all supplied), with Ross's headshot.
 
 ## Beyond the plan
 
@@ -45,5 +45,6 @@ Open:
 - [x] MixTwin filled in from Ross's description (2026-10-02).
 - [ ] MixTwin: more technical description from Ross.
 - [x] BingMCP (placeholder) and Personal Site added as featured projects; Home shows four (2026-10-02).
+- [x] Projects page shows full breakdowns; Contact shows the headshot (2026-10-02).
 - [ ] Bio, personal note, NailsByGabs and BingMCP details.
 - [ ] Switch the NailsByGabs link to https:// once that domain serves HTTPS.

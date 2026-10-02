@@ -1,9 +1,13 @@
 ---
 import { getCollection } from "astro:content";
-import ProjectRow from "../../components/ProjectRow.astro";
+import ProjectBreakdown from "../../components/ProjectBreakdown.astro";
 import Base from "../../layouts/Base.astro";
 
-// Every project, school and personal, featured or not.
+// Every project, school and personal, featured or not, each with its full
+// breakdown, so nothing here needs a click to read. No hover rows on this page
+// (Ross's choice): the names are plain headings with a permanent oxide
+// underline. The graphite dust answers the cursor here as on every page.
+// Links inside a breakdown (a live site, a repository) still work.
 const projects = (await getCollection("projects")).sort(
   (a, b) => a.data.order - b.data.order || a.data.title.localeCompare(b.data.title),
 );
@@ -12,19 +16,21 @@ const projects = (await getCollection("projects")).sort(
 <Base title="Projects" description="School and personal projects by {name}.">
   <h1 class="text-5xl leading-[1.05] sm:text-6xl">Projects</h1>
   {
-    projects.length > 0 && (
-      <ul class="draw-rule mt-10 border-t border-hairline md:mt-12">
-        {projects.map(({ id, data }) => (
-          <ProjectRow
-            slug={id}
-            title={data.title}
-            summary={data.summary}
-            start={data.start}
-            stack={data.stack}
-            headingLevel={2}
-          />
-        ))}
-      </ul>
-    )
+    projects.map((project) => (
+      <article
+        aria-labelledby={`${project.id}-title`}
+        class="draw-rule mt-12 border-t border-hairline pt-10 md:mt-16 md:pt-12"
+      >
+        <h2 id={`${project.id}-title`} class="text-4xl leading-tight sm:text-5xl">
+          <span class="inline-block border-b-2 border-accent pb-1">{project.data.title}</span>
+        </h2>
+        <ProjectBreakdown
+          project={project}
+          idPrefix={`${project.id}-`}
+          level={3}
+          titleId={`${project.id}-title`}
+        />
+      </article>
+    ))
   }
 </Base>

@@ -1,6 +1,6 @@
 ---
-import { Picture } from "astro:assets";
 import { getCollection, getEntry } from "astro:content";
+import Headshot from "../components/Headshot.astro";
 import Measure from "../components/Measure.astro";
 import ProjectRow from "../components/ProjectRow.astro";
 import Base from "../layouts/Base.astro";
@@ -69,27 +69,16 @@ const featured = (await getCollection("projects", ({ data }) => data.featured))
     </Measure>
     {
       photo && (
-        <div
-          class="hero-photo order-first mb-10 border-2 border-accent lg:order-none lg:col-start-2 lg:row-start-1 lg:mb-0"
+        // Shared with Contact (Headshot.astro): square, no filter, 2px oxide
+        // frame matching the rule under the name (Ross's choice).
+        <Headshot
+          photo={photo}
+          sizes="(min-width: 1280px) 30rem, (min-width: 1024px) 26rem, (min-width: 640px) 36rem, 100vw"
+          eager
+          class="hero-photo order-first mb-10 lg:order-none lg:col-start-2 lg:row-start-1 lg:mb-0"
           data-intro
           style="--intro-delay: 200ms"
-        >
-          <!-- Square frame, like the photo itself: nothing is cropped. No fade
-               and no filter: the headshot is shown as shot. The 2px oxide
-               border matches the rule under the name (Ross's choice: a second
-               accent on Home). Both stay oxide while a project row is hovered. -->
-          <Picture
-            src={photo.src}
-            alt={photo.alt}
-            formats={["avif", "webp"]}
-            widths={[480, 720, 960, 1254]}
-            quality={90}
-            sizes="(min-width: 1280px) 30rem, (min-width: 1024px) 26rem, (min-width: 640px) 36rem, 100vw"
-            loading="eager"
-            fetchpriority="high"
-            class="block aspect-square h-auto w-full object-cover"
-          />
-        </div>
+        />
       )
     }
     {

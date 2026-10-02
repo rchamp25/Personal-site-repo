@@ -1,5 +1,6 @@
 ---
-import { getCollection } from "astro:content";
+import { getCollection, getEntry } from "astro:content";
+import Headshot from "../components/Headshot.astro";
 import Icon from "../components/Icon.astro";
 import Base from "../layouts/Base.astro";
 
@@ -7,32 +8,70 @@ import Base from "../layouts/Base.astro";
 // (placeholder false, href set) goes to the full address; its hover title shows
 // that address. A placeholder shows its logo and text, not as a link.
 const links = (await getCollection("links")).sort((a, b) => a.data.order - b.data.order);
+
+const profile = await getEntry("profile", "ross");
+if (!profile) throw new Error('Missing profile entry "ross" in src/content/profile.yaml');
+const { photo } = profile.data;
 ---
 
 <Base title="Contact" description="Contact {name} by email, GitHub, or LinkedIn.">
-  <h1 class="text-5xl leading-[1.05] sm:text-6xl">Contact</h1>
-  <!-- The page's single accent use. Decorative. -->
-  <div aria-hidden="true" class="mt-6 w-16 border-t-2 border-accent"></div>
+  <!-- The text keeps its place; from lg the headshot sits beside it, a square
+       exactly as tall as the text block (the photo takes its height from the
+       row, so it never sets the row's height). Phones: below the links. -->
+  <div class="lg:grid lg:grid-cols-[minmax(0,36rem)_minmax(0,1fr)] lg:gap-x-12">
+    <div>
+      <h1 class="text-5xl leading-[1.05] sm:text-6xl">Contact</h1>
+      <!-- The page's accent rule. Decorative. With the photo frame, Contact
+           shares Home's two-accent exception (Ross's choice). -->
+      <div aria-hidden="true" class="mt-6 w-16 border-t-2 border-accent"></div>
 
-  <ul class="draw-rule mt-12 max-w-measure border-t border-hairline" data-reveal>
+      <ul class="draw-rule mt-12 max-w-measure border-t border-hairline" data-reveal>
+        {
+          links.map(({ data }) => (
+            <li class="border-b border-hairline py-4">
+              {!data.placeholder && data.href ? (
+                <a href={data.href} title={data.text} class="inline-flex items-center gap-4 py-1 text-lg">
+                  <Icon name={data.icon} class="size-6" />
+                  <span>{data.label}</span>
+                </a>
+              ) : (
+                <p class="inline-flex items-center gap-4 py-1 text-lg text-muted">
+                  <Icon name={data.icon} class="size-6" />
+                  <span>
+                    {data.label}: {data.text}
+                  </span>
+                </p>
+              )}
+            </li>
+          ))
+        }
+      </ul>
+    </div>
     {
-      links.map(({ data }) => (
-        <li class="border-b border-hairline py-4">
-          {!data.placeholder && data.href ? (
-            <a href={data.href} title={data.text} class="inline-flex items-center gap-4 py-1 text-lg">
-              <Icon name={data.icon} class="size-6" />
-              <span>{data.label}</span>
-            </a>
-          ) : (
-            <p class="inline-flex items-center gap-4 py-1 text-lg text-muted">
-              <Icon name={data.icon} class="size-6" />
-              <span>
-                {data.label}: {data.text}
-              </span>
-            </p>
-          )}
-        </li>
-      ))
+      photo && (
+        <Headshot
+          photo={photo}
+          sizes="(min-width: 1024px) 24rem, (min-width: 640px) 36rem, 100vw"
+          class="contact-photo mt-12 aspect-square w-full max-w-measure lg:mt-0"
+          data-reveal
+        />
+      )
     }
-  </ul>
+  </div>
 </Base>
+
+<style>
+  /* From lg the photo is as tall as the text beside it: its height comes from
+     the grid row (size containment keeps the image from growing the row, and
+     it does not stretch across its column), and the square aspect sets its
+     width. */
+  @media (min-width: 64rem) {
+    .contact-photo {
+      contain: size;
+      justify-self: start;
+      width: auto;
+      max-width: none;
+      height: 100%;
+    }
+  }
+</style>
