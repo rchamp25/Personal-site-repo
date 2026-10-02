@@ -293,6 +293,12 @@ html:not([data-nav="client"]) [data-intro="draw"] {
     animation-timeline: view();
     animation-range: entry 0% entry 100%;
   }
+
+  /* A brighter rule between larger blocks (projects on /projects), so it
+     reads apart from the hairlines inside each block. Pair with border-muted. */
+  .draw-rule-strong::before {
+    background-color: var(--color-muted);
+  }
 }
 
 @keyframes fill-down {

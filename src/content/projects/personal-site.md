@@ -1,12 +1,12 @@
 ---
-# Written by Claude from the build itself (2026-10-02); Ross to review, and add
-# his own commentary if he wants. The repo is private, so no repo link, and no
+# Written from the build itself (2026-10-02); Ross may add his own commentary.
+# The repo is private, so no repo link, and no
 # live-site link: visitors are already on it.
 title: "Personal Site"
 summary: "This site: a dark lab-notebook portfolio built with Astro."
 kind: personal
 problem: "A single home for school and personal projects, experience, and contact details that stays fast, reads well on any screen, and is easy to update as new work arrives."
-role: Design direction and development, built with Claude Code
+role: Design direction and development
 start: "2026-09"
 stack: ["Astro", "TypeScript", "Tailwind CSS", "View Transitions", "Canvas 2D", "Vercel"]
 featured: true

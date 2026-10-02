@@ -46,5 +46,6 @@ Open:
 - [ ] MixTwin: more technical description from Ross.
 - [x] BingMCP (placeholder) and Personal Site added as featured projects; Home shows four (2026-10-02).
 - [x] Projects page shows full breakdowns; Contact shows the headshot (2026-10-02).
+- [x] Projects page: brighter rule between projects, two columns across the full width on desktop (2026-10-02).
 - [ ] Bio, personal note, NailsByGabs and BingMCP details.
 - [ ] Switch the NailsByGabs link to https:// once that domain serves HTTPS.

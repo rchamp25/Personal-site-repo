@@ -7,7 +7,9 @@ import Base from "../../layouts/Base.astro";
 // breakdown, so nothing here needs a click to read. No hover rows on this page
 // (Ross's choice): the names are plain headings with a permanent oxide
 // underline. The graphite dust answers the cursor here as on every page.
-// Links inside a breakdown (a live site, a repository) still work.
+// Links inside a breakdown (a live site, a repository) still work. Projects
+// are separated by a muted rule, brighter than the hairlines inside each one;
+// from lg each breakdown uses the full page width in two columns (`wide`).
 const projects = (await getCollection("projects")).sort(
   (a, b) => a.data.order - b.data.order || a.data.title.localeCompare(b.data.title),
 );
@@ -19,7 +21,7 @@ const projects = (await getCollection("projects")).sort(
     projects.map((project) => (
       <article
         aria-labelledby={`${project.id}-title`}
-        class="draw-rule mt-12 border-t border-hairline pt-10 md:mt-16 md:pt-12"
+        class="draw-rule draw-rule-strong mt-12 border-t border-muted pt-10 md:mt-16 md:pt-12"
       >
         <h2 id={`${project.id}-title`} class="text-4xl leading-tight sm:text-5xl">
           <span class="inline-block border-b-2 border-accent pb-1">{project.data.title}</span>
@@ -28,6 +30,7 @@ const projects = (await getCollection("projects")).sort(
           project={project}
           idPrefix={`${project.id}-`}
           level={3}
+          wide
           titleId={`${project.id}-title`}
         />
       </article>
