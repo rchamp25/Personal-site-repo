@@ -60,7 +60,7 @@ Agents do not invent these. Until a fact is in `src/content`, the page shows a p
 Once the app exists, keep this map:
 
 - `src/pages` — routes
-- `src/layouts` — page shell (`Base.astro`: head tags, header, running index in the left margin on every page except Home, footer, scripts)
+- `src/layouts` — page shell (`Base.astro`: head tags, header, running index in the left margin on Experience and project pages (Home, Projects, and Contact have no margin column), footer, scripts)
 - `src/components` — header, footer, project and experience rows, icons, graphite dust, and other primitives
 - `src/content` — profile, projects, experience, links (Markdown and YAML), plus `README.md` on how to fill them; the schema is `src/content.config.ts`
 - `src/lib` — small helpers (dates)
@@ -92,3 +92,4 @@ Append decisions here. Date them and name the agent. Do not delete earlier entri
 - 2026-10-02 — Claude (Opus 5.5): Home photo frame is square at all widths, matching the square headshot.
 - 2026-10-02 — Claude (Opus 5.5): Home photo: fade removed and a 2px oxide border added at Ross's request (the one exception to one accent per view).
 - 2026-10-02 — Claude (Opus 5.5): Home has no left margin column (no label or running index; the header nav is enough there); `Base`'s `label` is optional and omitting it drops the column. Home's oxide rule and photo frame stay oxide during project-row hover.
+- 2026-10-02 — Claude (Opus 5.5): Projects and Contact dropped their left margin column at Ross's request (no `label` passed to `Base`), matching Home.

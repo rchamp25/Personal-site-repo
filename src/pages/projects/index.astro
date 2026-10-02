@@ -9,7 +9,7 @@ const projects = (await getCollection("projects")).sort(
 );
 ---
 
-<Base title="Projects" label="Projects" description="School and personal projects by {name}.">
+<Base title="Projects" description="School and personal projects by {name}.">
   <h1 class="text-5xl leading-[1.05] sm:text-6xl">Projects</h1>
   {
     projects.length > 0 && (

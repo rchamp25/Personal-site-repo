@@ -9,7 +9,7 @@ import Base from "../layouts/Base.astro";
 const links = (await getCollection("links")).sort((a, b) => a.data.order - b.data.order);
 ---
 
-<Base title="Contact" label="Contact" description="Contact {name} by email, GitHub, or LinkedIn.">
+<Base title="Contact" description="Contact {name} by email, GitHub, or LinkedIn.">
   <h1 class="text-5xl leading-[1.05] sm:text-6xl">Contact</h1>
   <!-- The page's single accent use. Decorative. -->
   <div aria-hidden="true" class="mt-6 w-16 border-t-2 border-accent"></div>

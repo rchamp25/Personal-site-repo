@@ -53,7 +53,7 @@ Prose line length stays around 60–75 characters. Headlines can run wider. Do n
 
 ## Layout
 
-- Page shell: a wide left margin used as a running index (section number or short label). On small screens that index collapses into the section label above the content, not into a hamburger-only mystery. Home has no margin column at all (Ross's choice: the header nav is the navigation there), so its content spans the full width, aligned with the name in the header.
+- Page shell: a wide left margin used as a running index (section number or short label). On small screens that index collapses into the section label above the content, not into a hamburger-only mystery. Home, Projects, and Contact have no margin column at all (Ross's choice: the header nav is the navigation there), so their content spans the full width, aligned with the name in the header. Experience and project pages keep the margin, since they carry a section index.
 - Max content width about `72rem`. Prose sits in a narrower measure inside that.
 - Header and footer use the same ink, hairline, and mono index. Header is sticky and compact on small screens.
 - Projects index: horizontal rules and type (title, one line, year, stack). Not a grid of equal rounded cards.
@@ -113,3 +113,4 @@ Append visualization notes below this line. Date them and name the agent. Do not
 - 2026-10-02 — Claude (Opus 5.5): The Home photo frame is square at every width (was 4:5 on desktop and 3:4 on phones), at Ross's request, so the square headshot is never cropped.
 - 2026-10-02 — Claude (Opus 5.5): At Ross's request the Home photo has no edge fade and is outlined in a 2px oxide border matching the rule under the name: a deliberate second accent on Home, which dims with the rule while a project row holds the accent. On phones the photo sits inside the page margins so the border is not cut by the screen edge.
 - 2026-10-02 — Claude (Opus 5.5): At Ross's request Home has no left margin column (no section label, no running index), so its content spans the full width and the name aligns with the header name; and Home's oxide rule and photo frame stay oxide while a project row is hovered (the dimming is removed).
+- 2026-10-02 — Claude (Opus 5.5): At Ross's request Projects and Contact also drop the left margin column, like Home. Experience and project pages keep it.
