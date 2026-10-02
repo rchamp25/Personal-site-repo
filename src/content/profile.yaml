@@ -9,9 +9,8 @@ ross:
     # resume is not published; its facts are already on the site.
     label: Resume (PDF)
     href: /Ross-Champlin-Resume.pdf
-  # PHOTO TO BE REPLACED (2026-10-02): Ross removed the first photo (it looked
-  # over-filtered and pale). Home shows a labeled placeholder frame until a new
-  # photo is added here, for example:
-  # photo:
-  #   src: ./images/<new-photo>.jpg
-  #   alt: <short description>
+  # Ross's original studio headshot, unedited (1254×1254 PNG). Astro makes the
+  # AVIF and WebP copies visitors download, up to full resolution.
+  photo:
+    src: ./images/ross-headshot.png
+    alt: Ross Champlin smiling in a navy suit and floral tie against a gray studio backdrop

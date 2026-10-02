@@ -79,15 +79,17 @@ const sections = [
           data-intro
           style="--intro-delay: 200ms"
         >
+          <!-- Square frame, like the photo itself: nothing is cropped. -->
           <Picture
             src={photo.src}
             alt={photo.alt}
             formats={["avif", "webp"]}
-            widths={[480, 720, 960, 1200]}
+            widths={[480, 720, 960, 1254]}
+            quality={90}
             sizes="(min-width: 1280px) 30rem, (min-width: 1024px) 26rem, (min-width: 640px) 36rem, 100vw"
             loading="eager"
             fetchpriority="high"
-            class="block aspect-[3/4] h-auto w-full object-cover object-top lg:aspect-auto lg:h-[min(calc(100svh-10rem),46rem)]"
+            class="block aspect-square h-auto w-full object-cover"
           />
         </div>
       )
@@ -143,10 +145,8 @@ const sections = [
 <style>
   /* The photo meets the ground with short, crisp fades: barely at the top
      (and right from lg), a little more at the bottom (and left from lg).
-     A slight lift in saturation and contrast keeps it vivid against the
-     dark ground. */
+     No color filter: the studio headshot is shown as shot. */
   .hero-photo :global(img) {
-    filter: contrast(1.06) saturate(1.15);
     mask-image: linear-gradient(to bottom, transparent, #000 2%, #000 88%, transparent);
   }
 

@@ -41,7 +41,7 @@ Open:
 - [x] Resume contents sorted into education, roles, and achievements (2026-10-02).
 - [x] Resume PDF published (technical resume) and wired to the Experience button (2026-10-02).
 - [ ] Replace the technical resume when Ross updates it (it is outdated and lacks NailsByGabs).
-- [ ] New Home photo: the first was removed on 2026-10-02 (looked over-filtered and pale); a placeholder frame holds its place.
+- [x] New Home photo: Ross's studio headshot (2026-10-02).
 - [x] MixTwin filled in from Ross's description (2026-10-02).
 - [ ] MixTwin: more technical description from Ross.
 - [ ] Bio, personal note, NailsByGabs details, then a third and fourth project.
