@@ -29,7 +29,7 @@ Direction: a dark lab notebook, closer to Linear and Iota in value (near-black g
 - Ink: `#f4f0e6` (text)
 - Muted: `#b7b1a6` (secondary lines such as dates). Verify WCAG AA before using it at small sizes.
 - Hairline: `#2c2924` (dividers, index rules, borders)
-- Accent: `#e07a4a` (oxide). Use it once per view: one marker or one rule. The one exception is Home, where Ross chose to frame his photo in the same 2px oxide as the rule under his name; the frame and the rule step back to hairline together while a project row holds the accent. Never as a large fill, and not as small body text unless contrast is checked and passes. It may travel: while a project row is hovered, pressed, or focused, the accent draws on that row and the page's own rule steps back to hairline, so a view still shows one accent at a time.
+- Accent: `#e07a4a` (oxide). Use it once per view: one marker or one rule. The one exception is Home, where Ross chose to frame his photo in the same 2px oxide as the rule under his name; both stay oxide at all times, including while a project row is hovered. Never as a large fill, and not as small body text unless contrast is checked and passes. While a project row is hovered, pressed, or focused, the accent draws on that row; on other pages that is the only moving use of it, and on Home it joins the rule and photo frame.
 - Graphite dust uses muted only, dimmed behind text, never the accent.
 - No second accent. No gradient fills. No light theme in v1.
 
@@ -53,7 +53,7 @@ Prose line length stays around 60–75 characters. Headlines can run wider. Do n
 
 ## Layout
 
-- Page shell: a wide left margin used as a running index (section number or short label). On small screens that index collapses into the section label above the content, not into a hamburger-only mystery.
+- Page shell: a wide left margin used as a running index (section number or short label). On small screens that index collapses into the section label above the content, not into a hamburger-only mystery. Home has no margin column at all (Ross's choice: the header nav is the navigation there), so its content spans the full width, aligned with the name in the header.
 - Max content width about `72rem`. Prose sits in a narrower measure inside that.
 - Header and footer use the same ink, hairline, and mono index. Header is sticky and compact on small screens.
 - Projects index: horizontal rules and type (title, one line, year, stack). Not a grid of equal rounded cards.
@@ -71,7 +71,7 @@ Short, physical, and in service of reading, at the level of the fluidity referen
 - Running index: on desktop the left margin lists the page's sections (numbered, mono). The one being read is ink, the rest muted, and a hairline track beside the list fills with page progress. On phones the progress runs along the header rule instead. List rules draw across as they scroll into view. All of it follows the scroll and never moves it.
 - First load, Home only: one sequence, settled in under a second. The section label, the headline word by word, the oxide rule drawing to its width, then role, bio, and note, then Selected work. It does not replay on client-side visits. It is the only staggered load on the site.
 - Scroll reveal: sections and rows that start below the fold settle in (a short rise and fade) as they enter the view, once. Nothing replays on scroll-up, and anything already in view at load is shown as is. Used on Home, Projects, project pages, and Experience; Contact reveals its list once.
-- Project rows (Home and `/projects`): on hover, press, or keyboard focus, the rule under the row brightens and the oxide accent draws along it. The accent travels to that row: the page's own accent rule steps back to hairline while the row holds it, so a view still shows one accent. From `md` up the title also moves a few pixels. Touch devices get the press state, never a hover that sticks.
+- Project rows (Home and `/projects`): on hover, press, or keyboard focus, the rule under the row brightens and the oxide accent draws along it. On Home the name rule and the photo frame stay oxide meanwhile (Ross's choice). From `md` up the title also moves a few pixels. Touch devices get the press state, never a hover that sticks.
 - Graphite dust: a fixed canvas behind every page with fine muted specks that drift. The cursor (or a dragging finger) brushes them aside and they settle back; scrolling stirs them against its direction. No trail, no click burst, and the cursor itself never changes. Specks behind text are much dimmer so reading is never affected. It persists through page changes and switches itself off for the visit if the device cannot hold the frame rate.
 - Other hover: underline, or image scale of `1.02`.
 - Phones get the same ideas. Any move that would cause sideways overflow, hide the nav, or trap scrolling at 390px is dropped on small screens (for example, the row title does not move there).
@@ -112,3 +112,4 @@ Append visualization notes below this line. Date them and name the agent. Do not
 - 2026-10-02 — Claude (Opus 5.5): At Ross's request the Home photo is now his unedited original headshot (no backdrop extension), served at quality 90 up to its full 1254px.
 - 2026-10-02 — Claude (Opus 5.5): The Home photo frame is square at every width (was 4:5 on desktop and 3:4 on phones), at Ross's request, so the square headshot is never cropped.
 - 2026-10-02 — Claude (Opus 5.5): At Ross's request the Home photo has no edge fade and is outlined in a 2px oxide border matching the rule under the name: a deliberate second accent on Home, which dims with the rule while a project row holds the accent. On phones the photo sits inside the page margins so the border is not cut by the screen edge.
+- 2026-10-02 — Claude (Opus 5.5): At Ross's request Home has no left margin column (no section label, no running index), so its content spans the full width and the name aligns with the header name; and Home's oxide rule and photo frame stay oxide while a project row is hovered (the dimming is removed).

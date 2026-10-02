@@ -17,18 +17,14 @@ const featured = (await getCollection("projects", ({ data }) => data.featured))
   .sort((a, b) => a.data.order - b.data.order)
   .slice(0, 3);
 
-// Running index in the margin.
-const sections = [
-  { id: "intro", label: "Introduction" },
-  ...(featured.length > 0 ? [{ id: "selected-work", label: "Selected work" }] : []),
-];
 ---
 
-<!-- First load only (global.css, data-intro): the section label at 0ms, the
-     name word by word from 80ms, the oxide rule draws at 280ms, then role,
-     bio, and note, and Selected work at 600ms; all settled by about 840ms.
-     The only staggered load on the site. -->
-<Base label="Home" intro sections={sections}>
+<!-- No left margin column on Home (Base without a label): the content spans
+     the full page width. First load only (global.css, data-intro): the name
+     word by word from 80ms, the photo at 200ms, the oxide rule draws at
+     280ms, then role, bio, and note, and Selected work at 600ms; all settled
+     by about 840ms. The only staggered load on the site. -->
+<Base>
   <!-- Intro: text, then the photo. Phones: the photo shows first, full width,
        fading out at the bottom. From lg: text left, photo right, fading into
        the ground on its left and bottom edges. -->
@@ -52,12 +48,10 @@ const sections = [
           ))
         }
       </h1>
-      <!-- The page's accent rule. Decorative. It steps back to hairline while a
-           project row below holds the accent (global.css, data-page-accent). -->
+      <!-- The page's accent rule. Decorative. -->
       <div
         aria-hidden="true"
         class="mt-6 w-16 border-t-2 border-accent"
-        data-page-accent
         data-intro="draw"
         style="--intro-delay: 280ms"
       >
@@ -76,15 +70,13 @@ const sections = [
       photo && (
         <div
           class="hero-photo order-first mb-10 border-2 border-accent lg:order-none lg:col-start-2 lg:row-start-1 lg:mb-0"
-          data-page-accent
           data-intro
           style="--intro-delay: 200ms"
         >
           <!-- Square frame, like the photo itself: nothing is cropped. No fade
                and no filter: the headshot is shown as shot. The 2px oxide
                border matches the rule under the name (Ross's choice: a second
-               accent on Home). Like that rule, it steps back to hairline while
-               a project row holds the accent (data-page-accent, global.css). -->
+               accent on Home). Both stay oxide while a project row is hovered. -->
           <Picture
             src={photo.src}
             alt={photo.alt}

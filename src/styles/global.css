@@ -188,24 +188,6 @@ html:not([data-nav="client"]) [data-intro="draw"] {
   }
 }
 
-/* The page's accent rule steps back to hairline while a project row is
-   hovered, pressed, or keyboard-focused, so the accent sits on that row only
-   (see ProjectRow.astro). */
-[data-page-accent] {
-  transition: border-color var(--duration-hover) var(--ease-out-quart);
-}
-
-@media (hover: hover) {
-  body:has(.project-row:hover) [data-page-accent] {
-    border-color: var(--color-hairline);
-  }
-}
-
-body:has(.project-row:active) [data-page-accent],
-body:has(.project-row a:focus-visible) [data-page-accent] {
-  border-color: var(--color-hairline);
-}
-
 /* Title morph: a project title is a shared element between its row and the
    project page h1 (transition:name "project-<slug>", ProjectRow and
    [slug].astro), so it morphs on the group timing above. The header stays

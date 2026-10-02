@@ -34,7 +34,7 @@ None.
 - Node 22.12+. TypeScript is pinned to `^6` because `astro check` refuses 7. Import Zod from `astro/zod`. The content store is `node_modules/.astro/data-store.json`.
 
 **Shell and layout ([src/layouts/Base.astro](src/layouts/Base.astro))**
-- Every page uses `<Base title label sections? description? intro?>`; Home omits `title`. Pages never import `global.css`.
+- Every page uses `<Base title? label? sections? description?>`. Home passes nothing: no `title` (the document title is the name) and no `label`, which drops the left margin column so Home's content spans the full width, aligned with the header name. Every other page passes a `label`. Pages never import `global.css`.
 - `<title>` is "Ross Champlin" on Home and "<title> · Ross Champlin" elsewhere. `description` may use `{name}`; default is "<name>, <role>.".
 - From `md` up `<main>` is an 11rem index column plus content. Below `md` the label stacks above the content. Prose goes in `<Measure>` (65ch). `html` has `scrollbar-gutter: stable` and `scroll-padding-top: 5rem`.
 - `<body>` has no background: `<html>` paints the ground so the graphite dust canvas (`z-index: -1`) shows through. Do not add a background to `<body>` or to full-width wrappers.
@@ -48,14 +48,14 @@ None.
 - Links: ink with a muted underline that turns ink on hover. Focus: 2px ink outline, never the accent.
 
 **Accent**
-- One oxide accent per view at rest: the rule under the page h1 (`aria-hidden`). Exception, Ross's choice: on Home the photo also has a 2px oxide border. On Home both the rule and the photo frame carry `data-page-accent` and step back to hairline together while a project row is hovered, pressed, or keyboard-focused, so the accent travels to that row. `/projects` has no rest accent. The dust never uses the accent.
+- One oxide accent per view at rest: the rule under the page h1 (`aria-hidden`). Exception, Ross's choice: on Home the photo also has a 2px oxide border. Both stay oxide all the time, including while a project row is hovered (Ross's choice; the old `data-page-accent` dimming is removed). A hovered row also draws its own oxide mark. `/projects` has no rest accent. The dust never uses the accent.
 
 **Motion (source: DESIGN.md "Motion")**
 - Page change: `<ClientRouter />` in `<head>`; `<html transition:animate>` runs `page-leave`/`page-arrive` on the tokens. Header (`site-header`), footer (`site-footer`), and the dust canvas (`graphite-dust`) are named with `transition:animate="none"` and hold still. `<main>` is deliberately not named. `::view-transition` has the ground background; header group `z-index: 1`, dust group `z-index: -1`.
 - Title morph: the row title span (`ProjectRow`) and an inline-block span in the project h1 share `transition:name="project-<slug>"` with `transition:animate="initial"`. Keep both inline-block; one row per project per page.
 - Home first load: `data-intro` plus `--intro-delay` (label 0, name words 80/160, rule 280 with `draw`, role 360, bio 440, note 520, Selected work 600; done by 840ms). Gated by `html:not([data-nav="client"])`; the script sets `data-nav="client"` on the incoming document in `astro:before-swap`.
 - Scroll reveal: `data-reveal`. Only elements starting below the fold are hidden (`data-reveal-pending`) and each is revealed once. Nothing hidden under reduced motion.
-- Running index: pages pass `sections={[{ id, label }]}`; rendered from `md` up with two or more sections. The script marks the current link `aria-current="location"` (last section past 35% of the viewport, or the last at page bottom). `.index-progress` and `.header-progress` (phones) fill via `scroll()` timelines and are empty at rest; `draw-rule` draws a `border-top` via a `view()` timeline. Firefox lacks scroll-driven animations: no fills, static rules.
+- Running index: pages pass `sections={[{ id, label }]}`; rendered from `md` up with a `label` and two or more sections (Home has none). The script marks the current link `aria-current="location"` (last section past 35% of the viewport, or the last at page bottom). `.index-progress` and `.header-progress` (phones) fill via `scroll()` timelines and are empty at rest; `draw-rule` draws a `border-top` via a `view()` timeline. Firefox lacks scroll-driven animations: no fills, static rules.
 - Project rows: `.row-rule` and `.row-accent` spans; hover only on `(hover: hover)`, press via `:active` (a `touchstart` listener enables it on iOS), focus via `:has(a:focus-visible)`. The title moves `--shift-hover` from `md` up only. The title moves on an inner span because a translated link would shrink its stretched `::after`.
 - Any future script that touches the DOM must run on `astro:page-load`.
 
@@ -412,3 +412,10 @@ None.
 - At Ross's request: removed the Home photo's edge fade (the page's `<style>` block held only the mask, so it is gone), then, from his follow-up, outlined the photo with a 2px oxide border matching the rule under his name ([src/pages/index.astro](src/pages/index.astro): `border-2 border-accent` and `data-page-accent` on the photo wrapper; the edge-to-edge `-mx-4` on phones was dropped so the border sits inside the page margins).
 - This is a second accent on Home, against DESIGN.md's once-per-view rule, chosen by Ross; DESIGN.md now records it as the one exception. Because the frame carries `data-page-accent`, the existing rule in global.css dims it to hairline with the name rule while a project row is hovered: verified (both `rgb(224, 122, 74)` at rest, both `rgb(44, 41, 36)` on hover, back after).
 - Measured: desktop image 476×476 inside the 2px border, phone 354×354; no overflow; no exceptions. Docs: [DESIGN.md](DESIGN.md), [AGENTS.md](AGENTS.md), this file's Current. `npm run check` 0/0/0; `npm run build` succeeds. Nothing committed.
+
+### 2026-10-02 — Claude (Opus 5.5)
+
+- Ross asked for the oxide around his headshot and under his name to stay on during project hover, and for Home to lose its left-side "tabs" (the HOME label and the 01/02 running index), since the header nav covers navigation.
+- [src/layouts/Base.astro](src/layouts/Base.astro): `label` is optional; without it the margin column (label, running index, desktop progress track) is not rendered and `<main>` is not a two-column grid. Removed the `intro` prop (it only staged the label in Home's first load). Other pages are unchanged: verified `/projects` and `/experience` still show their labels, Experience its 4-item index, and their h1 at x 377.
+- [src/pages/index.astro](src/pages/index.astro): `<Base>` with no props; removed the `sections` list and both `data-page-accent` attributes; updated comments (first-load sequence: name 80/160ms, photo 200ms, rule 280ms, role, bio, note, Selected work 600ms). [global.css](src/styles/global.css): removed the `[data-page-accent]` dimming rules (no other users). [ProjectRow](src/components/ProjectRow.astro) comment updated.
+- Verified in headless Edge: on Home at 1440px the name rule and photo frame are `rgb(224, 122, 74)` at rest, during row hover (the row's oxide mark draws), and after; Home h1 at x 169, matching the header name; no overflow at 390px or 1440px; no exceptions. Docs: [DESIGN.md](DESIGN.md) (accent exception, page shell, project rows), [AGENTS.md](AGENTS.md), this file's Current. `npm run check` 0/0/0; `npm run build` succeeds. Nothing committed.

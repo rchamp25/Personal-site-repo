@@ -12,19 +12,18 @@ import SiteHeader from "../components/SiteHeader.astro";
 interface Props {
   // Page name for the document title. Omit on the home page.
   title?: string;
-  // Running index label for this page, e.g. "Home".
-  label: string;
-  // Home only: the label joins the first-load sequence (see global.css).
-  intro?: boolean;
+  // Running index label for this page, e.g. "Projects". Omit it (Home) to
+  // drop the left margin column entirely, so the content spans the full width.
+  label?: string;
   // The page's sections, in order, for the running index in the left margin
   // (desktop). `id` is the id of the section's heading or wrapper. Shown only
-  // when there are two or more.
+  // with a label and two or more sections.
   sections?: { id: string; label: string }[];
   // Meta and social description for this page; "{name}" becomes the profile
   // name. Defaults to name and role.
   description?: string;
 }
-const { title, label, intro = false, sections = [], description } = Astro.props;
+const { title, label, sections = [], description } = Astro.props;
 
 const profile = await getEntry("profile", "ross");
 if (!profile) throw new Error('Missing profile entry "ross" in src/content/profile.yaml');
@@ -103,32 +102,39 @@ const pageTransition: TransitionDirectionalAnimations = {
     <main
       id="main"
       tabindex="-1"
-      class="outline-none mx-auto w-full max-w-page flex-1 px-4 py-10 sm:px-8 md:grid md:grid-cols-[11rem_minmax(0,1fr)] md:gap-x-8 md:py-16"
+      class:list={[
+        "outline-none mx-auto w-full max-w-page flex-1 px-4 py-10 sm:px-8 md:py-16",
+        label && "md:grid md:grid-cols-[11rem_minmax(0,1fr)] md:gap-x-8",
+      ]}
     >
-      <div class="mb-8 md:sticky md:top-24 md:mb-0 md:self-start" data-intro={intro ? "" : undefined}>
-        <SectionLabel>{label}</SectionLabel>
-        {
-          sections.length > 1 && (
-            // Running index (desktop): the section being read is ink
-            // (aria-current, set by the script below); the track beside the
-            // list fills with page scroll (global.css, .index-progress).
-            <nav aria-label="On this page" class="relative mt-6 hidden pl-4 md:block">
-              <span aria-hidden="true" class="index-track" />
-              <span aria-hidden="true" class="index-progress" />
-              <ol class="space-y-2 font-meta text-xs">
-                {sections.map(({ id, label: sectionLabel }, i) => (
-                  <li>
-                    <a href={`#${id}`} class="index-link" data-index-target={id}>
-                      <span class="tabular-nums">{String(i + 1).padStart(2, "0")}</span>
-                      <span>{sectionLabel}</span>
-                    </a>
-                  </li>
-                ))}
-              </ol>
-            </nav>
-          )
-        }
-      </div>
+      {
+        label && (
+          <div class="mb-8 md:sticky md:top-24 md:mb-0 md:self-start">
+            <SectionLabel>{label}</SectionLabel>
+            {
+              sections.length > 1 && (
+                // Running index (desktop): the section being read is ink
+                // (aria-current, set by the script below); the track beside the
+                // list fills with page scroll (global.css, .index-progress).
+                <nav aria-label="On this page" class="relative mt-6 hidden pl-4 md:block">
+                  <span aria-hidden="true" class="index-track" />
+                  <span aria-hidden="true" class="index-progress" />
+                  <ol class="space-y-2 font-meta text-xs">
+                    {sections.map(({ id, label: sectionLabel }, i) => (
+                      <li>
+                        <a href={`#${id}`} class="index-link" data-index-target={id}>
+                          <span class="tabular-nums">{String(i + 1).padStart(2, "0")}</span>
+                          <span>{sectionLabel}</span>
+                        </a>
+                      </li>
+                    ))}
+                  </ol>
+                </nav>
+              )
+            }
+          </div>
+        )
+      }
       <div>
         <slot />
       </div>
