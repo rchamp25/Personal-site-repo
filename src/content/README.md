@@ -10,6 +10,8 @@ Everything the site says about you lives in this folder. Pages read it at build 
 
 One entry, `ross`: `name`, `role` (the line under your name), `bio`, `note`, `resume`, and optional `photo`.
 
+The social preview image (`public/og.png`, what shows when the link is shared) prints your name and role. After changing either, run `npm run share-images` to rebuild it and the icons.
+
 - **Resume:** put the PDF in `public/` (for example `public/resume.pdf`), then set `href: /resume.pdf` and a `label` such as `Resume (PDF)`. The Experience page then shows a button that opens it in a new tab.
 - **Photo:** put the image in `public/images/profile/`, then add:
 

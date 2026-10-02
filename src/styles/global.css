@@ -206,6 +206,124 @@ body:has(.project-row a:focus-visible) [data-page-accent] {
   border-color: var(--color-hairline);
 }
 
+/* Title morph: a project title is a shared element between its row and the
+   project page h1 (transition:name "project-<slug>", ProjectRow and
+   [slug].astro), so it morphs on the group timing above. The header stays
+   above any morphing title. */
+::view-transition-group(site-header) {
+  z-index: 1;
+}
+
+/* Running index (Base.astro): the margin list of the page's sections. The
+   current one (aria-current, set by Base's script) is ink, the rest muted. */
+.index-link {
+  display: flex;
+  gap: 0.75rem;
+  color: var(--color-muted);
+  text-decoration-color: transparent;
+  transition:
+    color var(--duration-hover) var(--ease-out-quart),
+    text-decoration-color var(--duration-hover) var(--ease-out-quart);
+}
+
+.index-link:hover {
+  text-decoration-color: var(--color-muted);
+}
+
+.index-link[aria-current] {
+  color: var(--color-ink);
+}
+
+/* The hairline track beside the index, and its fill. */
+.index-track,
+.index-progress {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 1px;
+  background-color: var(--color-hairline);
+}
+
+.index-progress,
+.header-progress {
+  display: none;
+}
+
+/* Scroll-linked, never scroll-driving: the index track and, on phones, the
+   header rule fill with page progress, and list rules draw across as they
+   enter. Native CSS where supported; elsewhere the static rules stay. */
+@supports (animation-timeline: scroll()) {
+  .index-progress {
+    display: block;
+    background-color: var(--color-muted);
+    transform-origin: top;
+    /* Empty at rest, so a page too short to scroll (inactive timeline)
+       shows no fill rather than a full one. */
+    scale: 1 0;
+    animation: fill-down linear both;
+    animation-timeline: scroll(root block);
+  }
+
+  .header-progress {
+    display: block;
+    position: absolute;
+    right: 0;
+    bottom: -1px;
+    left: 0;
+    height: 1px;
+    background-color: var(--color-muted);
+    transform-origin: left;
+    scale: 0 1;
+    animation: fill-across linear both;
+    animation-timeline: scroll(root block);
+  }
+
+  /* Desktop has the index track instead. */
+  @media (min-width: 48rem) {
+    .header-progress {
+      display: none;
+    }
+  }
+
+  .draw-rule {
+    position: relative;
+    border-top-color: transparent;
+  }
+
+  .draw-rule::before {
+    content: "";
+    position: absolute;
+    top: -1px;
+    right: 0;
+    left: 0;
+    height: 1px;
+    background-color: var(--color-hairline);
+    transform-origin: left;
+    animation: draw linear both;
+    animation-timeline: view();
+    animation-range: entry 0% entry 100%;
+  }
+}
+
+@keyframes fill-down {
+  from {
+    scale: 1 0;
+  }
+  to {
+    scale: 1 1;
+  }
+}
+
+@keyframes fill-across {
+  from {
+    scale: 0 1;
+  }
+  to {
+    scale: 1 1;
+  }
+}
+
 /* Reduced motion: no transitions, no animations (view transitions included),
    no hover travel, and the hover scale becomes a no-op. Content is never
    hidden: the reveal's hidden state only exists under no-preference. */
@@ -224,5 +342,11 @@ body:has(.project-row a:focus-visible) [data-page-accent] {
     transition: none !important;
     animation: none !important;
     scroll-behavior: auto !important;
+  }
+
+  /* Without their scroll animation the fills would sit at full length. */
+  .index-progress,
+  .header-progress {
+    display: none !important;
   }
 }

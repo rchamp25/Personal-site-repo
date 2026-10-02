@@ -9,12 +9,12 @@ import Base from "../layouts/Base.astro";
 const links = (await getCollection("links")).sort((a, b) => a.data.order - b.data.order);
 ---
 
-<Base title="Contact" label="Contact">
+<Base title="Contact" label="Contact" description="Contact {name} by email, GitHub, or LinkedIn.">
   <h1 class="text-5xl leading-[1.05] sm:text-6xl">Contact</h1>
   <!-- The page's single accent use. Decorative. -->
   <div aria-hidden="true" class="mt-6 w-16 border-t-2 border-accent"></div>
 
-  <ul class="mt-12 max-w-measure border-t border-hairline" data-reveal>
+  <ul class="draw-rule mt-12 max-w-measure border-t border-hairline" data-reveal>
     {
       links.map(({ data }) => (
         <li class="border-b border-hairline py-4">

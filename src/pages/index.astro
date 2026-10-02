@@ -15,14 +15,20 @@ const nameWords = name.split(/\s+/);
 const featured = (await getCollection("projects", ({ data }) => data.featured))
   .sort((a, b) => a.data.order - b.data.order)
   .slice(0, 3);
+
+// Running index in the margin.
+const sections = [
+  { id: "intro", label: "Introduction" },
+  ...(featured.length > 0 ? [{ id: "selected-work", label: "Selected work" }] : []),
+];
 ---
 
 <!-- First load only (global.css, data-intro): the section label at 0ms, the
      name word by word from 80ms, the oxide rule draws at 280ms, then role,
      bio, and note, and Selected work at 600ms; all settled by about 840ms.
      The only staggered load on the site. -->
-<Base label="Home" intro>
-  <Measure>
+<Base label="Home" intro sections={sections}>
+  <Measure id="intro">
     <h1 class="text-5xl leading-[1.05] sm:text-6xl md:text-7xl">
       {
         nameWords.map((word, i) => (
@@ -67,7 +73,7 @@ const featured = (await getCollection("projects", ({ data }) => data.featured))
         <h2 id="selected-work" class="font-meta text-xs uppercase tracking-wider text-muted">
           Selected work
         </h2>
-        <ul class="mt-4 border-t border-hairline">
+        <ul class="draw-rule mt-4 border-t border-hairline">
           {featured.map(({ id, data }) => (
             <ProjectRow
               slug={id}

@@ -15,7 +15,7 @@ One task per session, on the current local branch. Do not commit or push; Ross c
 - [x] 11. Responsive pass at phone and desktop widths, in the browser.
 - [x] 12. Accessibility pass: landmarks, headings, focus, contrast, keyboard, reduced motion.
 - [ ] 13. Performance pass: font loading, image size, no unused JS. Deferred on 2026-10-01. Do not start this unless Ross asks.
-- [ ] 14. Confirm the static Vercel setup stays as it is (`npm run build` outputs `dist`, no SSR adapter, no custom domain). Astro `site` is already `https://personal-site-pearl-tau-17.vercel.app`. Document that URL in the README. Do not create another Vercel project.
+- [ ] 14. Confirm the static Vercel setup stays as it is (`npm run build` outputs `dist`, no SSR adapter). The custom domain `https://rosschamplin.com` is live on Vercel and Astro `site` is already set to it. Document that URL in the README. Do not create another Vercel project.
 
 Routes, for the tasks above:
 

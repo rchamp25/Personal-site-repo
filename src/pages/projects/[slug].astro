@@ -42,15 +42,32 @@ const details = [
   { label: "Stack", value: stack.length > 0 ? stack.join(", ") : undefined },
 ].filter((d): d is { label: string; value: string } => Boolean(d.value));
 
+// Meta description: the summary once it is real, a plain line until then.
+const description = project.data.placeholder ? `${title}, a project by {name}.` : summary;
+
+// Running index in the margin: only sections this project has.
+const sections = [
+  { id: "problem", label: "Problem" },
+  { id: "built", label: "What was built" },
+  ...(details.length > 0 ? [{ id: "details", label: "Details" }] : []),
+  ...(commentary ? [{ id: "commentary", label: "Commentary" }] : []),
+];
+
 const links = [
   { label: "Repository", href: repo },
   { label: "Demo", href: demo },
 ].filter((l): l is { label: string; href: string } => Boolean(l.href));
 ---
 
-<Base title={title} label="Projects">
+<Base title={title} label="Projects" sections={sections} description={description}>
   <article>
-    <h1 class="text-5xl leading-[1.05] sm:text-6xl">{title}</h1>
+    <h1 class="text-5xl leading-[1.05] sm:text-6xl">
+      <!-- Shared with the project's row title, so the title morphs between
+           pages. Inline-block keeps both boxes text-shaped. -->
+      <span class="inline-block" transition:name={`project-${project.id}`} transition:animate="initial">
+        {title}
+      </span>
+    </h1>
     <!-- The page's single accent use. Decorative. -->
     <div aria-hidden="true" class="mt-6 w-16 border-t-2 border-accent"></div>
     <Measure>
@@ -72,7 +89,7 @@ const links = [
 
       {
         details.length > 0 && (
-          <dl class="mt-12 border-t border-hairline" data-reveal>
+          <dl id="details" class="draw-rule mt-12 border-t border-hairline" data-reveal>
             {details.map(({ label, value }) => (
               <div class="grid grid-cols-[6rem_minmax(0,1fr)] gap-x-4 border-b border-hairline py-3">
                 <dt class="font-meta text-xs uppercase tracking-wider text-muted">{label}</dt>
@@ -110,7 +127,7 @@ const links = [
 
       {
         commentary && (
-          <section aria-labelledby="commentary" class="mt-16 border-t border-hairline pt-8" data-reveal>
+          <section aria-labelledby="commentary" class="draw-rule mt-16 border-t border-hairline pt-8" data-reveal>
             <h2 id="commentary" class="font-meta text-xs uppercase tracking-wider text-muted">
               Commentary
             </h2>

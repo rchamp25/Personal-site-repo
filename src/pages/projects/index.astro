@@ -9,11 +9,11 @@ const projects = (await getCollection("projects")).sort(
 );
 ---
 
-<Base title="Projects" label="Projects">
+<Base title="Projects" label="Projects" description="School and personal projects by {name}.">
   <h1 class="text-5xl leading-[1.05] sm:text-6xl">Projects</h1>
   {
     projects.length > 0 && (
-      <ul class="mt-10 border-t border-hairline md:mt-12">
+      <ul class="draw-rule mt-10 border-t border-hairline md:mt-12">
         {projects.map(({ id, data }) => (
           <ProjectRow
             slug={id}

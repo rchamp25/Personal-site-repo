@@ -8,7 +8,8 @@
 // accent sits on this row only (global.css dims the page's own accent rule
 // meanwhile). From md up, hover and press also move the title a few pixels;
 // phones skip that move so it can never cause sideways overflow. The row
-// reveals on scroll (data-reveal, see Base.astro).
+// reveals on scroll (data-reveal, see Base.astro). The title is a shared
+// element ("project-<slug>") that morphs into the project page h1.
 interface Props {
   slug: string;
   title: string;
@@ -32,7 +33,13 @@ const hasMeta = Boolean(year) || stack.length > 0;
     <a href={`/projects/${slug}`} class="after:absolute after:inset-0">
       <!-- The title moves on this inner span, not the link: a translated link
            would become the containing block for its stretched ::after. -->
-      <span class="row-title">{title}</span>
+      <span
+        class="row-title"
+        transition:name={`project-${slug}`}
+        transition:animate="initial"
+      >
+        {title}
+      </span>
     </a>
   </Heading>
   <p class="mt-1 md:mt-0">{summary}</p>

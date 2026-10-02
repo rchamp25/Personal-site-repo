@@ -14,12 +14,25 @@ const groups = [
   { id: "achievements", heading: "Achievements", kind: "achievement" },
 ] as const;
 
+// Running index in the margin: the groups that have entries, then the resume.
+const sections = [
+  ...groups
+    .filter(({ kind }) => entries.some((e) => e.data.kind === kind))
+    .map(({ id, heading }) => ({ id, label: heading })),
+  { id: "resume", label: "Resume" },
+];
+
 const profile = await getEntry("profile", "ross");
 if (!profile) throw new Error('Missing profile entry "ross" in src/content/profile.yaml');
 const { resume } = profile.data;
 ---
 
-<Base title="Experience" label="Experience">
+<Base
+  title="Experience"
+  label="Experience"
+  sections={sections}
+  description="Education, roles, and achievements of {name}."
+>
   <h1 class="text-5xl leading-[1.05] sm:text-6xl">Experience</h1>
   <!-- The page's single accent use. Decorative. -->
   <div aria-hidden="true" class="mt-6 w-16 border-t-2 border-accent"></div>
@@ -33,7 +46,7 @@ const { resume } = profile.data;
             <h2 id={id} class="font-meta text-xs uppercase tracking-wider text-muted" data-reveal>
               {heading}
             </h2>
-            <ul class="mt-4 border-t border-hairline">
+            <ul class="draw-rule mt-4 border-t border-hairline">
               {items.map((entry) => (
                 <ExperienceRow entry={entry} />
               ))}

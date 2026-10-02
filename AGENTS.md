@@ -1,7 +1,7 @@
 # Personal portfolio site: Ross, CS sophomore at Binghamton University
 
 Read DESIGN.md before any UI work, and HANDOFF.md at the start of every session.
-Stack: Astro (static, TypeScript strict) + Tailwind CSS v4 + Markdown content collections. Package manager: npm. Deploy target: Vercel static (`dist`, no SSR adapter). Public URL: `https://personal-site-pearl-tau-17.vercel.app`. Astro `site` is that origin. `base` is `/`. No custom domain in this build.
+Stack: Astro (static, TypeScript strict) + Tailwind CSS v4 + Markdown content collections. Package manager: npm. Deploy target: Vercel static (`dist`, no SSR adapter). Public URL: `https://rosschamplin.com` (custom domain on Vercel). Astro `site` is that origin. `base` is `/`. No custom domain in this build.
 
 ## Rules
 - Work on one PLAN.md task at a time, on the current local branch. Do not start the next task in the same session.
@@ -24,8 +24,8 @@ Why this stack: one language to maintain, content edited as Markdown, and a stat
 - Purpose: a record of school and personal projects, a bio, and other life achievements, with room for personal commentary. Not an internship landing page.
 - Contact: email, GitHub, and LinkedIn are all public: `rosschamplin25@gmail.com`, `https://github.com/rchamp25`, and `https://www.linkedin.com/in/ross-champlin/` (in `src/content/links.yaml`). They show as logo links that go to the full address; the address itself is not printed on the page. Do not invent other contact methods.
 - Copy: build with labeled placeholders until Ross adds files. Do not wait, and do not mine a resume that is not in the repo.
-- Hosting: Vercel, static output. Public URL: `https://personal-site-pearl-tau-17.vercel.app`. Agents do not create another Vercel project, attach a custom domain, register a domain, or edit DNS. No GitHub Pages workflow. No `@astrojs/vercel` SSR adapter. `base` is `/`.
-- Astro `site` is `https://personal-site-pearl-tau-17.vercel.app`. Do not change it and do not set it to `rosschamplin.com`.
+- Hosting: Vercel, static output. Public URL: `https://rosschamplin.com`, a custom domain Ross owns. DNS is on Cloudflare (A record `@` to Vercel, `www` CNAME to Vercel, both DNS only, not proxied); `www.rosschamplin.com` redirects to `rosschamplin.com`. Ross manages Vercel and Cloudflare. Agents do not create another Vercel project, change domains, or edit DNS. No GitHub Pages workflow. No `@astrojs/vercel` SSR adapter. `base` is `/`.
+- Astro `site` is `https://rosschamplin.com`. Do not change it.
 - Git: agents work together in this local checkout. Ross commits. Agents do not commit or push.
 - Scaffold: npm, TypeScript strict, Tailwind v4. Task 1 creates empty `src/pages`, `src/layouts`, `src/components`, and `src/content`, plus one home page whose copy says it is a placeholder. No content collections in task 1. No design tokens yet (task 3). Fonts, when task 3 adds them, are self-hosted files in `public/fonts` (not Google Fonts, not a runtime Fontshare request).
 
@@ -73,3 +73,4 @@ Append decisions here. Date them and name the agent. Do not delete earlier entri
 - 2026-10-01 — Auto: Ross deployed. The live host is `https://personal-site-pearl-tau-17.vercel.app`. Set Astro `site` to that origin.
 - 2026-10-01 — Auto: Ross deferred PLAN.md task 13 (font size, image pipeline, unused JS). Do not start it unless he asks. The ClientRouter script and the motion script stay.
 - 2026-10-01 — Claude (Opus 5.5): Ross supplied his email (`rosschamplin25@gmail.com`) and LinkedIn (`https://www.linkedin.com/in/ross-champlin/`). Updated Decisions from Ross and Content you must supply. Contact links are logo links to the full address.
+- 2026-10-01 — Claude (Opus 5.5): Ross bought `rosschamplin.com` and connected it on Vercel with Cloudflare DNS. Public URL and Astro `site` are now `https://rosschamplin.com`; `www` redirects to it. Updated Stack, Decisions from Ross (Hosting, Astro `site`), PLAN.md task 14, README, and HANDOFF.

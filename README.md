@@ -1,1 +1,1 @@
-This is the repository for the future site @ rosschamplin.com
+This is the repository for the site at https://rosschamplin.com
