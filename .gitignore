@@ -22,3 +22,10 @@ npm-debug.log*
 .DS_Store
 Thumbs.db
 .idea/
+
+# Ross's original photos and general resume: kept locally, never committed.
+# The site uses the cropped copy in src/content/images/ and the technical
+# resume in public/.
+src/content/BallTuxFull.JPEG
+src/content/BallTuxFullZoomedOut.JPEG
+src/content/RossChamplin2026Resume.pdf

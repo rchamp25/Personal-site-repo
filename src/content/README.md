@@ -12,8 +12,8 @@ One entry, `ross`: `name`, `role` (the line under your name), `bio`, `note`, `re
 
 The social preview image (`public/og.png`, what shows when the link is shared) prints your name and role. After changing either, run `npm run share-images` to rebuild it and the icons.
 
-- **Resume:** put the PDF in `public/` (for example `public/resume.pdf`), then set `href: /resume.pdf` and a `label` such as `Resume (PDF)`. The Experience page then shows a button that opens it in a new tab.
-- **Photo:** the Home photo is `images/ross-champlin.jpg` in this folder (cropped head to waist, 1200×1500, metadata stripped). Astro makes small AVIF and WebP copies at build time. To change it, replace that file (or add another and point `src` at it, relative to `profile.yaml`):
+- **Resume:** the button on Experience opens `public/Ross-Champlin-Resume.pdf` (the technical resume) in a new tab. To update it, replace that file with the new PDF under the same name.
+- **Photo:** the Home photo is `images/ross-champlin.jpg` in this folder (a 2:3 crop from head to just past the hands, with headroom, 1200×1800, metadata stripped). Home pins its top edge, so the head is never cut off. Astro makes small AVIF and WebP copies at build time. To change it, replace that file (or add another and point `src` at it, relative to `profile.yaml`):
 
   ```yaml
   photo:
@@ -21,7 +21,7 @@ The social preview image (`public/og.png`, what shows when the link is shared) p
     alt: Short description of the photo
   ```
 
-  Keep large originals out of this folder's `images/`; crop and resize first (a 4:5 portrait around 1200px wide is plenty).
+  Keep large originals out of this folder's `images/`; crop and resize first (a 2:3 portrait around 1200px wide is plenty). Originals kept in `src/content/` are listed in `.gitignore` so they never reach the repo.
 
 ## links.yaml
 

@@ -22,7 +22,7 @@ Why this stack: one language to maintain, content edited as Markdown, and a stat
 - Display name: Ross Champlin.
 - Look: a dark lab notebook, closer to Linear and Iota, with motion at the level of the fluidity references (Linear, Stripe, Cuberto, Fuselab). Tokens and motion rules are in DESIGN.md. v1 has no light theme.
 - Background: graphite dust on every page, a fine muted speck field the cursor (or a finger) brushes aside and scrolling stirs; no cursor change, trail, or click burst; switches itself off on slow devices. Approved 2026-10-01.
-- Home visual: Ross's photo (`src/content/images/ross-champlin.jpg`, cropped from `BallTuxFull.JPEG`), styled after matthewgresock.com: no frame, edges fading into the ground, right column on desktop, full width above the name on phones.
+- Home visual: Ross's photo (`src/content/images/ross-champlin.jpg`, a 2:3 crop of `BallTuxFull.JPEG` with headroom), styled after matthewgresock.com: large, vivid, no frame, edges fading into the ground; a near full-height right column on desktop, full width above the name on phones.
 - Purpose: a record of school and personal projects, a bio, and other life achievements, with room for personal commentary. Not an internship landing page.
 - Contact: email, GitHub, and LinkedIn are all public: `rosschamplin25@gmail.com`, `https://github.com/rchamp25`, and `https://www.linkedin.com/in/ross-champlin/` (in `src/content/links.yaml`). They show as logo links that go to the full address; the address itself is not printed on the page. Do not invent other contact methods.
 - Copy: build with labeled placeholders until Ross adds files. Do not wait, and do not mine a resume that is not in the repo.
@@ -31,7 +31,7 @@ Why this stack: one language to maintain, content edited as Markdown, and a stat
 - Git: agents work together in this local checkout. Ross commits. Agents do not commit or push.
 - Stack basics: npm, TypeScript strict, Tailwind v4. Fonts are self-hosted files in `public/fonts` (never Google Fonts or a runtime font CDN).
 - Analytics: Vercel Web Analytics only (no cookies). No other tracking.
-- Resume: a PDF in `public/`, opened in a new tab from a button on Experience. When Ross adds it, he will ask for its contents to be sorted into education, roles, and achievements.
+- Resume: the technical resume, `public/Ross-Champlin-Resume.pdf`, opened in a new tab from a button on Experience. The general resume is never published or committed (it has Ross's home address); its facts are on the site. Ross's original photos are not committed either (`.gitignore`).
 - Content grows over time: keep it in `src/content`, easy to add to, and delete placeholder entries as real ones arrive.
 
 ## Site map
@@ -48,10 +48,10 @@ Why this stack: one language to maintain, content edited as Markdown, and a stat
 Agents do not invent these. Until a fact is in `src/content`, the page shows a placeholder that says it is a placeholder. How to fill each file is in `src/content/README.md`.
 
 - 2–4 sentence bio and the short personal note for the home page. Name (Ross Champlin) and role line ("CS Student at Binghamton University") are supplied.
-- Each project: title, slug, one-line summary, problem, what you did, tech, dates, repo and demo URLs, featured on the home page or not, optional commentary, optional image. School work and personal work both belong here. MixTwin and NailsByGabs exist by name only; a third and fourth are coming.
+- Each project: title, slug, one-line summary, problem, what you did, tech, dates, repo and demo URLs, featured on the home page or not, optional commentary, optional image. School work and personal work both belong here. MixTwin is filled in from Ross's own description and needs a more technical rewrite he will supply; NailsByGabs exists by name only (the most important project; details coming); a third and fourth are coming.
 - Experience and achievements: org or context, role or what it was, dates, bullets you wrote, optional commentary
 - Education: supplied from the resumes (Binghamton University and Webster Schroeder High School)
-- Resume PDF for the Experience button: Ross is choosing which version to publish (the general resume shows his home address and phone). Education, roles, and achievements are already filled from both resumes, except TOPSoccer (not started yet), the AP Water Quality project, and the technical skills list (outdated).
+- Resume: supplied (technical resume, published). Education, roles, and achievements are filled from both resumes, except TOPSoccer (not started yet), the AP Water Quality project, and the technical skills list (outdated). The technical resume itself is outdated and will be replaced.
 - Email, GitHub, and LinkedIn: supplied (see Decisions from Ross).
 - Photo: supplied and on Home.
 
@@ -85,3 +85,4 @@ Append decisions here. Date them and name the agent. Do not delete earlier entri
 - 2026-10-01 — Claude (Opus 5.5): Ross bought `rosschamplin.com` and connected it on Vercel with Cloudflare DNS. Public URL and Astro `site` are now `https://rosschamplin.com`; `www` redirects to it. Updated Stack, Decisions from Ross (Hosting, Astro `site`), PLAN.md task 14, README, and HANDOFF.
 - 2026-10-01 — Claude (Opus 5.5): Brought this file up to date with the current direction at Ross's request: removed the stale "no custom domain" line; rules now cover Ross's direct requests beyond PLAN.md; Stack lists the motion script, the graphite dust canvas, and the sitemap and analytics integrations; Decisions add the look and motion level, the graphite dust background, the photo-only Home visual, analytics, the resume button, and growing content; the site map, content list, and folder map match the site as built.
 - 2026-10-02 — Claude (Opus 5.5): Ross added two resumes and two photos to `src/content`. Experience now holds 2 education, 2 roles, and 6 achievements from the resumes (excluding TOPSoccer, the AP Water Quality project, and the skills list, at Ross's instruction); MixTwin details came from the technical resume. Home shows the cropped `BallTuxFull.JPEG` photo through Astro's image pipeline. No address, phone, or school email is published. Education `major` became optional (a high school diploma has none).
+- 2026-10-02 — Claude (Opus 5.5): Ross chose the technical resume for the Experience button (`public/Ross-Champlin-Resume.pdf`); the general resume and the original photos are in `.gitignore`. MixTwin is a real personal project with Ross's description (to be rewritten more technically later). The Home photo was re-cropped with more headroom, made larger, and made more vivid.

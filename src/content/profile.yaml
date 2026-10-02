@@ -5,9 +5,12 @@ ross:
   bio: "Placeholder: a 2–4 sentence bio goes here. Ross has not written it yet."
   note: "Placeholder: a short personal note goes here. Ross has not written it yet."
   resume:
-    label: "Placeholder: resume PDF not added yet."
-    # Set href to "/resume.pdf" (or similar) once the file is in public/.
-  # Cropped from BallTuxFull.JPEG (head to waist, metadata stripped).
+    # The technical resume (public/Ross-Champlin-Resume.pdf). The general
+    # resume is not published; its facts are already on the site.
+    label: Resume (PDF)
+    href: /Ross-Champlin-Resume.pdf
+  # Cropped from BallTuxFull.JPEG (2:3, head to just past the hands, with
+  # headroom; metadata stripped). Home pins the top so the head never clips.
   photo:
     src: ./images/ross-champlin.jpg
     alt: Ross Champlin smiling in a navy suit and patterned tie, leaning against a stone column
