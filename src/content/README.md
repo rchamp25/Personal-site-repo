@@ -42,8 +42,8 @@ stack: ["Astro", "TypeScript"]
 start: "2025-06"
 end: "2025-09"          # leave out while ongoing
 repo: https://github.com/...
-demo: https://...       # optional
-featured: true          # shown on Home (up to three, by order)
+demo: https://...       # optional live site: the page title links to it, plus a "Live site" link (new tab)
+featured: true          # shown on Home (up to four, by order)
 order: 1                # lower comes first
 image:                  # optional; file in public/images/
   src: /images/projects/mixtwin.png

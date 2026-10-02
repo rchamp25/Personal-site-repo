@@ -13,9 +13,10 @@ const { name, role, bio, note, photo } = profile.data;
 // the heading still reads as the plain name.
 const nameWords = name.split(/\s+/);
 
+// Up to four featured projects, by order.
 const featured = (await getCollection("projects", ({ data }) => data.featured))
   .sort((a, b) => a.data.order - b.data.order)
-  .slice(0, 3);
+  .slice(0, 4);
 
 ---
 

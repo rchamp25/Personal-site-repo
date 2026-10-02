@@ -1,5 +1,6 @@
 ---
 import { getCollection, render, type CollectionEntry } from "astro:content";
+import Icon from "../../components/Icon.astro";
 import Measure from "../../components/Measure.astro";
 import Base from "../../layouts/Base.astro";
 
@@ -55,18 +56,35 @@ const sections = [
 
 const links = [
   { label: "Repository", href: repo },
-  { label: "Demo", href: demo },
+  { label: "Live site", href: demo },
 ].filter((l): l is { label: string; href: string } => Boolean(l.href));
 ---
 
 <Base title={title} label="Projects" sections={sections} description={description}>
   <article>
     <h1 class="text-5xl leading-[1.05] sm:text-6xl">
-      <!-- Shared with the project's row title, so the title morphs between
-           pages. Inline-block keeps both boxes text-shaped. -->
-      <span class="inline-block" transition:name={`project-${project.id}`} transition:animate="initial">
-        {title}
-      </span>
+      <!-- The title span is shared with the project's row title, so the title
+           morphs between pages. Inline-block keeps both boxes text-shaped.
+           With a live site (`demo`), the title links to it in a new tab. -->
+      {
+        demo ? (
+          <a href={demo} target="_blank" rel="noopener" class="decoration-2">
+            <span
+              class="inline-block [text-decoration:inherit]"
+              transition:name={`project-${project.id}`}
+              transition:animate="initial"
+            >
+              {title}
+            </span>
+            <Icon name="external" class="ml-2 inline-block size-5 align-super text-muted sm:size-6" />
+            <span class="sr-only">(live site, opens in a new tab)</span>
+          </a>
+        ) : (
+          <span class="inline-block" transition:name={`project-${project.id}`} transition:animate="initial">
+            {title}
+          </span>
+        )
+      }
     </h1>
     <!-- The page's single accent use. Decorative. -->
     <div aria-hidden="true" class="mt-6 w-16 border-t-2 border-accent"></div>
@@ -105,7 +123,11 @@ const links = [
           <ul class="mt-8 flex flex-wrap gap-x-6 gap-y-2 font-meta text-sm" data-reveal>
             {links.map(({ label, href }) => (
               <li>
-                <a href={href}>{label}</a>
+                <a href={href} target="_blank" rel="noopener" class="inline-flex items-center gap-2">
+                  {label}
+                  <Icon name="external" class="size-3" />
+                  <span class="sr-only">(opens in a new tab)</span>
+                </a>
               </li>
             ))}
           </ul>

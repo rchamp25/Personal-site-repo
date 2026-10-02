@@ -36,7 +36,7 @@ Why this stack: one language to maintain, content edited as Markdown, and a stat
 
 ## Site map
 
-- `/` Home: Ross Champlin, one-line role, short bio, a short personal note, Ross's headshot, and up to three featured projects.
+- `/` Home: Ross Champlin, one-line role, short bio, a short personal note, Ross's headshot, and up to four featured projects.
 - `/projects` Ruled index of school and personal work (title, one line, year, stack).
 - `/projects/[slug]` Problem, what was built, role, stack, links, dates, and an optional commentary field. Images only when content includes them.
 - `/experience` Education (degree, major, expected graduation, GPA, honors, involvement; no courses), roles, other life achievements, and a resume button that opens the PDF in a new tab. Entries may include commentary.
@@ -48,7 +48,7 @@ Why this stack: one language to maintain, content edited as Markdown, and a stat
 Agents do not invent these. Until a fact is in `src/content`, the page shows a placeholder that says it is a placeholder. How to fill each file is in `src/content/README.md`.
 
 - 2–4 sentence bio and the short personal note for the home page. Name (Ross Champlin) and role line ("CS Student at Binghamton University") are supplied.
-- Each project: title, slug, one-line summary, problem, what you did, tech, dates, repo and demo URLs, featured on the home page or not, optional commentary, optional image. School work and personal work both belong here. MixTwin is filled in from Ross's own description and needs a more technical rewrite he will supply; NailsByGabs exists by name only (the most important project; details coming); a third and fourth are coming.
+- Each project: title, slug, one-line summary, problem, what you did, tech, dates, repo and demo URLs, featured on the home page or not, optional commentary, optional image. School work and personal work both belong here. MixTwin is filled in from Ross's own description and needs a more technical rewrite he will supply; NailsByGabs exists by name only (the most important project; details coming) with its live site linked; BingMCP exists by name only (details coming); Personal Site (this site) is written from the build and awaits Ross's review.
 - Experience and achievements: org or context, role or what it was, dates, bullets you wrote, optional commentary
 - Education: supplied from the resumes (Binghamton University and Webster Schroeder High School)
 - Resume: supplied (technical resume, published). Education, roles, and achievements are filled from both resumes, except TOPSoccer (not started yet), the AP Water Quality project, and the technical skills list (outdated). The technical resume itself is outdated and will be replaced.
@@ -93,3 +93,4 @@ Append decisions here. Date them and name the agent. Do not delete earlier entri
 - 2026-10-02 — Claude (Opus 5.5): Home photo: fade removed and a 2px oxide border added at Ross's request (the one exception to one accent per view).
 - 2026-10-02 — Claude (Opus 5.5): Home has no left margin column (no label or running index; the header nav is enough there); `Base`'s `label` is optional and omitting it drops the column. Home's oxide rule and photo frame stay oxide during project-row hover.
 - 2026-10-02 — Claude (Opus 5.5): Projects and Contact dropped their left margin column at Ross's request (no `label` passed to `Base`), matching Home.
+- 2026-10-02 — Claude (Opus 5.5): Added BingMCP (placeholder) and Personal Site (this site) as featured projects; Home shows up to four. NailsByGabs links to its live site, currently `http://nailsbygabs.com` because the domain has no working HTTPS yet.
