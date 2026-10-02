@@ -48,7 +48,7 @@ None.
 - Links: ink with a muted underline that turns ink on hover. Focus: 2px ink outline, never the accent.
 
 **Accent**
-- One oxide accent per view at rest: the rule under the page h1 (`aria-hidden`). On Home it carries `data-page-accent` and steps back to hairline while a project row is hovered, pressed, or keyboard-focused, so the accent travels to that row. `/projects` has no rest accent. The dust never uses the accent.
+- One oxide accent per view at rest: the rule under the page h1 (`aria-hidden`). Exception, Ross's choice: on Home the photo also has a 2px oxide border. On Home both the rule and the photo frame carry `data-page-accent` and step back to hairline together while a project row is hovered, pressed, or keyboard-focused, so the accent travels to that row. `/projects` has no rest accent. The dust never uses the accent.
 
 **Motion (source: DESIGN.md "Motion")**
 - Page change: `<ClientRouter />` in `<head>`; `<html transition:animate>` runs `page-leave`/`page-arrive` on the tokens. Header (`site-header`), footer (`site-footer`), and the dust canvas (`graphite-dust`) are named with `transition:animate="none"` and hold still. `<main>` is deliberately not named. `::view-transition` has the ground background; header group `z-index: 1`, dust group `z-index: -1`.
@@ -406,3 +406,9 @@ None.
 
 - At Ross's request the Home photo keeps its square shape: [src/pages/index.astro](src/pages/index.astro) uses `aspect-square` at every width (was `aspect-[3/4]` on phones and `lg:aspect-[4/5]` on desktop, which cropped the square headshot's sides) and drops `object-top`. `sizes` is the plain column width again ("(min-width: 1280px) 30rem, (min-width: 1024px) 26rem, (min-width: 640px) 36rem, 100vw"), since the photo now draws exactly as wide as its column. The whole original shows, including its 49px above the hair.
 - Measured: desktop 480×480 (480w source at DPR 1), phone 390×390; no overflow; no exceptions. Docs: [DESIGN.md](DESIGN.md), [src/content/README.md](src/content/README.md), [AGENTS.md](AGENTS.md). `npm run check` 0/0/0; `npm run build` succeeds. Nothing committed.
+
+### 2026-10-02 — Claude (Opus 5.5)
+
+- At Ross's request: removed the Home photo's edge fade (the page's `<style>` block held only the mask, so it is gone), then, from his follow-up, outlined the photo with a 2px oxide border matching the rule under his name ([src/pages/index.astro](src/pages/index.astro): `border-2 border-accent` and `data-page-accent` on the photo wrapper; the edge-to-edge `-mx-4` on phones was dropped so the border sits inside the page margins).
+- This is a second accent on Home, against DESIGN.md's once-per-view rule, chosen by Ross; DESIGN.md now records it as the one exception. Because the frame carries `data-page-accent`, the existing rule in global.css dims it to hairline with the name rule while a project row is hovered: verified (both `rgb(224, 122, 74)` at rest, both `rgb(44, 41, 36)` on hover, back after).
+- Measured: desktop image 476×476 inside the 2px border, phone 354×354; no overflow; no exceptions. Docs: [DESIGN.md](DESIGN.md), [AGENTS.md](AGENTS.md), this file's Current. `npm run check` 0/0/0; `npm run build` succeeds. Nothing committed.

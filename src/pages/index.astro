@@ -75,11 +75,16 @@ const sections = [
     {
       photo && (
         <div
-          class="hero-photo order-first -mx-4 mb-10 sm:mx-0 lg:order-none lg:col-start-2 lg:row-start-1 lg:mb-0"
+          class="hero-photo order-first mb-10 border-2 border-accent lg:order-none lg:col-start-2 lg:row-start-1 lg:mb-0"
+          data-page-accent
           data-intro
           style="--intro-delay: 200ms"
         >
-          <!-- Square frame, like the photo itself: nothing is cropped. -->
+          <!-- Square frame, like the photo itself: nothing is cropped. No fade
+               and no filter: the headshot is shown as shot. The 2px oxide
+               border matches the rule under the name (Ross's choice: a second
+               accent on Home). Like that rule, it steps back to hairline while
+               a project row holds the accent (data-page-accent, global.css). -->
           <Picture
             src={photo.src}
             alt={photo.alt}
@@ -140,22 +145,3 @@ const sections = [
     )
   }
 </Base>
-
-
-<style>
-  /* The photo meets the ground with short, crisp fades: barely at the top
-     (and right from lg), a little more at the bottom (and left from lg).
-     No color filter: the studio headshot is shown as shot. */
-  .hero-photo :global(img) {
-    mask-image: linear-gradient(to bottom, transparent, #000 2%, #000 88%, transparent);
-  }
-
-  @media (min-width: 64rem) {
-    .hero-photo :global(img) {
-      mask-image:
-        linear-gradient(to right, transparent, #000 8%, #000 97%, transparent),
-        linear-gradient(to bottom, transparent, #000 2%, #000 88%, transparent);
-      mask-composite: intersect;
-    }
-  }
-</style>
