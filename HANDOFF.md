@@ -374,3 +374,7 @@ None.
 - Docs: [src/content/README.md](src/content/README.md), [DESIGN.md](DESIGN.md), [AGENTS.md](AGENTS.md), [PLAN.md](PLAN.md), and this file's Current.
 - `npm run check` 0/0/0; `npm run build` succeeds. No horizontal overflow or exceptions at 390px and 1440px. Nothing committed.
 - Follow-up: Ross confirmed "more persistent" meant bigger and more dominant, as built, not pinned while scrolling. No change to the page.
+
+### 2026-10-02 — Claude (Opus 5.5)
+
+- At Ross's request, made the Home photo fades sharper ([src/pages/index.astro](src/pages/index.astro)): phones top 6% to 2% and bottom 30% to 12%; from `lg` left 22% to 8%, right 8% to 3%, top 8% to 2%, bottom 28% to 12%. [DESIGN.md](DESIGN.md) Home line updated. Checked at 390px and 1440px; `npm run check` 0/0/0, `npm run build` succeeds. Nothing committed.

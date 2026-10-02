@@ -123,20 +123,20 @@ const sections = [
 
 
 <style>
-  /* The photo melts into the ground like the reference: every edge fades,
-     softly at the top (and right from lg), strongly at the bottom (and left
-     from lg). A slight lift in saturation and contrast keeps it vivid
-     against the dark ground. */
+  /* The photo meets the ground with short, crisp fades: barely at the top
+     (and right from lg), a little more at the bottom (and left from lg).
+     A slight lift in saturation and contrast keeps it vivid against the
+     dark ground. */
   .hero-photo :global(img) {
     filter: contrast(1.06) saturate(1.15);
-    mask-image: linear-gradient(to bottom, transparent, #000 6%, #000 70%, transparent);
+    mask-image: linear-gradient(to bottom, transparent, #000 2%, #000 88%, transparent);
   }
 
   @media (min-width: 64rem) {
     .hero-photo :global(img) {
       mask-image:
-        linear-gradient(to right, transparent, #000 22%, #000 92%, transparent),
-        linear-gradient(to bottom, transparent, #000 8%, #000 72%, transparent);
+        linear-gradient(to right, transparent, #000 8%, #000 97%, transparent),
+        linear-gradient(to bottom, transparent, #000 2%, #000 88%, transparent);
       mask-composite: intersect;
     }
   }
