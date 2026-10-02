@@ -22,7 +22,7 @@ Why this stack: one language to maintain, content edited as Markdown, and a stat
 - Display name: Ross Champlin.
 - Look: a dark lab notebook, closer to Linear and Iota, with motion at the level of the fluidity references (Linear, Stripe, Cuberto, Fuselab). Tokens and motion rules are in DESIGN.md. v1 has no light theme.
 - Background: graphite dust on every page, a fine muted speck field the cursor (or a finger) brushes aside and scrolling stirs; no cursor change, trail, or click burst; switches itself off on slow devices. Approved 2026-10-01.
-- Home visual: Ross's photo (`src/content/images/ross-champlin.jpg`, a 2:3 crop of `BallTuxFull.JPEG` with headroom), styled after matthewgresock.com: large, vivid, no frame, edges fading into the ground; a near full-height right column on desktop, full width above the name on phones.
+- Home visual: Ross's photo, styled after matthewgresock.com: large, no frame, edges fading into the ground; a near full-height right column on desktop, full width above the name on phones. TO BE REPLACED: the first photo (from `BallTuxFull.JPEG`) was removed on 2026-10-02 because it looked over-filtered and pale; Home shows a labeled placeholder frame until Ross supplies a new one.
 - Purpose: a record of school and personal projects, a bio, and other life achievements, with room for personal commentary. Not an internship landing page.
 - Contact: email, GitHub, and LinkedIn are all public: `rosschamplin25@gmail.com`, `https://github.com/rchamp25`, and `https://www.linkedin.com/in/ross-champlin/` (in `src/content/links.yaml`). They show as logo links that go to the full address; the address itself is not printed on the page. Do not invent other contact methods.
 - Copy: build with labeled placeholders until Ross adds files. Do not wait, and do not mine a resume that is not in the repo.
@@ -36,7 +36,7 @@ Why this stack: one language to maintain, content edited as Markdown, and a stat
 
 ## Site map
 
-- `/` Home: Ross Champlin, one-line role, short bio, a short personal note, Ross's photo, and up to three featured projects.
+- `/` Home: Ross Champlin, one-line role, short bio, a short personal note, Ross's photo (placeholder frame for now), and up to three featured projects.
 - `/projects` Ruled index of school and personal work (title, one line, year, stack).
 - `/projects/[slug]` Problem, what was built, role, stack, links, dates, and an optional commentary field. Images only when content includes them.
 - `/experience` Education (degree, major, expected graduation, GPA, honors, involvement; no courses), roles, other life achievements, and a resume button that opens the PDF in a new tab. Entries may include commentary.
@@ -53,7 +53,7 @@ Agents do not invent these. Until a fact is in `src/content`, the page shows a p
 - Education: supplied from the resumes (Binghamton University and Webster Schroeder High School)
 - Resume: supplied (technical resume, published). Education, roles, and achievements are filled from both resumes, except TOPSoccer (not started yet), the AP Water Quality project, and the technical skills list (outdated). The technical resume itself is outdated and will be replaced.
 - Email, GitHub, and LinkedIn: supplied (see Decisions from Ross).
-- Photo: supplied and on Home.
+- Photo: a new one is needed (the first was removed on 2026-10-02).
 
 ## Folders
 
@@ -86,3 +86,4 @@ Append decisions here. Date them and name the agent. Do not delete earlier entri
 - 2026-10-01 — Claude (Opus 5.5): Brought this file up to date with the current direction at Ross's request: removed the stale "no custom domain" line; rules now cover Ross's direct requests beyond PLAN.md; Stack lists the motion script, the graphite dust canvas, and the sitemap and analytics integrations; Decisions add the look and motion level, the graphite dust background, the photo-only Home visual, analytics, the resume button, and growing content; the site map, content list, and folder map match the site as built.
 - 2026-10-02 — Claude (Opus 5.5): Ross added two resumes and two photos to `src/content`. Experience now holds 2 education, 2 roles, and 6 achievements from the resumes (excluding TOPSoccer, the AP Water Quality project, and the skills list, at Ross's instruction); MixTwin details came from the technical resume. Home shows the cropped `BallTuxFull.JPEG` photo through Astro's image pipeline. No address, phone, or school email is published. Education `major` became optional (a high school diploma has none).
 - 2026-10-02 — Claude (Opus 5.5): Ross chose the technical resume for the Experience button (`public/Ross-Champlin-Resume.pdf`); the general resume and the original photos are in `.gitignore`. MixTwin is a real personal project with Ross's description (to be rewritten more technically later). The Home photo was re-cropped with more headroom, made larger, and made more vivid.
+- 2026-10-02 — Claude (Opus 5.5): Removed the Home photo at Ross's request (it looked over-filtered and pale); deleted `src/content/images/ross-champlin.jpg` and the `photo` entry; Home shows a labeled placeholder frame until a new photo is supplied.

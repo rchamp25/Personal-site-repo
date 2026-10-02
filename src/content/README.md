@@ -13,11 +13,11 @@ One entry, `ross`: `name`, `role` (the line under your name), `bio`, `note`, `re
 The social preview image (`public/og.png`, what shows when the link is shared) prints your name and role. After changing either, run `npm run share-images` to rebuild it and the icons.
 
 - **Resume:** the button on Experience opens `public/Ross-Champlin-Resume.pdf` (the technical resume) in a new tab. To update it, replace that file with the new PDF under the same name.
-- **Photo:** the Home photo is `images/ross-champlin.jpg` in this folder (a 2:3 crop from head to just past the hands, with headroom, 1200×1800, metadata stripped). Home pins its top edge, so the head is never cut off. Astro makes small AVIF and WebP copies at build time. To change it, replace that file (or add another and point `src` at it, relative to `profile.yaml`):
+- **Photo (to be replaced):** the first photo was removed on 2026-10-02; Home shows a labeled placeholder frame until a new one is added. Put the new image in `images/` in this folder (create it), cropped to a 2:3 portrait around 1200px wide with some headroom, then add to `profile.yaml`. Home pins the top edge so the head is never cut off, and Astro makes small AVIF and WebP copies at build time:
 
   ```yaml
   photo:
-    src: ./images/ross-champlin.jpg
+    src: ./images/your-photo.jpg
     alt: Short description of the photo
   ```
 

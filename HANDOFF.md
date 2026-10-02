@@ -11,7 +11,7 @@ Rewritten 2026-10-01 into sections; the log below is the history behind it.
 - **Live:** `https://rosschamplin.com` (Vercel, static). `www` redirects to it. Ross commits and pushes; Vercel deploys `main`.
 - **Built (PLAN.md tasks 1–12 and 14 done; 13 deferred by Ross):** Astro 7 static site, TypeScript strict, Tailwind v4 tokens; content collections; Home (identity, Selected work), `/projects`, `/projects/[slug]`, `/experience`, `/contact`; responsive and accessibility passes.
 - **Built beyond the plan, at Ross's request:** motion system (page change, Home first-load sequence, scroll reveals, project row hover and press with a travelling accent); title morph between a project row and its page; running index in the desktop margin with progress fills and drawing rules; logo contact links; education fields and a resume button; sharing basics (favicon, meta, canonical, Open Graph image, sitemap, robots); Vercel Web Analytics; graphite dust background.
-- **Content:** real: name, role line ("CS Student at Binghamton University"), email, GitHub, LinkedIn, Home photo, education (Binghamton University, Webster Schroeder High School), roles (2), achievements (6), the resume button (technical resume), and MixTwin (personal project; Ross's own description, marked for a technical rewrite). Placeholders: bio, personal note, all of NailsByGabs.
+- **Content:** real: name, role line ("CS Student at Binghamton University"), email, GitHub, LinkedIn, Home photo, education (Binghamton University, Webster Schroeder High School), roles (2), achievements (6), the resume button (technical resume), and MixTwin (personal project; Ross's own description, marked for a technical rewrite). Placeholders: bio, personal note, all of NailsByGabs, and the Home photo (removed 2026-10-02; a labeled frame holds its place).
 
 ### In progress
 
@@ -19,7 +19,7 @@ None.
 
 ### Next
 
-- Waiting on Ross: a more technical MixTwin description (the current text is his plain-language version; the file is marked NEEDS REWRITE), MixTwin repo/demo links if any, NailsByGabs details (the most important project), bio and note, an updated technical resume. The Home photo is settled: Ross wants it big and dominant, not pinned while scrolling (2026-10-02). Ross runs `git rm --cached` on the originals (see the 2026-10-02 log). Excluded at Ross's instruction: TOPSoccer (not started), the AP Water Quality project (first on the technical resume), the technical skills list (outdated).
+- Waiting on Ross: a new Home photo (the first was removed on 2026-10-02 because it looked over-filtered and pale; judge the filter against the new image, and drop it if the photo is already vivid), a more technical MixTwin description (the current text is his plain-language version; the file is marked NEEDS REWRITE), MixTwin repo/demo links if any, NailsByGabs details (the most important project), bio and note, an updated technical resume. The Home photo is settled: Ross wants it big and dominant, not pinned while scrolling (2026-10-02). Ross runs `git rm --cached` on the originals (see the 2026-10-02 log). Excluded at Ross's instruction: TOPSoccer (not started), the AP Water Quality project (first on the technical resume), the technical skills list (outdated).
 - Waiting on Ross: bio, personal note, MixTwin and NailsByGabs details and screenshots, a third and fourth project later (one becomes the third featured). Delete placeholder entries as real ones arrive.
 - Ross to enable Web Analytics in Vercel if not done; set the `www` redirect to 308.
 - PLAN.md task 13 (performance) stays deferred until Ross asks.
@@ -378,3 +378,10 @@ None.
 ### 2026-10-02 — Claude (Opus 5.5)
 
 - At Ross's request, made the Home photo fades sharper ([src/pages/index.astro](src/pages/index.astro)): phones top 6% to 2% and bottom 30% to 12%; from `lg` left 22% to 8%, right 8% to 3%, top 8% to 2%, bottom 28% to 12%. [DESIGN.md](DESIGN.md) Home line updated. Checked at 390px and 1440px; `npm run check` 0/0/0, `npm run build` succeeds. Nothing committed.
+
+### 2026-10-02 — Claude (Opus 5.5)
+
+- Ross removed the Home photo: it looked poorly filtered and he looked pale. Deleted `src/content/images/ross-champlin.jpg` (and the empty folder) and the `photo` entry in [profile.yaml](src/content/profile.yaml), which now carries a "PHOTO TO BE REPLACED" comment with the shape of the new entry. The original `BallTuxFull.JPEG` stays local and ignored.
+- [src/pages/index.astro](src/pages/index.astro): the intro grid is always two columns from `lg`. With no photo, a hairline-bordered frame labeled "Placeholder: new photo coming" (mono, muted) takes the photo's place: full photo height on desktop, 16:9 on phones. Adding a `photo` entry renders the photo again with no code change (the `<Picture>` branch, crop pinned to the top, mask fades, and filter are unchanged).
+- Docs: [src/content/README.md](src/content/README.md), [DESIGN.md](DESIGN.md), [AGENTS.md](AGENTS.md), [PLAN.md](PLAN.md), and this file's Current.
+- Verified at 390px and 1440px: placeholder frame 358×201 above the name on the phone, 480×736 beside the text on desktop; no horizontal overflow; no exceptions. `npm run check` 0/0/0; `npm run build` succeeds with no photo assets generated. Nothing committed.

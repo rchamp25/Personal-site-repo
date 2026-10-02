@@ -36,7 +36,7 @@ const sections = [
     id="intro"
     class:list={[
       "flex flex-col",
-      photo && "lg:grid lg:grid-cols-[minmax(0,1fr)_26rem] lg:gap-x-10 xl:grid-cols-[minmax(0,1fr)_30rem]",
+      "lg:grid lg:grid-cols-[minmax(0,1fr)_26rem] lg:gap-x-10 xl:grid-cols-[minmax(0,1fr)_30rem]",
     ]}
   >
     <Measure class="lg:col-start-1 lg:row-start-1">
@@ -89,6 +89,24 @@ const sections = [
             fetchpriority="high"
             class="block aspect-[3/4] h-auto w-full object-cover object-top lg:aspect-auto lg:h-[min(calc(100svh-10rem),46rem)]"
           />
+        </div>
+      )
+    }
+    {
+      // No photo yet: a labeled placeholder holds the photo's place, so the
+      // layout stays ready. Shorter on phones so it does not push the name
+      // far down.
+      !photo && (
+        <div
+          class="order-first mb-10 lg:order-none lg:col-start-2 lg:row-start-1 lg:mb-0"
+          data-intro
+          style="--intro-delay: 200ms"
+        >
+          <div class="flex aspect-[16/9] w-full items-center justify-center border border-hairline lg:aspect-auto lg:h-[min(calc(100svh-10rem),46rem)]">
+            <p class="font-meta text-xs uppercase tracking-wider text-muted">
+              Placeholder: new photo coming
+            </p>
+          </div>
         </div>
       )
     }

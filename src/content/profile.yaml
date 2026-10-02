@@ -9,8 +9,9 @@ ross:
     # resume is not published; its facts are already on the site.
     label: Resume (PDF)
     href: /Ross-Champlin-Resume.pdf
-  # Cropped from BallTuxFull.JPEG (2:3, head to just past the hands, with
-  # headroom; metadata stripped). Home pins the top so the head never clips.
-  photo:
-    src: ./images/ross-champlin.jpg
-    alt: Ross Champlin smiling in a navy suit and patterned tie, leaning against a stone column
+  # PHOTO TO BE REPLACED (2026-10-02): Ross removed the first photo (it looked
+  # over-filtered and pale). Home shows a labeled placeholder frame until a new
+  # photo is added here, for example:
+  # photo:
+  #   src: ./images/<new-photo>.jpg
+  #   alt: <short description>
