@@ -50,7 +50,7 @@ Open:
 - [x] Framed project plates with placeholders (2026-10-02).
 - [x] NailsByGabs logo on its plate (2026-10-03).
 - [ ] Project images from Ross: MixTwin and BingMCP screenshots, Personal Site logo.
-- [x] Home: "What I've worked with", 23 official logos (2026-10-03).
+- [x] Home: "Tools I've used", 23 official logos (2026-10-03).
 - [x] NailsByGabs details, from Ross's write-up (2026-10-03).
 - [x] NailsByGabs link fixed: `https://nailsbygabs.org` (`.com` was a typo).
 - [x] NailsByGabs repo linked (public 2026-10-03).

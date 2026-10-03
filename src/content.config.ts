@@ -71,7 +71,7 @@ const projects = defineCollection({
         // Omit while the project is ongoing.
         end: monthOrYear.optional(),
         repo: z.url().optional(),
-        // The repo exists but is not public yet: shows "Repository (coming
+        // The repo exists but is not public yet: shows "Repo (coming
         // soon)" without a link. Drop it once `repo` is set.
         repoPending: z.boolean().default(false),
         demo: z.url().optional(),
@@ -147,7 +147,7 @@ const experience = defineCollection({
 });
 
 const tools = defineCollection({
-  // "What I've worked with" on Home: name, official logo (an SVG in
+  // "Tools I've used" on Home: name, official logo (an SVG in
   // src/content/logos/, path relative to tools.yaml), and order.
   loader: file("src/content/tools.yaml"),
   schema: ({ image }) =>

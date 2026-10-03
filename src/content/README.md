@@ -42,7 +42,7 @@ stack: ["Astro", "TypeScript"]
 start: "2025-06"
 end: "2025-09"          # leave out while ongoing
 repo: https://github.com/...   # or, while the repo is still private: repoPending: true
-demo: https://...       # optional live site: the page title links to it, plus a "Live site" link (new tab)
+demo: https://...       # optional live site: the page title links to it, plus a "See it live" link (new tab)
 featured: true          # shown on Home (up to four, by order)
 order: 1                # lower comes first
 image:                  # the framed plate
@@ -63,7 +63,7 @@ Project images go in `images/projects/` in this folder (PNG, JPG, WebP, or SVG f
 
 ## tools.yaml
 
-"What I've worked with" on Home. One entry per language, framework, tool, or service: `name` (shown under the logo), `logo` (an SVG in `logos/`, e.g. `./logos/java.svg`), and `order`. Use the brand's official logo; if it is black or very dark, use the brand's white version so it shows on the dark page. To add one, drop the SVG in `logos/` and add an entry; to remove one, delete both.
+"Tools I've used" on Home. One entry per language, framework, tool, or service: `name` (shown under the logo), `logo` (an SVG in `logos/`, e.g. `./logos/java.svg`), and `order`. Use the brand's official logo; if it is black or very dark, use the brand's white version so it shows on the dark page. To add one, drop the SVG in `logos/` and add an entry; to remove one, delete both.
 
 ## experience/
 

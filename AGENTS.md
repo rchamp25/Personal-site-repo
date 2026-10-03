@@ -32,12 +32,12 @@ Why this stack: one language to maintain, content edited as Markdown, and a stat
 - Stack basics: npm, TypeScript strict, Tailwind v4. Fonts are self-hosted files in `public/fonts` (never Google Fonts or a runtime font CDN).
 - Analytics: Vercel Web Analytics only (no cookies). No other tracking.
 - Resume: the technical resume, `public/Ross-Champlin-Resume.pdf`, opened in a new tab from a button at the top of Experience and from a Resume logo link on Contact (not in the footer). The general resume is never published or committed (it has Ross's home address); its facts are on the site. Ross's original photos are not committed either (`.gitignore`).
-- What I've worked with (Home): official full-color logos (white versions of black marks), names under them, one block, static, below Selected work; lift-and-spotlight hover. The list is Ross's (`src/content/tools.yaml`); do not add to it without him. Left off at his choice: Cloudflare, C, JavaScript, HTML, GitHub. "SQL" is shown as PostgreSQL (Supabase's database). Approved 2026-10-03.
+- Tools I've used (Home): official full-color logos (white versions of black marks), names under them, one block, static, below What I've built; lift-and-spotlight hover. The list is Ross's (`src/content/tools.yaml`); do not add to it without him. Left off at his choice: Cloudflare, C, JavaScript, HTML, GitHub. "SQL" is shown as PostgreSQL (Supabase's database). Approved 2026-10-03.
 - Content grows over time: keep it in `src/content`, easy to add to, and delete placeholder entries as real ones arrive.
 
 ## Site map
 
-- `/` Home: Ross Champlin, one-line role, short bio, a short personal note, Ross's headshot, up to four featured projects, and "What I've worked with" (official logos with names).
+- `/` Home: Ross Champlin, one-line role, short bio, a short personal note, Ross's headshot, up to four featured projects, and "Tools I've used" (official logos with names).
 - `/projects` Every school and personal project's full breakdown on one page, each name underlined in oxide; no hover rows.
 - `/projects/[slug]` Problem, what was built, a framed screenshot or logo, role, stack, links, dates, and an optional commentary field.
 - `/experience` Education (degree, major, expected graduation, GPA, honors, involvement; no courses), roles, other life achievements, and a resume button that opens the PDF in a new tab. Entries may include commentary.
@@ -105,3 +105,4 @@ Append decisions here. Date them and name the agent. Do not delete earlier entri
 - 2026-10-03 — Claude (Opus 5.5): Resume added to Contact as a fourth logo link (from `profile.resume.href`, new tab); Experience now starts with its Resume section.
 - 2026-10-03 — Claude (Opus 5.5): NailsByGabs filled in from Ross's write-up; its live site is `https://nailsbygabs.org` (the earlier `nailsbygabs.com` was a typo and is not Ross's site). New `repoPending` project field for a repo that is not public yet.
 - 2026-10-03 — Claude (Opus 5.5): NailsByGabs repo is public and linked; its plate shows the brand logo, unedited, on a white frame (new `image.background` field).
+- 2026-10-03 — Claude (Opus 5.5): Label changes for a friendlier voice: What I've built, Tools I've used, The problem, See it live (Home section ids `what-ive-built` and `tools-used`).

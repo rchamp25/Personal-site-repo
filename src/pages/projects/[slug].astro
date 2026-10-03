@@ -22,8 +22,8 @@ const description = project.data.placeholder ? `${title}, a project by {name}.` 
 // shows details when any of role, dates, or stack exists).
 const hasDetails = Boolean(role || start || stack.length > 0);
 const sections = [
-  { id: "problem", label: "Problem" },
-  { id: "built", label: "What was built" },
+  { id: "problem", label: "The problem" },
+  { id: "built", label: "What I built" },
   ...(hasDetails ? [{ id: "details", label: "Details" }] : []),
   ...(commentary ? [{ id: "commentary", label: "Commentary" }] : []),
 ];

@@ -19,14 +19,14 @@ const featured = (await getCollection("projects", ({ data }) => data.featured))
   .sort((a, b) => a.data.order - b.data.order)
   .slice(0, 4);
 
-// "What I've worked with": every entry in src/content/tools.yaml, by order.
+// "Tools I've used": every entry in src/content/tools.yaml, by order.
 const tools = (await getCollection("tools")).sort((a, b) => a.data.order - b.data.order);
 ---
 
 <!-- No left margin column on Home (Base without a label): the content spans
      the full page width. First load only (global.css, data-intro): the name
      word by word from 80ms, the photo at 200ms, the oxide rule draws at
-     280ms, then role, bio, and note, and Selected work at 600ms; all settled
+     280ms, then role, bio, and note, and What I've built at 600ms; all settled
      by about 840ms. The only staggered load on the site. -->
 <Base>
   <!-- Intro: text, then the photo. Phones: the photo shows first, full width,
@@ -107,13 +107,13 @@ const tools = (await getCollection("tools")).sort((a, b) => a.data.order - b.dat
   {
     featured.length > 0 && (
       <section
-        aria-labelledby="selected-work"
+        aria-labelledby="what-ive-built"
         class="mt-16 md:mt-24"
         data-intro
         style="--intro-delay: 600ms"
       >
-        <h2 id="selected-work" class="font-meta text-xs uppercase tracking-wider text-muted">
-          Selected work
+        <h2 id="what-ive-built" class="font-meta text-xs uppercase tracking-wider text-muted">
+          What I’ve built
         </h2>
         <ul class="draw-rule mt-4 border-t border-hairline">
           {featured.map(({ id, data }) => (
@@ -136,9 +136,9 @@ const tools = (await getCollection("tools")).sort((a, b) => a.data.order - b.dat
     // Static, not links. The name says what each logo is, so the logo itself
     // has empty alt text.
     tools.length > 0 && (
-      <section aria-labelledby="worked-with" class="mt-16 md:mt-24" data-reveal>
-        <h2 id="worked-with" class="font-meta text-xs uppercase tracking-wider text-muted">
-          What I’ve worked with
+      <section aria-labelledby="tools-used" class="mt-16 md:mt-24" data-reveal>
+        <h2 id="tools-used" class="font-meta text-xs uppercase tracking-wider text-muted">
+          Tools I’ve used
         </h2>
         <ul class="tools draw-rule mt-4 grid grid-cols-3 gap-x-4 gap-y-10 border-t border-hairline pt-10 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8">
           {tools.map(({ data }) => (
@@ -154,7 +154,7 @@ const tools = (await getCollection("tools")).sort((a, b) => a.data.order - b.dat
 </Base>
 
 <style>
-  /* What I've worked with: the logo under the pointer (or finger) lifts and
+  /* Tools I've used: the logo under the pointer (or finger) lifts and
      grows a little and its name brightens to ink; the others dim so it stands
      out. Hover only where hover exists; press works everywhere (Base's
      touchstart listener enables :active on iOS). Reduced motion: the global

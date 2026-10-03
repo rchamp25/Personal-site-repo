@@ -1,5 +1,5 @@
 ---
-// A project's full breakdown: summary, Problem, What was built (the Markdown
+// A project's full breakdown: summary, The problem, What I built (the Markdown
 // body), the framed plate (screenshot or logo), role/dates/stack, links, and
 // commentary, each only when the content has it. Used on a project's own page
 // and, for every project, on /projects. `idPrefix` keeps section ids unique
@@ -36,8 +36,8 @@ const details = [
 ].filter((d): d is { label: string; value: string } => Boolean(d.value));
 
 const links = [
-  { label: "Repository", href: repo },
-  { label: "Live site", href: demo },
+  { label: "Repo", href: repo },
+  { label: "See it live", href: demo },
 ].filter((l): l is { label: string; href: string } => Boolean(l.href));
 // A repo that is not public yet: named in the links row, but not a link.
 const repoSoon = repoPending && !repo;
@@ -71,14 +71,14 @@ const hasFacts = details.length > 0 || links.length > 0 || repoSoon || Boolean(c
   <div class:list={["max-w-measure", wide && "lg:col-start-1 lg:row-span-2 lg:row-start-1"]}>
     <section aria-labelledby={labelledBy(`${idPrefix}problem`)} class="mt-12" data-reveal>
       <Label id={`${idPrefix}problem`} class="font-meta text-xs uppercase tracking-wider text-muted">
-        Problem
+        The problem
       </Label>
       <p class="mt-3 text-lg leading-relaxed">{problem}</p>
     </section>
 
     <section aria-labelledby={labelledBy(`${idPrefix}built`)} class="mt-12" data-reveal>
       <Label id={`${idPrefix}built`} class="font-meta text-xs uppercase tracking-wider text-muted">
-        What was built
+        What I built
       </Label>
       <div class="body mt-3 text-lg leading-relaxed">
         <Content />
@@ -102,7 +102,7 @@ const hasFacts = details.length > 0 || links.length > 0 || repoSoon || Boolean(c
 
         {(links.length > 0 || repoSoon) && (
           <ul class="mt-8 flex flex-wrap gap-x-6 gap-y-2 font-meta text-sm" data-reveal>
-            {repoSoon && <li class="text-muted">Repository (coming soon)</li>}
+            {repoSoon && <li class="text-muted">Repo (coming soon)</li>}
             {links.map(({ label, href }) => (
               <li>
                 <a href={href} target="_blank" rel="noopener" class="inline-flex items-center gap-2">
