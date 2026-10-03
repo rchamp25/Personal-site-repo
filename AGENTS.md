@@ -38,7 +38,7 @@ Why this stack: one language to maintain, content edited as Markdown, and a stat
 
 - `/` Home: Ross Champlin, one-line role, short bio, a short personal note, Ross's headshot, and up to four featured projects.
 - `/projects` Every school and personal project's full breakdown on one page, each name underlined in oxide; no hover rows.
-- `/projects/[slug]` Problem, what was built, role, stack, links, dates, and an optional commentary field. Images only when content includes them.
+- `/projects/[slug]` Problem, what was built, a framed screenshot or logo, role, stack, links, dates, and an optional commentary field.
 - `/experience` Education (degree, major, expected graduation, GPA, honors, involvement; no courses), roles, other life achievements, and a resume button that opens the PDF in a new tab. Entries may include commentary.
 - `/contact` Email, GitHub, and LinkedIn as logo links, with Ross's framed headshot beside them. No contact form in v1.
 - Every page: header nav, footer with the same three logo links, graphite dust background.
@@ -48,7 +48,7 @@ Why this stack: one language to maintain, content edited as Markdown, and a stat
 Agents do not invent these. Until a fact is in `src/content`, the page shows a placeholder that says it is a placeholder. How to fill each file is in `src/content/README.md`.
 
 - 2–4 sentence bio and the short personal note for the home page. Name (Ross Champlin) and role line ("CS Student at Binghamton University") are supplied.
-- Each project: title, slug, one-line summary, problem, what you did, tech, dates, repo and demo URLs, featured on the home page or not, optional commentary, optional image. School work and personal work both belong here. MixTwin is filled in from Ross's own description and needs a more technical rewrite he will supply; NailsByGabs exists by name only (the most important project; details coming) with its live site linked; BingMCP exists by name only (details coming); Personal Site (this site) is written from the build; its role is "Design direction and development" (Ross had the Claude Code credit removed).
+- Each project: title, slug, one-line summary, problem, what you did, tech, dates, repo and demo URLs, featured on the home page or not, optional commentary, and a screenshot or branding logo for its framed plate (a labeled placeholder until supplied: MixTwin and BingMCP screenshots, NailsByGabs and Personal Site logos). School work and personal work both belong here. MixTwin is filled in from Ross's own description and needs a more technical rewrite he will supply; NailsByGabs has its name, role (Full-Stack Developer), and live site (the most important project; other details coming); BingMCP exists by name only (details coming; Ross is holding its role for now); Personal Site (this site) is written from the build; its role is "Full-Stack Developer", like MixTwin (Ross's choice; no Claude Code credit).
 - Experience and achievements: org or context, role or what it was, dates, bullets you wrote, optional commentary
 - Education: supplied from the resumes (Binghamton University and Webster Schroeder High School)
 - Resume: supplied (technical resume, published). Education, roles, and achievements are filled from both resumes, except TOPSoccer (not started yet), the AP Water Quality project, and the technical skills list (outdated). The technical resume itself is outdated and will be replaced.
@@ -97,3 +97,5 @@ Append decisions here. Date them and name the agent. Do not delete earlier entri
 - 2026-10-02 — Claude (Opus 5.5): `/projects` shows full breakdowns (shared `ProjectBreakdown` component) with oxide-underlined names and no cursor effects; Contact shows the headshot (shared `Headshot` component) as tall as its text.
 - 2026-10-02 — Claude (Opus 5.5): Ross reversed the calm dust on `/projects`: the dust answers the cursor on every page, permanently. `data-cursor-calm` is removed.
 - 2026-10-02 — Claude (Opus 5.5): Personal Site no longer credits Claude Code (Ross's request). `/projects`: muted rule between projects; two-column breakdowns from `lg` (`ProjectBreakdown` `wide`).
+- 2026-10-02 — Claude (Opus 5.5): Project `image` is now `{ kind: screenshot | logo, src?, alt? }` through Astro's `image()` (files in `src/content/images/projects/`); `ProjectFigure` frames it or shows a placeholder. Personal Site role is "Full-Stack Developer".
+- 2026-10-02 — Claude (Opus 5.5): NailsByGabs role set to "Full-Stack Developer" (Ross). BingMCP's role is on hold at Ross's request.

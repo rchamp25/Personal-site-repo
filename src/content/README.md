@@ -45,8 +45,9 @@ repo: https://github.com/...
 demo: https://...       # optional live site: the page title links to it, plus a "Live site" link (new tab)
 featured: true          # shown on Home (up to four, by order)
 order: 1                # lower comes first
-image:                  # optional; file in public/images/
-  src: /images/projects/mixtwin.png
+image:                  # the framed plate
+  kind: screenshot      # or logo (centered, for a project shown by its branding)
+  src: ../images/projects/mixtwin.png   # leave out src and alt until the file exists
   alt: What the image shows
 commentary: "Optional personal note."
 placeholder: false
@@ -55,7 +56,9 @@ placeholder: false
 What you built, in Markdown. Use ## for headings (never #).
 ```
 
-A real project needs `kind`, `role`, `start`, and at least one `stack` item. To add a project, add a file; to remove one, delete its file.
+A real project needs `kind`, `role`, `start`, and at least one `stack` item.
+
+Project images go in `images/projects/` in this folder (PNG, JPG, WebP, or SVG for a logo). A screenshot fills a 16:10 frame from the top, so a 16:10 capture about 1440px wide fits best; a logo is centered with space around it, so a transparent PNG or an SVG that reads on a dark ground works best. Until `src` is set, the frame shows a labeled placeholder. To add a project, add a file; to remove one, delete its file.
 
 ## experience/
 

@@ -6,11 +6,14 @@ title: "Personal Site"
 summary: "This site: a dark lab-notebook portfolio built with Astro."
 kind: personal
 problem: "A single home for school and personal projects, experience, and contact details that stays fast, reads well on any screen, and is easy to update as new work arrives."
-role: Design direction and development
+role: Full-Stack Developer
 start: "2026-09"
 stack: ["Astro", "TypeScript", "Tailwind CSS", "View Transitions", "Canvas 2D", "Vercel"]
 featured: true
 order: 4
+# The site's branding logo; Ross will supply it. Add src and alt then.
+image:
+  kind: logo
 placeholder: false
 ---
 

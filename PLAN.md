@@ -21,7 +21,7 @@ Routes, for the tasks above:
 
 - `/` Home: Ross Champlin, one-line role, short bio, a short personal note, Ross's headshot, and up to four featured projects.
 - `/projects` Index: every project's full breakdown, school and personal work.
-- `/projects/[slug]` Problem, what was built, role, stack, links, dates, optional commentary. Images only if provided.
+- `/projects/[slug]` Problem, what was built, framed screenshot or logo, role, stack, links, dates, optional commentary.
 - `/experience` Education, roles, other life achievements, optional commentary, and a resume button that opens the PDF in a new tab.
 - `/contact` Email, GitHub, and LinkedIn as logo links (all supplied), with Ross's headshot.
 
@@ -47,5 +47,7 @@ Open:
 - [x] BingMCP (placeholder) and Personal Site added as featured projects; Home shows four (2026-10-02).
 - [x] Projects page shows full breakdowns; Contact shows the headshot (2026-10-02).
 - [x] Projects page: brighter rule between projects, two columns across the full width on desktop (2026-10-02).
+- [x] Framed project plates with placeholders (2026-10-02).
+- [ ] Project images from Ross: MixTwin and BingMCP screenshots, NailsByGabs and Personal Site logos.
 - [ ] Bio, personal note, NailsByGabs and BingMCP details.
 - [ ] Switch the NailsByGabs link to https:// once that domain serves HTTPS.

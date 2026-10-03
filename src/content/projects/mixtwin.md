@@ -12,6 +12,9 @@ end: "2026-03"
 stack: ["React", "Vercel", "Spotify API", "Web Audio"]
 featured: true
 order: 1
+# Screenshot coming from Ross. Add src and alt then.
+image:
+  kind: screenshot
 placeholder: false
 ---
 

@@ -58,30 +58,43 @@ const projects = defineCollection({
   // The file name is the slug: src/content/projects/<slug>.md -> /projects/<slug>.
   // The Markdown body is "what was built".
   loader: glob({ pattern: "**/*.md", base: "src/content/projects" }),
-  schema: z
-    .object({
-      title: z.string().min(1),
-      summary: z.string().min(1),
-      kind: z.enum(["school", "personal"]).optional(),
-      problem: z.string().min(1),
-      role: z.string().optional(),
-      stack: z.array(z.string().min(1)).default([]),
-      start: monthOrYear.optional(),
-      // Omit while the project is ongoing.
-      end: monthOrYear.optional(),
-      repo: z.url().optional(),
-      demo: z.url().optional(),
-      featured: z.boolean().default(false),
-      // Lower numbers sort first where order matters (e.g. featured on home).
-      order: z.number().int().default(0),
-      // Image files go in public/; `src` is their path, e.g. "/images/foo.png".
-      image: z.object({ src: z.string().startsWith("/"), alt: z.string().min(1) }).optional(),
-      commentary: z.string().optional(),
-      placeholder: z.boolean().default(false),
-    })
-    .refine((p) => p.placeholder || (p.kind && p.role && p.start && p.stack.length > 0), {
-      message: "A project that is not a placeholder needs kind, role, start, and stack",
-    }),
+  schema: ({ image }) =>
+    z
+      .object({
+        title: z.string().min(1),
+        summary: z.string().min(1),
+        kind: z.enum(["school", "personal"]).optional(),
+        problem: z.string().min(1),
+        role: z.string().optional(),
+        stack: z.array(z.string().min(1)).default([]),
+        start: monthOrYear.optional(),
+        // Omit while the project is ongoing.
+        end: monthOrYear.optional(),
+        repo: z.url().optional(),
+        demo: z.url().optional(),
+        featured: z.boolean().default(false),
+        // Lower numbers sort first where order matters (e.g. featured on home).
+        order: z.number().int().default(0),
+        // The framed plate shown with the breakdown: a screenshot, or the
+        // project's logo (`kind: logo`). Leave out `src` until the file exists
+        // and the frame shows a labeled placeholder. `src` is relative to the
+        // project file, e.g. "../images/projects/mixtwin.png"; Astro builds
+        // AVIF and WebP copies (an SVG logo is used as is). Needs `alt` once
+        // `src` is set.
+        image: z
+          .object({
+            kind: z.enum(["screenshot", "logo"]).default("screenshot"),
+            src: image().optional(),
+            alt: z.string().min(1).optional(),
+          })
+          .refine((i) => !i.src || i.alt, { message: "An image with src needs alt", path: ["alt"] })
+          .optional(),
+        commentary: z.string().optional(),
+        placeholder: z.boolean().default(false),
+      })
+      .refine((p) => p.placeholder || (p.kind && p.role && p.start && p.stack.length > 0), {
+        message: "A project that is not a placeholder needs kind, role, start, and stack",
+      }),
 });
 
 const experience = defineCollection({

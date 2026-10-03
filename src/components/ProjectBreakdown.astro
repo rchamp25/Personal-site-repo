@@ -1,17 +1,19 @@
 ---
 // A project's full breakdown: summary, Problem, What was built (the Markdown
-// body), role/dates/stack, links, image, and commentary, each only when the
-// content has it. Used on a project's own page and, for every project, on
-// /projects. `idPrefix` keeps section ids unique when several breakdowns share
-// a page; `level` is the heading level of the section labels. `titleId`, when
-// several projects share a page, names each section after its project
-// ("MixTwin, Problem") so screen readers can tell the regions apart. `wide`
-// (on /projects) spreads it over the page from lg: the story (summary,
-// Problem, What was built) at the prose measure on the left, the facts
-// (details, links, image, commentary) beside it on the right.
+// body), the framed plate (screenshot or logo), role/dates/stack, links, and
+// commentary, each only when the content has it. Used on a project's own page
+// and, for every project, on /projects. `idPrefix` keeps section ids unique
+// when several breakdowns share a page; `level` is the heading level of the
+// section labels. `titleId`, when several projects share a page, names each
+// section after its project ("MixTwin, Problem") so screen readers can tell
+// the regions apart. One column reads summary, plate, story, facts. `wide`
+// (on /projects) spreads it over the page from lg: the story (Problem, What
+// was built) at the prose measure on the left, the plate and then the facts
+// (details, links, commentary) beside it on the right.
 import { render, type CollectionEntry } from "astro:content";
 import { formatRange } from "../lib/dates";
 import Icon from "./Icon.astro";
+import ProjectFigure from "./ProjectFigure.astro";
 
 interface Props {
   project: CollectionEntry<"projects">;
@@ -23,7 +25,7 @@ interface Props {
 const { project, idPrefix = "", level = 2, titleId, wide = false } = Astro.props;
 const labelledBy = (id: string) => (titleId ? `${titleId} ${id}` : id);
 const Label = `h${level}` as "h2" | "h3";
-const { summary, problem, role, start, end, stack, repo, demo, image, commentary } = project.data;
+const { title, summary, problem, role, start, end, stack, repo, demo, image, commentary } = project.data;
 const { Content } = await render(project);
 
 const details = [
@@ -36,13 +38,34 @@ const links = [
   { label: "Repository", href: repo },
   { label: "Live site", href: demo },
 ].filter((l): l is { label: string; href: string } => Boolean(l.href));
-const hasFacts = details.length > 0 || links.length > 0 || Boolean(image) || Boolean(commentary);
+const hasFacts = details.length > 0 || links.length > 0 || Boolean(commentary);
 ---
 
-<div class:list={[wide && "lg:grid lg:grid-cols-[minmax(0,65ch)_minmax(0,1fr)] lg:gap-x-16"]}>
-  <div class="max-w-measure">
-    <p class="mt-6 text-xl sm:text-2xl">{summary}</p>
+<!-- The wrapper holds the measure at body size (65ch of the larger summary
+     type would run wider than the prose below). -->
+<div class="max-w-measure">
+  <p class="mt-6 text-xl sm:text-2xl">{summary}</p>
+</div>
 
+<!-- Wide, from lg: the story spans both rows of the left column, so the facts
+     sit right under the plate instead of waiting for the story to end. -->
+<div
+  class:list={[
+    wide && "lg:grid lg:grid-cols-[minmax(0,65ch)_minmax(0,1fr)] lg:grid-rows-[auto_1fr] lg:gap-x-16",
+  ]}
+>
+  {
+    image && (
+      <ProjectFigure
+        title={title}
+        image={image}
+        sizes={wide ? "(min-width: 1024px) 28rem, (min-width: 640px) 36rem, 100vw" : "(min-width: 640px) 36rem, 100vw"}
+        class:list={["mt-10 max-w-measure", wide && "lg:col-start-2 lg:row-start-1 lg:mt-12 lg:max-w-none"]}
+      />
+    )
+  }
+
+  <div class:list={["max-w-measure", wide && "lg:col-start-1 lg:row-span-2 lg:row-start-1"]}>
     <section aria-labelledby={labelledBy(`${idPrefix}problem`)} class="mt-12" data-reveal>
       <Label id={`${idPrefix}problem`} class="font-meta text-xs uppercase tracking-wider text-muted">
         Problem
@@ -62,7 +85,7 @@ const hasFacts = details.length > 0 || links.length > 0 || Boolean(image) || Boo
 
   {
     hasFacts && (
-      <div class:list={["max-w-measure", wide && "lg:max-w-none lg:[&>:first-child]:mt-8"]}>
+      <div class:list={["max-w-measure", wide && "lg:col-start-2 lg:row-start-2 lg:max-w-none"]}>
         {details.length > 0 && (
           <dl id={`${idPrefix}details`} class="draw-rule mt-12 border-t border-hairline" data-reveal>
             {details.map(({ label, value }) => (
@@ -86,17 +109,6 @@ const hasFacts = details.length > 0 || links.length > 0 || Boolean(image) || Boo
               </li>
             ))}
           </ul>
-        )}
-
-        {image && (
-          <img
-            src={image.src}
-            alt={image.alt}
-            loading="lazy"
-            decoding="async"
-            class="mt-12 h-auto w-full border border-hairline"
-            data-reveal
-          />
         )}
 
         {commentary && (
