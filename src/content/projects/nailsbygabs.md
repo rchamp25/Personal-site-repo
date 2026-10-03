@@ -15,7 +15,7 @@ stack: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Supabase", "PostgreSQ
 repo: https://github.com/rchamp25/NailsByGabs
 demo: https://nailsbygabs.org
 featured: true
-order: 2
+order: 1
 # The NailsByGabs branding logo (public/branding/Nails by Gabs.png in its repo),
 # unedited: black on a solid white square, so the frame is white to match.
 image:

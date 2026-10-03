@@ -11,7 +11,7 @@ start: "2026-01"
 end: "2026-03"
 stack: ["React", "Supabase", "Vercel", "Spotify API", "Web Audio"]
 featured: true
-order: 1
+order: 4
 # Screenshot coming from Ross. Add src and alt then.
 image:
   kind: screenshot

@@ -32,7 +32,7 @@ Why this stack: one language to maintain, content edited as Markdown, and a stat
 - Stack basics: npm, TypeScript strict, Tailwind v4. Fonts are self-hosted files in `public/fonts` (never Google Fonts or a runtime font CDN).
 - Analytics: Vercel Web Analytics only (no cookies). No other tracking.
 - Resume: the technical resume, `public/Ross-Champlin-Resume.pdf`, opened in a new tab from a button at the top of Experience and from a Resume logo link on Contact (not in the footer). The general resume is never published or committed (it has Ross's home address); its facts are on the site. Ross's original photos are not committed either (`.gitignore`).
-- Tools I've used (Home): official full-color logos (white versions of black marks), names under them, one block, static, below What I've built; lift-and-spotlight hover. The list is Ross's (`src/content/tools.yaml`); do not add to it without him. Left off at his choice: Cloudflare, C, JavaScript, HTML, GitHub. "SQL" is shown as PostgreSQL (Supabase's database). Approved 2026-10-03.
+- Tools I've used (Home): official full-color logos (white versions of black marks), names under them, one block, static, below Highlights; lift-and-spotlight hover. The list is Ross's (`src/content/tools.yaml`); do not add to it without him. Left off at his choice: Cloudflare, C, JavaScript, HTML, GitHub. "SQL" is shown as PostgreSQL (Supabase's database). Approved 2026-10-03.
 - Content grows over time: keep it in `src/content`, easy to add to, and delete placeholder entries as real ones arrive.
 
 ## Site map
@@ -106,3 +106,5 @@ Append decisions here. Date them and name the agent. Do not delete earlier entri
 - 2026-10-03 — Claude (Opus 5.5): NailsByGabs filled in from Ross's write-up; its live site is `https://nailsbygabs.org` (the earlier `nailsbygabs.com` was a typo and is not Ross's site). New `repoPending` project field for a repo that is not public yet.
 - 2026-10-03 — Claude (Opus 5.5): NailsByGabs repo is public and linked; its plate shows the brand logo, unedited, on a white frame (new `image.background` field).
 - 2026-10-03 — Claude (Opus 5.5): Label changes for a friendlier voice: What I've built, Tools I've used, The problem, See it live (Home section ids `what-ive-built` and `tools-used`).
+- 2026-10-03 — Claude (Opus 5.5): Home section renamed "Highlights" (id `highlights`). Project `order`: NailsByGabs 1, BingMCP 2, Personal Site 3, MixTwin 4 (Ross); Home's featured list follows the same order.
+- 2026-10-03 — Claude (Opus 5.5): Personal Site taken off Home's Highlights (`featured: false`); it stays on /projects.

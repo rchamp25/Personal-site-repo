@@ -6,7 +6,7 @@ title: "BingMCP"
 summary: "Placeholder: one-line summary, not written yet."
 problem: "Placeholder: the problem this project solved, not written yet."
 featured: true
-order: 3
+order: 2
 # Screenshot coming from Ross. Add src and alt then.
 image:
   kind: screenshot

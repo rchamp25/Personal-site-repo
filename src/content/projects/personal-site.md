@@ -9,8 +9,9 @@ problem: "A single home for school and personal projects, experience, and contac
 role: Full-Stack Developer
 start: "2026-09"
 stack: ["Astro", "TypeScript", "Tailwind CSS", "View Transitions", "Canvas 2D", "Vercel"]
-featured: true
-order: 4
+# Not on Home's Highlights (Ross, 2026-10-03); still on /projects.
+featured: false
+order: 3
 # The site's branding logo; Ross will supply it. Add src and alt then.
 image:
   kind: logo
