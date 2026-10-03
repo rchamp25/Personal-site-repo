@@ -11,7 +11,7 @@ const links = (await getCollection("links")).sort((a, b) => a.data.order - b.dat
 
 const profile = await getEntry("profile", "ross");
 if (!profile) throw new Error('Missing profile entry "ross" in src/content/profile.yaml');
-const { photo } = profile.data;
+const { photo, resume } = profile.data;
 ---
 
 <Base title="Contact" description="Contact {name} by email, GitHub, or LinkedIn.">
@@ -44,6 +44,27 @@ const { photo } = profile.data;
               )}
             </li>
           ))
+        }
+        {
+          // The resume, last, in the same style (Ross's choice). It comes from
+          // profile.yaml (the same PDF as the Experience button) and opens in a
+          // new tab; the footer keeps only the three contact links.
+          resume.href && (
+            <li class="border-b border-hairline py-4">
+              <a
+                href={resume.href}
+                target="_blank"
+                rel="noopener"
+                title={resume.label}
+                class="inline-flex items-center gap-4 py-1 text-lg"
+              >
+                <Icon name="resume" class="size-6" />
+                <span>Resume</span>
+                {" "}
+                <span class="sr-only">(PDF, opens in a new tab)</span>
+              </a>
+            </li>
+          )
         }
       </ul>
     </div>

@@ -31,7 +31,7 @@ Why this stack: one language to maintain, content edited as Markdown, and a stat
 - Git: agents work together in this local checkout. Ross commits. Agents do not commit or push.
 - Stack basics: npm, TypeScript strict, Tailwind v4. Fonts are self-hosted files in `public/fonts` (never Google Fonts or a runtime font CDN).
 - Analytics: Vercel Web Analytics only (no cookies). No other tracking.
-- Resume: the technical resume, `public/Ross-Champlin-Resume.pdf`, opened in a new tab from a button on Experience. The general resume is never published or committed (it has Ross's home address); its facts are on the site. Ross's original photos are not committed either (`.gitignore`).
+- Resume: the technical resume, `public/Ross-Champlin-Resume.pdf`, opened in a new tab from a button at the top of Experience and from a Resume logo link on Contact (not in the footer). The general resume is never published or committed (it has Ross's home address); its facts are on the site. Ross's original photos are not committed either (`.gitignore`).
 - What I've worked with (Home): official full-color logos (white versions of black marks), names under them, one block, static, below Selected work; lift-and-spotlight hover. The list is Ross's (`src/content/tools.yaml`); do not add to it without him. Left off at his choice: Cloudflare, C, JavaScript, HTML, GitHub. "SQL" is shown as PostgreSQL (Supabase's database). Approved 2026-10-03.
 - Content grows over time: keep it in `src/content`, easy to add to, and delete placeholder entries as real ones arrive.
 
@@ -41,7 +41,7 @@ Why this stack: one language to maintain, content edited as Markdown, and a stat
 - `/projects` Every school and personal project's full breakdown on one page, each name underlined in oxide; no hover rows.
 - `/projects/[slug]` Problem, what was built, a framed screenshot or logo, role, stack, links, dates, and an optional commentary field.
 - `/experience` Education (degree, major, expected graduation, GPA, honors, involvement; no courses), roles, other life achievements, and a resume button that opens the PDF in a new tab. Entries may include commentary.
-- `/contact` Email, GitHub, and LinkedIn as logo links, with Ross's framed headshot beside them. No contact form in v1.
+- `/contact` Email, GitHub, LinkedIn, and Resume as logo links, with Ross's framed headshot beside them. No contact form in v1.
 - Every page: header nav, footer with the same three logo links, graphite dust background.
 
 ## Content you must supply
@@ -102,3 +102,4 @@ Append decisions here. Date them and name the agent. Do not delete earlier entri
 - 2026-10-02 — Claude (Opus 5.5): NailsByGabs role set to "Full-Stack Developer" (Ross). BingMCP's role is on hold at Ross's request.
 - 2026-10-03 — Claude (Opus 5.5): Ross: Supabase was used in NailsByGabs and MixTwin; added to both stacks (NailsByGabs's stack is partial until he sends the rest).
 - 2026-10-03 — Claude (Opus 5.5): New `tools` collection (`src/content/tools.yaml`, `image()` logos in `src/content/logos/`) for Home's "What I've worked with".
+- 2026-10-03 — Claude (Opus 5.5): Resume added to Contact as a fourth logo link (from `profile.resume.href`, new tab); Experience now starts with its Resume section.

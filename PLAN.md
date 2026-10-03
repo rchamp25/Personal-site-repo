@@ -23,7 +23,7 @@ Routes, for the tasks above:
 - `/projects` Index: every project's full breakdown, school and personal work.
 - `/projects/[slug]` Problem, what was built, framed screenshot or logo, role, stack, links, dates, optional commentary.
 - `/experience` Education, roles, other life achievements, optional commentary, and a resume button that opens the PDF in a new tab.
-- `/contact` Email, GitHub, and LinkedIn as logo links (all supplied), with Ross's headshot.
+- `/contact` Email, GitHub, LinkedIn, and Resume as logo links (all supplied), with Ross's headshot.
 
 ## Beyond the plan
 

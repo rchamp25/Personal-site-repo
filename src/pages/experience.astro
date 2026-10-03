@@ -14,12 +14,12 @@ const groups = [
   { id: "achievements", heading: "Achievements", kind: "achievement" },
 ] as const;
 
-// Running index in the margin: the groups that have entries, then the resume.
+// Running index in the margin: the resume, then the groups that have entries.
 const sections = [
+  { id: "resume", label: "Resume" },
   ...groups
     .filter(({ kind }) => entries.some((e) => e.data.kind === kind))
     .map(({ id, heading }) => ({ id, label: heading })),
-  { id: "resume", label: "Resume" },
 ];
 
 const profile = await getEntry("profile", "ross");
@@ -37,26 +37,7 @@ const { resume } = profile.data;
   <!-- The page's single accent use. Decorative. -->
   <div aria-hidden="true" class="mt-6 w-16 border-t-2 border-accent"></div>
 
-  {
-    groups.map(({ id, heading, kind }) => {
-      const items = entries.filter((e) => e.data.kind === kind);
-      return (
-        items.length > 0 && (
-          <section aria-labelledby={id} class="mt-12 md:mt-16">
-            <h2 id={id} class="font-meta text-xs uppercase tracking-wider text-muted" data-reveal>
-              {heading}
-            </h2>
-            <ul class="draw-rule mt-4 border-t border-hairline">
-              {items.map((entry) => (
-                <ExperienceRow entry={entry} />
-              ))}
-            </ul>
-          </section>
-        )
-      );
-    })
-  }
-
+  <!-- The resume first (Ross's choice), then the groups. -->
   <section aria-labelledby="resume" class="mt-12 md:mt-16" data-reveal>
     <h2 id="resume" class="font-meta text-xs uppercase tracking-wider text-muted">Resume</h2>
     {
@@ -78,4 +59,24 @@ const { resume } = profile.data;
       )
     }
   </section>
+
+  {
+    groups.map(({ id, heading, kind }) => {
+      const items = entries.filter((e) => e.data.kind === kind);
+      return (
+        items.length > 0 && (
+          <section aria-labelledby={id} class="mt-12 md:mt-16">
+            <h2 id={id} class="font-meta text-xs uppercase tracking-wider text-muted" data-reveal>
+              {heading}
+            </h2>
+            <ul class="draw-rule mt-4 border-t border-hairline">
+              {items.map((entry) => (
+                <ExperienceRow entry={entry} />
+              ))}
+            </ul>
+          </section>
+        )
+      );
+    })
+  }
 </Base>

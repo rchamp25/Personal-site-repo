@@ -12,7 +12,7 @@ One entry, `ross`: `name`, `role` (the line under your name), `bio`, `note`, `re
 
 The social preview image (`public/og.png`, what shows when the link is shared) prints your name and role. After changing either, run `npm run share-images` to rebuild it and the icons.
 
-- **Resume:** the button on Experience opens `public/Ross-Champlin-Resume.pdf` (the technical resume) in a new tab. To update it, replace that file with the new PDF under the same name.
+- **Resume:** the button at the top of Experience and the Resume link on Contact open `public/Ross-Champlin-Resume.pdf` (the technical resume) in a new tab. To update it, replace that file with the new PDF under the same name.
 - **Photo:** the Home photo is `images/ross-headshot.png` in this folder: Ross's original studio headshot, unedited (1254×1254). Astro makes the AVIF and WebP copies visitors download, at quality 90 and up to full resolution. Home shows it in a square frame at every size, so a square photo is never cropped; Astro makes small AVIF and WebP copies at build time. To change it, add the new image to `images/` (it needs a file extension, such as `.png` or `.jpg`) and point `src` at it. Without a `photo` entry, Home shows a labeled placeholder frame instead:
 
   ```yaml
