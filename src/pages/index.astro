@@ -1,4 +1,5 @@
 ---
+import { Image } from "astro:assets";
 import { getCollection, getEntry } from "astro:content";
 import Headshot from "../components/Headshot.astro";
 import Measure from "../components/Measure.astro";
@@ -18,6 +19,8 @@ const featured = (await getCollection("projects", ({ data }) => data.featured))
   .sort((a, b) => a.data.order - b.data.order)
   .slice(0, 4);
 
+// "What I've worked with": every entry in src/content/tools.yaml, by order.
+const tools = (await getCollection("tools")).sort((a, b) => a.data.order - b.data.order);
 ---
 
 <!-- No left margin column on Home (Base without a label): the content spans
@@ -126,4 +129,77 @@ const featured = (await getCollection("projects", ({ data }) => data.featured))
       </section>
     )
   }
+
+  {
+    // Official full-color logos with the name under each (Ross's choice: an
+    // exception to DESIGN.md's no-logo-wall rule and one-accent palette).
+    // Static, not links. The name says what each logo is, so the logo itself
+    // has empty alt text.
+    tools.length > 0 && (
+      <section aria-labelledby="worked-with" class="mt-16 md:mt-24" data-reveal>
+        <h2 id="worked-with" class="font-meta text-xs uppercase tracking-wider text-muted">
+          What I’ve worked with
+        </h2>
+        <ul class="tools draw-rule mt-4 grid grid-cols-3 gap-x-4 gap-y-10 border-t border-hairline pt-10 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8">
+          {tools.map(({ data }) => (
+            <li class="tool flex flex-col items-center gap-3 text-center">
+              <Image src={data.logo} alt="" loading="lazy" class="tool-logo size-10 object-contain sm:size-12" />
+              <span class="tool-name font-meta text-xs text-muted">{data.name}</span>
+            </li>
+          ))}
+        </ul>
+      </section>
+    )
+  }
 </Base>
+
+<style>
+  /* What I've worked with: the logo under the pointer (or finger) lifts and
+     grows a little and its name brightens to ink; the others dim so it stands
+     out. Hover only where hover exists; press works everywhere (Base's
+     touchstart listener enables :active on iOS). Reduced motion: the global
+     rule drops the transitions and sets --shift-hover to 0 and --scale-hover
+     to 1, so only the brightening and dimming remain. */
+  .tool {
+    transition: opacity var(--duration-hover) var(--ease-out-quart);
+  }
+
+  .tool-logo {
+    transition:
+      translate var(--duration-hover) var(--ease-out-quart),
+      scale var(--duration-hover) var(--ease-out-quart);
+  }
+
+  .tool-name {
+    transition: color var(--duration-hover) var(--ease-out-quart);
+  }
+
+  .tool:active .tool-logo {
+    translate: 0 calc(-1 * var(--shift-hover));
+    /* Three times the site's hover scale (1.06): 1.02 is invisible at 48px. */
+    scale: calc(1 + 3 * (var(--scale-hover) - 1));
+  }
+
+  .tool:active .tool-name {
+    color: var(--color-ink);
+  }
+
+  .tools:has(.tool:active) .tool:not(:active) {
+    opacity: 0.4;
+  }
+
+  @media (hover: hover) {
+    .tool:hover .tool-logo {
+      translate: 0 calc(-1 * var(--shift-hover));
+      scale: calc(1 + 3 * (var(--scale-hover) - 1));
+    }
+
+    .tool:hover .tool-name {
+      color: var(--color-ink);
+    }
+
+    .tools:has(.tool:hover) .tool:not(:hover) {
+      opacity: 0.4;
+    }
+  }
+</style>

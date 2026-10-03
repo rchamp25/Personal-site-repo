@@ -49,5 +49,6 @@ Open:
 - [x] Projects page: brighter rule between projects, two columns across the full width on desktop (2026-10-02).
 - [x] Framed project plates with placeholders (2026-10-02).
 - [ ] Project images from Ross: MixTwin and BingMCP screenshots, NailsByGabs and Personal Site logos.
+- [x] Home: "What I've worked with", 23 official logos (2026-10-03).
 - [ ] Bio, personal note, NailsByGabs and BingMCP details.
 - [ ] Switch the NailsByGabs link to https:// once that domain serves HTTPS.

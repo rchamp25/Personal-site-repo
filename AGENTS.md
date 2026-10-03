@@ -32,11 +32,12 @@ Why this stack: one language to maintain, content edited as Markdown, and a stat
 - Stack basics: npm, TypeScript strict, Tailwind v4. Fonts are self-hosted files in `public/fonts` (never Google Fonts or a runtime font CDN).
 - Analytics: Vercel Web Analytics only (no cookies). No other tracking.
 - Resume: the technical resume, `public/Ross-Champlin-Resume.pdf`, opened in a new tab from a button on Experience. The general resume is never published or committed (it has Ross's home address); its facts are on the site. Ross's original photos are not committed either (`.gitignore`).
+- What I've worked with (Home): official full-color logos (white versions of black marks), names under them, one block, static, below Selected work; lift-and-spotlight hover. The list is Ross's (`src/content/tools.yaml`); do not add to it without him. Left off at his choice: Cloudflare, C, JavaScript, HTML, GitHub. "SQL" is shown as PostgreSQL (Supabase's database). Approved 2026-10-03.
 - Content grows over time: keep it in `src/content`, easy to add to, and delete placeholder entries as real ones arrive.
 
 ## Site map
 
-- `/` Home: Ross Champlin, one-line role, short bio, a short personal note, Ross's headshot, and up to four featured projects.
+- `/` Home: Ross Champlin, one-line role, short bio, a short personal note, Ross's headshot, up to four featured projects, and "What I've worked with" (official logos with names).
 - `/projects` Every school and personal project's full breakdown on one page, each name underlined in oxide; no hover rows.
 - `/projects/[slug]` Problem, what was built, a framed screenshot or logo, role, stack, links, dates, and an optional commentary field.
 - `/experience` Education (degree, major, expected graduation, GPA, honors, involvement; no courses), roles, other life achievements, and a resume button that opens the PDF in a new tab. Entries may include commentary.
@@ -48,7 +49,7 @@ Why this stack: one language to maintain, content edited as Markdown, and a stat
 Agents do not invent these. Until a fact is in `src/content`, the page shows a placeholder that says it is a placeholder. How to fill each file is in `src/content/README.md`.
 
 - 2–4 sentence bio and the short personal note for the home page. Name (Ross Champlin) and role line ("CS Student at Binghamton University") are supplied.
-- Each project: title, slug, one-line summary, problem, what you did, tech, dates, repo and demo URLs, featured on the home page or not, optional commentary, and a screenshot or branding logo for its framed plate (a labeled placeholder until supplied: MixTwin and BingMCP screenshots, NailsByGabs and Personal Site logos). School work and personal work both belong here. MixTwin is filled in from Ross's own description and needs a more technical rewrite he will supply; NailsByGabs has its name, role (Full-Stack Developer), and live site (the most important project; other details coming); BingMCP exists by name only (details coming; Ross is holding its role for now); Personal Site (this site) is written from the build; its role is "Full-Stack Developer", like MixTwin (Ross's choice; no Claude Code credit).
+- Each project: title, slug, one-line summary, problem, what you did, tech, dates, repo and demo URLs, featured on the home page or not, optional commentary, and a screenshot or branding logo for its framed plate (a labeled placeholder until supplied: MixTwin and BingMCP screenshots, NailsByGabs and Personal Site logos). School work and personal work both belong here. MixTwin is filled in from Ross's own description and needs a more technical rewrite he will supply; NailsByGabs has its name, role (Full-Stack Developer), live site, and Supabase in its stack (the most important project; other details coming); BingMCP exists by name only (details coming; Ross is holding its role for now); Personal Site (this site) is written from the build; its role is "Full-Stack Developer", like MixTwin (Ross's choice; no Claude Code credit).
 - Experience and achievements: org or context, role or what it was, dates, bullets you wrote, optional commentary
 - Education: supplied from the resumes (Binghamton University and Webster Schroeder High School)
 - Resume: supplied (technical resume, published). Education, roles, and achievements are filled from both resumes, except TOPSoccer (not started yet), the AP Water Quality project, and the technical skills list (outdated). The technical resume itself is outdated and will be replaced.
@@ -62,7 +63,7 @@ Once the app exists, keep this map:
 - `src/pages` — routes
 - `src/layouts` — page shell (`Base.astro`: head tags, header, running index in the left margin on Experience and project pages (Home, Projects, and Contact have no margin column), footer, scripts)
 - `src/components` — header, footer, project and experience rows, icons, graphite dust, and other primitives
-- `src/content` — profile, projects, experience, links (Markdown and YAML), plus `README.md` on how to fill them; the schema is `src/content.config.ts`
+- `src/content` — profile, projects, experience, links, tools (Markdown and YAML; logo SVGs in `logos/`), plus `README.md` on how to fill them; the schema is `src/content.config.ts`
 - `src/lib` — small helpers (dates)
 - `src/styles/global.css` — the one stylesheet: tokens, base rules, motion
 - `scripts/` — `make-share-images.mjs` (`npm run share-images`): favicon PNG/ICO and the social preview image
@@ -99,3 +100,5 @@ Append decisions here. Date them and name the agent. Do not delete earlier entri
 - 2026-10-02 — Claude (Opus 5.5): Personal Site no longer credits Claude Code (Ross's request). `/projects`: muted rule between projects; two-column breakdowns from `lg` (`ProjectBreakdown` `wide`).
 - 2026-10-02 — Claude (Opus 5.5): Project `image` is now `{ kind: screenshot | logo, src?, alt? }` through Astro's `image()` (files in `src/content/images/projects/`); `ProjectFigure` frames it or shows a placeholder. Personal Site role is "Full-Stack Developer".
 - 2026-10-02 — Claude (Opus 5.5): NailsByGabs role set to "Full-Stack Developer" (Ross). BingMCP's role is on hold at Ross's request.
+- 2026-10-03 — Claude (Opus 5.5): Ross: Supabase was used in NailsByGabs and MixTwin; added to both stacks (NailsByGabs's stack is partial until he sends the rest).
+- 2026-10-03 — Claude (Opus 5.5): New `tools` collection (`src/content/tools.yaml`, `image()` logos in `src/content/logos/`) for Home's "What I've worked with".

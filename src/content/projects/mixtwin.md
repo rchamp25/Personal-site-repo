@@ -9,7 +9,7 @@ problem: "Putting together DJ sets is a struggle for beginners."
 role: Full-Stack Developer
 start: "2026-01"
 end: "2026-03"
-stack: ["React", "Vercel", "Spotify API", "Web Audio"]
+stack: ["React", "Supabase", "Vercel", "Spotify API", "Web Audio"]
 featured: true
 order: 1
 # Screenshot coming from Ross. Add src and alt then.

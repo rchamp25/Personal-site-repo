@@ -60,6 +60,10 @@ A real project needs `kind`, `role`, `start`, and at least one `stack` item.
 
 Project images go in `images/projects/` in this folder (PNG, JPG, WebP, or SVG for a logo). A screenshot fills a 16:10 frame from the top, so a 16:10 capture about 1440px wide fits best; a logo is centered with space around it, so a transparent PNG or an SVG that reads on a dark ground works best. Until `src` is set, the frame shows a labeled placeholder. To add a project, add a file; to remove one, delete its file.
 
+## tools.yaml
+
+"What I've worked with" on Home. One entry per language, framework, tool, or service: `name` (shown under the logo), `logo` (an SVG in `logos/`, e.g. `./logos/java.svg`), and `order`. Use the brand's official logo; if it is black or very dark, use the brand's white version so it shows on the dark page. To add one, drop the SVG in `logos/` and add an entry; to remove one, delete both.
+
 ## experience/
 
 One Markdown file per entry. `kind` is `education`, `role`, or `achievement`; the Experience page groups them in that order and sorts by `order`. Every entry can have `bullets`, `commentary`, and a Markdown body.

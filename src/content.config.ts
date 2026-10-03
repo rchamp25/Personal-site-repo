@@ -136,4 +136,16 @@ const experience = defineCollection({
     ),
 });
 
-export const collections = { profile, links, projects, experience };
+const tools = defineCollection({
+  // "What I've worked with" on Home: name, official logo (an SVG in
+  // src/content/logos/, path relative to tools.yaml), and order.
+  loader: file("src/content/tools.yaml"),
+  schema: ({ image }) =>
+    z.object({
+      name: z.string().min(1),
+      logo: image(),
+      order: z.number().int(),
+    }),
+});
+
+export const collections = { profile, links, projects, experience, tools };
