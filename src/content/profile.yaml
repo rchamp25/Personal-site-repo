@@ -14,3 +14,11 @@ ross:
   photo:
     src: ./images/ross-headshot.png
     alt: Ross Champlin smiling in a navy suit and floral tie against a gray studio backdrop
+    # Shown zoomed in (Ross, 2026-10-03): his body is turned slightly, so the
+    # shoulders center at x 574 of 1254, not 627. This 1120px square runs from
+    # x 14 to 1134, so each shoulder meets a frame edge, keeps the hair's 39px
+    # of headroom, and ends just above the pocket square.
+    crop:
+      left: 14
+      top: 0
+      size: 1120

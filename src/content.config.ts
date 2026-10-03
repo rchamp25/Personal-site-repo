@@ -29,7 +29,24 @@ const profile = defineCollection({
       // Optional portrait for Home. `src` is a path relative to profile.yaml,
       // e.g. "./images/ross-champlin.jpg"; Astro builds responsive AVIF and
       // WebP copies at build time. Unset means a type-only Home.
-      photo: z.object({ src: image(), alt: z.string().min(1) }).optional(),
+      // `crop` (optional) shows only a square of the photo, in the file's own
+      // pixels: `left` and `top` of the square and its `size`. The file is not
+      // edited; the site zooms into that square (Headshot.astro, which also
+      // fails the build if the square does not fit inside the photo; the
+      // image's size is not known yet when this schema runs).
+      photo: z
+        .object({
+          src: image(),
+          alt: z.string().min(1),
+          crop: z
+            .object({
+              left: z.number().int().min(0),
+              top: z.number().int().min(0),
+              size: z.number().int().positive(),
+            })
+            .optional(),
+        })
+        .optional(),
     }),
 });
 

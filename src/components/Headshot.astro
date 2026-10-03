@@ -4,28 +4,58 @@
 // choice; the accent exception on Home and Contact). Used on Home and Contact.
 // `sizes` describes the rendered width for the responsive image; extra
 // attributes (class, data-intro, style) go on the frame.
+//
+// `photo.crop` (profile.yaml) shows only a square of the file: the image is
+// scaled by width / size about the point that keeps that square in the frame
+// (the frame clips the rest), so the file itself is never edited. The `sizes`
+// lengths are scaled by the same factor, so the browser still picks a file
+// with enough pixels for the zoomed view.
 import type { HTMLAttributes } from "astro/types";
 import { Picture } from "astro:assets";
 import type { ImageMetadata } from "astro";
 
 type Props = HTMLAttributes<"div"> & {
-  photo: { src: ImageMetadata; alt: string };
+  photo: { src: ImageMetadata; alt: string; crop?: { left: number; top: number; size: number } };
   sizes: string;
   eager?: boolean;
 };
 const { photo, sizes, eager = false, class: className, ...rest } = Astro.props;
+
+const { crop } = photo;
+if (crop && (crop.left + crop.size > photo.src.width || crop.top + crop.size > photo.src.height)) {
+  throw new Error(
+    `photo.crop in profile.yaml does not fit inside the ${photo.src.width}×${photo.src.height} photo`,
+  );
+}
+const zoom = crop && crop.size < photo.src.width ? photo.src.width / crop.size : 1;
+// Scaling by `zoom` about (ox, oy) maps the crop square onto the full frame
+// when the origin sits at left / (width - size) across the image (and the same
+// for top), as a percentage.
+const spare = crop ? photo.src.width - crop.size : 0;
+const zoomStyle =
+  crop && zoom > 1
+    ? `scale: ${zoom.toFixed(4)}; transform-origin: ${((crop.left / spare) * 100).toFixed(3)}% ${((crop.top / spare) * 100).toFixed(3)}%`
+    : undefined;
+const zoomedSizes =
+  zoom > 1
+    ? sizes
+        .split(",")
+        .map((part) => part.trim().replace(/(\S+)$/, (length) => `calc(${length} * ${zoom.toFixed(3)})`))
+        .join(", ")
+    : sizes;
 ---
 
-<div class:list={["border-2 border-accent", className]} {...rest}>
+<div class:list={["overflow-hidden border-2 border-accent", className]} {...rest}>
   <Picture
     src={photo.src}
     alt={photo.alt}
     formats={["avif", "webp"]}
     widths={[480, 720, 960, 1254]}
     quality={90}
-    sizes={sizes}
+    sizes={zoomedSizes}
     loading={eager ? "eager" : "lazy"}
     fetchpriority={eager ? "high" : "auto"}
     class="block aspect-square h-full w-full object-cover"
+    style={zoomStyle}
   />
 </div>
