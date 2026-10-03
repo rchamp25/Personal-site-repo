@@ -89,6 +89,13 @@ const projects = defineCollection({
             kind: z.enum(["screenshot", "logo"]).default("screenshot"),
             src: image().optional(),
             alt: z.string().min(1).optional(),
+            // A logo on a solid background (e.g. "#ffffff" for a black logo on
+            // white): the frame takes that color so the file shows as is,
+            // unedited, without a box inside the frame.
+            background: z
+              .string()
+              .regex(/^#[0-9a-fA-F]{6}$/, "Use a hex color like #ffffff")
+              .optional(),
           })
           .refine((i) => !i.src || i.alt, { message: "An image with src needs alt", path: ["alt"] })
           .optional(),

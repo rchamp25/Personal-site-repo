@@ -11,15 +11,18 @@ problem: "A solo nail artist needed one place to show her work and let clients b
 role: Full-Stack Developer
 start: "2026-06"
 stack: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Supabase", "PostgreSQL", "Resend", "Google Calendar API", "Vercel"]
-# The repo is private for now; Ross will make it public after a cleanup. Set
-# `repo` to its URL then and remove repoPending.
-repoPending: true
+# Public since 2026-10-03.
+repo: https://github.com/rchamp25/NailsByGabs
 demo: https://nailsbygabs.org
 featured: true
 order: 2
-# The NailsByGabs branding logo, not a screenshot; Ross will supply it.
+# The NailsByGabs branding logo (public/branding/Nails by Gabs.png in its repo),
+# unedited: black on a solid white square, so the frame is white to match.
 image:
   kind: logo
+  src: ../images/projects/nailsbygabs-logo.png
+  alt: "Nails by Gabs logo: a large serif monogram with “Nails by Gabs” in script and “Gel X Nails” beneath"
+  background: "#ffffff"
 placeholder: false
 ---
 

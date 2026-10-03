@@ -48,9 +48,10 @@ Open:
 - [x] Projects page shows full breakdowns; Contact shows the headshot (2026-10-02).
 - [x] Projects page: brighter rule between projects, two columns across the full width on desktop (2026-10-02).
 - [x] Framed project plates with placeholders (2026-10-02).
-- [ ] Project images from Ross: MixTwin and BingMCP screenshots, NailsByGabs and Personal Site logos.
+- [x] NailsByGabs logo on its plate (2026-10-03).
+- [ ] Project images from Ross: MixTwin and BingMCP screenshots, Personal Site logo.
 - [x] Home: "What I've worked with", 23 official logos (2026-10-03).
 - [x] NailsByGabs details, from Ross's write-up (2026-10-03).
 - [x] NailsByGabs link fixed: `https://nailsbygabs.org` (`.com` was a typo).
-- [ ] NailsByGabs repo link once Ross makes it public.
+- [x] NailsByGabs repo linked (public 2026-10-03).
 - [ ] Bio, personal note, BingMCP details.

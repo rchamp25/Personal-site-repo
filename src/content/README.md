@@ -49,6 +49,7 @@ image:                  # the framed plate
   kind: screenshot      # or logo (centered, for a project shown by its branding)
   src: ../images/projects/mixtwin.png   # leave out src and alt until the file exists
   alt: What the image shows
+  background: "#ffffff"   # optional, logos only: a logo on a solid background; the frame takes that color
 commentary: "Optional personal note."
 placeholder: false
 ---

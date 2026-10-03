@@ -4,6 +4,9 @@
 // for both so the plates line up; a screenshot fills it from the top, a logo
 // sits centered with room around it. Until the file is supplied the frame shows
 // a labeled placeholder. Thin muted frame and a mono caption, no accent.
+// A logo file with its own solid background (`background`) fills the frame
+// height with no padding, and the frame takes that color, so the file is shown
+// unedited and its square edges disappear into the plate.
 import type { CollectionEntry } from "astro:content";
 import { Image, Picture } from "astro:assets";
 
@@ -15,15 +18,23 @@ interface Props {
   class?: string;
 }
 const { title, image, sizes, class: className } = Astro.props;
-const { kind, src, alt } = image;
+const { kind, src, alt, background } = image;
 const what = kind === "logo" ? "Logo" : "Screenshot";
-const fit = kind === "logo" ? "object-contain p-8 sm:p-12" : "object-cover object-top";
+const fit =
+  kind === "screenshot"
+    ? "object-cover object-top"
+    : background
+      ? "object-contain"
+      : "object-contain p-8 sm:p-12";
 // Never wider than the file itself.
 const widths = src ? [...new Set([480, 720, 960, 1440].map((w) => Math.min(w, src.width)))] : [];
 ---
 
 <figure class={className} data-reveal>
-  <div class="flex aspect-[16/10] w-full items-center justify-center overflow-hidden border border-muted bg-ground">
+  <div
+    class="flex aspect-[16/10] w-full items-center justify-center overflow-hidden border border-muted bg-ground"
+    style={background ? `background-color: ${background}` : undefined}
+  >
     {
       src && alt ? (
         src.format === "svg" ? (
