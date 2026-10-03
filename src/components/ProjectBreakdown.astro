@@ -25,7 +25,8 @@ interface Props {
 const { project, idPrefix = "", level = 2, titleId, wide = false } = Astro.props;
 const labelledBy = (id: string) => (titleId ? `${titleId} ${id}` : id);
 const Label = `h${level}` as "h2" | "h3";
-const { title, summary, problem, role, start, end, stack, repo, demo, image, commentary } = project.data;
+const { title, summary, problem, role, start, end, stack, repo, repoPending, demo, image, commentary } =
+  project.data;
 const { Content } = await render(project);
 
 const details = [
@@ -38,7 +39,9 @@ const links = [
   { label: "Repository", href: repo },
   { label: "Live site", href: demo },
 ].filter((l): l is { label: string; href: string } => Boolean(l.href));
-const hasFacts = details.length > 0 || links.length > 0 || Boolean(commentary);
+// A repo that is not public yet: named in the links row, but not a link.
+const repoSoon = repoPending && !repo;
+const hasFacts = details.length > 0 || links.length > 0 || repoSoon || Boolean(commentary);
 ---
 
 <!-- The wrapper holds the measure at body size (65ch of the larger summary
@@ -97,8 +100,9 @@ const hasFacts = details.length > 0 || links.length > 0 || Boolean(commentary);
           </dl>
         )}
 
-        {links.length > 0 && (
+        {(links.length > 0 || repoSoon) && (
           <ul class="mt-8 flex flex-wrap gap-x-6 gap-y-2 font-meta text-sm" data-reveal>
+            {repoSoon && <li class="text-muted">Repository (coming soon)</li>}
             {links.map(({ label, href }) => (
               <li>
                 <a href={href} target="_blank" rel="noopener" class="inline-flex items-center gap-2">

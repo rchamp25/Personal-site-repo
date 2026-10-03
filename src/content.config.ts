@@ -71,6 +71,9 @@ const projects = defineCollection({
         // Omit while the project is ongoing.
         end: monthOrYear.optional(),
         repo: z.url().optional(),
+        // The repo exists but is not public yet: shows "Repository (coming
+        // soon)" without a link. Drop it once `repo` is set.
+        repoPending: z.boolean().default(false),
         demo: z.url().optional(),
         featured: z.boolean().default(false),
         // Lower numbers sort first where order matters (e.g. featured on home).

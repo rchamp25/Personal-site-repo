@@ -2,6 +2,8 @@
 // One ruled row in a project index: title, one-line summary, then year and
 // stack when content has them. The title link is stretched over the row so
 // the whole row is clickable, while its accessible name stays the title.
+// The year-and-stack column is fit-content with a cap (14rem, 26rem from lg),
+// so a long stack wraps instead of squeezing the summary.
 //
 // Hover (devices that can hover), press (all devices), and keyboard focus:
 // the rule under the row brightens and an oxide mark draws along it, so the
@@ -26,7 +28,7 @@ const hasMeta = Boolean(year) || stack.length > 0;
 ---
 
 <li
-  class="project-row relative py-5 md:grid md:grid-cols-[minmax(0,16rem)_minmax(0,1fr)_auto] md:items-baseline md:gap-x-8"
+  class="project-row relative py-5 md:grid md:grid-cols-[minmax(0,16rem)_minmax(0,1fr)_fit-content(14rem)] md:items-baseline md:gap-x-8 lg:grid-cols-[minmax(0,16rem)_minmax(0,1fr)_fit-content(26rem)]"
   data-reveal
 >
   <Heading class="text-2xl leading-tight">

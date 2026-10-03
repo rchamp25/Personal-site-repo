@@ -41,7 +41,7 @@ role: "What you did."
 stack: ["Astro", "TypeScript"]
 start: "2025-06"
 end: "2025-09"          # leave out while ongoing
-repo: https://github.com/...
+repo: https://github.com/...   # or, while the repo is still private: repoPending: true
 demo: https://...       # optional live site: the page title links to it, plus a "Live site" link (new tab)
 featured: true          # shown on Home (up to four, by order)
 order: 1                # lower comes first
