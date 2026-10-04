@@ -10,15 +10,36 @@ import { getProjects } from "../../lib/projects";
 // Links inside a breakdown (a live site, a repository) still work. Projects
 // are separated by a muted rule, brighter than the hairlines inside each one;
 // from lg each breakdown uses the full page width in two columns (`wide`).
-// Hidden projects are left out (src/lib/projects.ts).
+// Hidden projects are left out (src/lib/projects.ts). "At a glance" lists
+// every project first (name, summary, year), each name a link down to its
+// breakdown (Ross, 2026-10-04).
 const projects = await getProjects();
 ---
 
 <Base title="Projects" description="School and personal projects by {name}.">
   <h1 class="text-5xl leading-[1.05] sm:text-6xl">Projects</h1>
+
+  <nav aria-labelledby="at-a-glance" class="mt-12 md:mt-16">
+    <h2 id="at-a-glance" class="font-meta text-xs uppercase tracking-wider text-muted">At a glance</h2>
+    <ul class="draw-rule mt-4 border-t border-hairline">
+      {
+        projects.map(({ id, data }) => (
+          <li class="border-b border-hairline py-4 md:grid md:grid-cols-[minmax(0,16rem)_minmax(0,1fr)_auto] md:items-baseline md:gap-x-8">
+            <a href={`#${id}`} class="font-headline text-2xl leading-tight">
+              {data.title}
+            </a>
+            <p class="mt-1 md:mt-0">{data.summary}</p>
+            {data.start && <p class="mt-1 font-meta text-xs text-muted md:mt-0">{data.start.slice(0, 4)}</p>}
+          </li>
+        ))
+      }
+    </ul>
+  </nav>
+
   {
     projects.map((project) => (
       <article
+        id={project.id}
         aria-labelledby={`${project.id}-title`}
         class="draw-rule draw-rule-strong mt-12 border-t border-muted pt-10 md:mt-16 md:pt-12"
       >

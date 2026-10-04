@@ -56,7 +56,7 @@ placeholder: false
 hidden: false           # true keeps the file but leaves the project off the site entirely
 ---
 
-What you built, in Markdown. Use ## for headings (never #).
+What you built, in Markdown: a short intro paragraph, then at most five bullets ("**Title:** one or two sentences"). Use ## for headings (never #).
 ```
 
 A real project needs `kind`, `role`, `start`, and at least one `stack` item.

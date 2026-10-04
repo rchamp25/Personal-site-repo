@@ -15,18 +15,16 @@ interface Props {
   project: CollectionEntry<"projects">;
 }
 const { project } = Astro.props;
-const { title, summary, role, start, stack, demo, commentary } = project.data;
+const { title, summary, demo, commentary } = project.data;
 
 // Meta description: the summary once it is real, a plain line until then.
 const description = project.data.placeholder ? `${title}, a project by {name}.` : summary;
 
-// Running index in the margin: only sections this project has (the breakdown
-// shows details when any of role, dates, or stack exists).
-const hasDetails = Boolean(role || start || stack.length > 0);
+// Running index in the margin: the sections below the fold. The facts strip
+// (role, dates, stack, links) sits under the summary, so it is not listed.
 const sections = [
   { id: "problem", label: "The problem" },
   { id: "built", label: "What I built" },
-  ...(hasDetails ? [{ id: "details", label: "Details" }] : []),
   ...(commentary ? [{ id: "commentary", label: "Commentary" }] : []),
 ];
 ---

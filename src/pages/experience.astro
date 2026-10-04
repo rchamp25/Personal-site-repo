@@ -14,25 +14,15 @@ const groups = [
   { id: "achievements", heading: "Achievements", kind: "achievement" },
 ] as const;
 
-// Running index in the margin: the resume, then the groups that have entries.
-const sections = [
-  { id: "resume", label: "Resume" },
-  ...groups
-    .filter(({ kind }) => entries.some((e) => e.data.kind === kind))
-    .map(({ id, heading }) => ({ id, label: heading })),
-];
-
 const profile = await getEntry("profile", "ross");
 if (!profile) throw new Error('Missing profile entry "ross" in src/content/profile.yaml');
 const { resume } = profile.data;
 ---
 
-<Base
-  title="Experience"
-  label="Experience"
-  sections={sections}
-  description="Education, roles, and achievements of {name}."
->
+<!-- No left margin column or running index (Ross, 2026-10-04): like Home,
+     Projects, and Contact, the content spans the full width and the header nav
+     is the navigation. -->
+<Base title="Experience" description="Education, roles, and achievements of {name}.">
   <h1 class="text-5xl leading-[1.05] sm:text-6xl">Experience</h1>
   <!-- The page's single accent use. Decorative. -->
   <div aria-hidden="true" class="mt-6 w-16 border-t-2 border-accent"></div>

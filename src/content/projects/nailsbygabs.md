@@ -28,10 +28,8 @@ placeholder: false
 
 NailsByGabs started as a marketing site with a third-party booking embed and grew into a custom appointment platform. It is built on the Next.js App Router, mostly server-rendered with Server Components and Server Actions, with Supabase for accounts and data.
 
-- **Booking:** clients sign in with a verified email and book open time slots on a week and month calendar. Booking and cancelling run as PostgreSQL functions, so two clients can never take the same slot, and row level security on every table keeps the business rules in the database.
-- **Owner tools:** the owner adds and removes slots, books clients who have no account by name, tags each appointment with one of two locations, and edits the services and prices page.
-- **Google Calendar sync:** every booking, change, and cancellation updates the owner's Google Calendar.
-- **Email:** booking confirmations, owner alerts, and reminders 48 hours before each appointment, sent through Resend by a daily Vercel cron job. A failed email never undoes a booking.
-- **Analytics:** an owner dashboard built on an event log of bookings, cancellations, and completions, backfilled from the booking history, with trend charts drawn in SVG that show quiet days as zero instead of skipping them.
-- **Eastern time everywhere:** a real bug showed a 4:30 PM appointment as 12:30 PM; every time is now entered and shown in the salon's time zone, with daylight saving handled.
-- **Portfolio:** a gallery filtered by style tags (Aura, Chrome, 3D, and more) read from the photo file names, with a lightbox, and three color themes the owner can switch between.
+- **Booking:** clients sign in with a verified email and book open slots on a week and month calendar. Booking and cancelling run as PostgreSQL functions, so two clients can never take the same slot, and every time is shown in the salon's time zone (after a bug once showed a 4:30 PM appointment as 12:30 PM).
+- **Owner tools:** the owner adds and removes slots, books clients who have no account by name, tags each appointment with one of two locations, and edits the services page. Every change syncs to her Google Calendar.
+- **Email:** booking confirmations, owner alerts, and reminders 48 hours ahead, sent through Resend by a daily Vercel cron job. A failed email never undoes a booking.
+- **Analytics:** an owner dashboard built on an event log of bookings, cancellations, and completions, backfilled from the booking history, with SVG trend charts that show quiet days as zero instead of skipping them.
+- **Portfolio:** a gallery filtered by style tags (Aura, Chrome, 3D, and more) read from the photo file names, with a lightbox and three color themes the owner can switch between.

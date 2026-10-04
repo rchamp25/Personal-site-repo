@@ -39,7 +39,7 @@ Why this stack: one language to maintain, content edited as Markdown, and a stat
 ## Site map
 
 - `/` Home: Ross Champlin, one-line role, short bio, a short personal note, Ross's headshot, up to four featured projects, and "Tools I've used" (official logos with names).
-- `/projects` Every school and personal project's full breakdown on one page, each name underlined in oxide; no hover rows.
+- `/projects` "At a glance" list first, then every school and personal project's full breakdown on one page (facts first, at most five bullets), each name underlined in oxide; no hover rows.
 - `/projects/[slug]` Problem, what was built, a framed screenshot or logo, role, stack, links, dates, and an optional commentary field.
 - `/experience` Education (degree, major, expected graduation, GPA, honors, involvement; no courses), roles, other life achievements, and a resume button that opens the PDF in a new tab. Entries may include commentary.
 - `/contact` Email, GitHub, LinkedIn, and Resume as logo links, with Ross's framed headshot beside them. No contact form in v1.
@@ -62,7 +62,7 @@ Agents do not invent these. Until a fact is in `src/content`, the page shows a p
 Once the app exists, keep this map:
 
 - `src/pages` — routes
-- `src/layouts` — page shell (`Base.astro`: head tags, header, running index in the left margin on Experience and project pages (Home, Projects, and Contact have no margin column), footer, scripts)
+- `src/layouts` — page shell (`Base.astro`: head tags, header, running index in the left margin on project pages only (Home, Projects, Experience, and Contact have no margin column), footer, scripts)
 - `src/components` — header, footer, project and experience rows, icons, graphite dust, and other primitives
 - `src/content` — profile, projects, experience, links, tools (Markdown and YAML; logo SVGs in `logos/`), plus `README.md` on how to fill them; the schema is `src/content.config.ts`
 - `src/lib` — small helpers (dates)
@@ -115,3 +115,5 @@ Append decisions here. Date them and name the agent. Do not delete earlier entri
 - 2026-10-03 — Claude (Opus 5.5): Added IdleShapes (third in Highlights, order 3; Personal Site moved to 4, MixTwin to 5). New `download` project field, shown as "Download for Windows".
 - 2026-10-04 — Claude (Opus 5.5): Added yumyum.io (order 4, not featured; Personal Site moved to 5, MixTwin to 6).
 - 2026-10-04 — Claude (Opus 5.5): Tools I've used: Git swapped for GitHub (white Invertocat), same position.
+- 2026-10-04 — Claude (Opus 5.5): Experience has no margin column or running index (Ross), like Home, Projects, and Contact.
+- 2026-10-04 — Claude (Opus 5.5): /projects reorganized: "At a glance" list, facts strip under each summary, at most five bullets per project (Ross).
