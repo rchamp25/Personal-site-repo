@@ -32,7 +32,7 @@ Why this stack: one language to maintain, content edited as Markdown, and a stat
 - Stack basics: npm, TypeScript strict, Tailwind v4. Fonts are self-hosted files in `public/fonts` (never Google Fonts or a runtime font CDN).
 - Analytics: Vercel Web Analytics only (no cookies). No other tracking.
 - Resume: the technical resume, `public/Ross-Champlin-Resume.pdf`, opened in a new tab from a button at the top of Experience and from a Resume logo link on Contact (not in the footer). The general resume is never published or committed (it has Ross's home address); its facts are on the site. Ross's original photos are not committed either (`.gitignore`).
-- Tools I've used (Home): official full-color logos (white versions of black marks), names under them, one block, static, below Highlights; lift-and-spotlight hover. The list is Ross's (`src/content/tools.yaml`); do not add to it without him. Left off at his choice: Cloudflare, C, JavaScript, HTML, GitHub. "SQL" is shown as PostgreSQL (Supabase's database). Approved 2026-10-03.
+- Tools I've used (Home): official full-color logos (white versions of black marks), names under them, one block, static, below Highlights; lift-and-spotlight hover. The list is Ross's (`src/content/tools.yaml`); do not add to it without him. Left off at his choice: Cloudflare, C, JavaScript, HTML. GitHub replaced Git (Ross, 2026-10-04). "SQL" is shown as PostgreSQL (Supabase's database). Approved 2026-10-03.
 - MixTwin is off the site for now (Ross, 2026-10-03): it is far from polished. Its entry stays in `src/content/projects/mixtwin.md` with `hidden: true`, so it has no Home row, no `/projects` entry, and no page. Do not bring it back until Ross says so; then set `hidden` to false.
 - Content grows over time: keep it in `src/content`, easy to add to, and delete placeholder entries as real ones arrive.
 
@@ -114,3 +114,4 @@ Append decisions here. Date them and name the agent. Do not delete earlier entri
 - 2026-10-03 — Claude (Opus 5.5): MixTwin hidden at Ross's request (not polished enough). New `hidden` project field; every project list and page goes through `getProjects()` in `src/lib/projects.ts`, which leaves hidden entries out.
 - 2026-10-03 — Claude (Opus 5.5): Added IdleShapes (third in Highlights, order 3; Personal Site moved to 4, MixTwin to 5). New `download` project field, shown as "Download for Windows".
 - 2026-10-04 — Claude (Opus 5.5): Added yumyum.io (order 4, not featured; Personal Site moved to 5, MixTwin to 6).
+- 2026-10-04 — Claude (Opus 5.5): Tools I've used: Git swapped for GitHub (white Invertocat), same position.

@@ -4,9 +4,9 @@
 # original use the brand's white version so they read on the dark ground.
 # Logos live in logos/ (SVG). Sources (2026-10-03): the brand's own site or
 # press kit where it publishes one (TypeScript, PostgreSQL, R, Astro, Tailwind
-# CSS, CSS, Node.js, Git, IntelliJ IDEA, Google Antigravity, Cursor, Supabase);
+# CSS, CSS, Node.js, IntelliJ IDEA, Google Antigravity, Cursor, Supabase);
 # otherwise Devicon (Java, Python, React, Visual Studio Code, Vim, RStudio),
-# Simple Icons in the brand color (Next.js, Roblox Studio, Claude Code,
+# Simple Icons in the brand color (Next.js, Roblox Studio, Claude Code, GitHub (white),
 # Vercel), or LobeHub Icons (OpenAI Codex).
 java:
   name: Java
@@ -52,9 +52,9 @@ nodejs:
   name: Node.js
   logo: ./logos/nodejs.svg
   order: 11
-git:
-  name: Git
-  logo: ./logos/git.svg
+github:
+  name: GitHub
+  logo: ./logos/github.svg
   order: 12
 vscode:
   name: Visual Studio Code
