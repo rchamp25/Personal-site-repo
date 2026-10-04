@@ -11,11 +11,14 @@ start: "2026-01"
 end: "2026-03"
 stack: ["React", "Supabase", "Vercel", "Spotify API", "Web Audio"]
 featured: true
-order: 4
+order: 6
 # Screenshot coming from Ross. Add src and alt then.
 image:
   kind: screenshot
 placeholder: false
+# Off the site for now (Ross, 2026-10-03): far from polished. No Home row, no
+# /projects entry, no page. Set to false (or delete the line) to bring it back.
+hidden: true
 ---
 
 MixTwin analyzes and tags the music in your local files and folders, using algorithms that determine each track's beat pattern, vibe, and structure, then groups songs together for specific DJ sets depending on the environment. It isn't trying to compete with DJ software such as rekordbox or Serato DJ; its aim is to help beginners string songs together in a way that makes sense for their sets. A windowed Spotify player, built on Spotify's API, lets you hear a song without leaving the tab.

@@ -5,6 +5,7 @@ import Headshot from "../components/Headshot.astro";
 import Measure from "../components/Measure.astro";
 import ProjectRow from "../components/ProjectRow.astro";
 import Base from "../layouts/Base.astro";
+import { getProjects } from "../lib/projects";
 
 const profile = await getEntry("profile", "ross");
 if (!profile) throw new Error('Missing profile entry "ross" in src/content/profile.yaml');
@@ -14,10 +15,8 @@ const { name, role, bio, note, photo } = profile.data;
 // the heading still reads as the plain name.
 const nameWords = name.split(/\s+/);
 
-// Up to four featured projects, by order.
-const featured = (await getCollection("projects", ({ data }) => data.featured))
-  .sort((a, b) => a.data.order - b.data.order)
-  .slice(0, 4);
+// Up to four featured projects, by order (hidden ones never show).
+const featured = (await getProjects()).filter(({ data }) => data.featured).slice(0, 4);
 
 // "Tools I've used": every entry in src/content/tools.yaml, by order.
 const tools = (await getCollection("tools")).sort((a, b) => a.data.order - b.data.order);

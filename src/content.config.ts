@@ -92,6 +92,9 @@ const projects = defineCollection({
         // soon)" without a link. Drop it once `repo` is set.
         repoPending: z.boolean().default(false),
         demo: z.url().optional(),
+        // A download page instead of (or as well as) a live site, e.g. a
+        // desktop app's latest release. Shown as "Download for Windows".
+        download: z.url().optional(),
         featured: z.boolean().default(false),
         // Lower numbers sort first where order matters (e.g. featured on home).
         order: z.number().int().default(0),
@@ -118,6 +121,9 @@ const projects = defineCollection({
           .optional(),
         commentary: z.string().optional(),
         placeholder: z.boolean().default(false),
+        // Kept in the repo but left off the site entirely: no Home row, no
+        // /projects entry, no page of its own (src/lib/projects.ts).
+        hidden: z.boolean().default(false),
       })
       .refine((p) => p.placeholder || (p.kind && p.role && p.start && p.stack.length > 0), {
         message: "A project that is not a placeholder needs kind, role, start, and stack",

@@ -43,13 +43,16 @@ Open:
 - [ ] Replace the technical resume when Ross updates it (it is outdated and lacks NailsByGabs).
 - [x] New Home photo: Ross's studio headshot (2026-10-02).
 - [x] MixTwin filled in from Ross's description (2026-10-02).
-- [ ] MixTwin: more technical description from Ross.
+- [x] MixTwin hidden from the site until Ross polishes it (2026-10-03).
+- [ ] MixTwin: more technical description from Ross, then unhide.
 - [x] BingMCP (placeholder) and Personal Site added as featured projects; Home shows four (2026-10-02).
 - [x] Projects page shows full breakdowns; Contact shows the headshot (2026-10-02).
 - [x] Projects page: brighter rule between projects, two columns across the full width on desktop (2026-10-02).
 - [x] Framed project plates with placeholders (2026-10-02).
 - [x] NailsByGabs logo on its plate (2026-10-03).
-- [ ] Project images from Ross: MixTwin and BingMCP screenshots, Personal Site logo.
+- [x] IdleShapes added, third in Highlights (2026-10-03).
+- [x] yumyum.io added to Projects (2026-10-04).
+- [ ] Project images from Ross: BingMCP, IdleShapes, and yumyum.io screenshots, Personal Site logo (and MixTwin's screenshot if it returns).
 - [x] Home: "Tools I've used", 23 official logos (2026-10-03).
 - [x] NailsByGabs details, from Ross's write-up (2026-10-03).
 - [x] NailsByGabs link fixed: `https://nailsbygabs.org` (`.com` was a typo).

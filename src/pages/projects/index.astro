@@ -1,7 +1,7 @@
 ---
-import { getCollection } from "astro:content";
 import ProjectBreakdown from "../../components/ProjectBreakdown.astro";
 import Base from "../../layouts/Base.astro";
+import { getProjects } from "../../lib/projects";
 
 // Every project, school and personal, featured or not, each with its full
 // breakdown, so nothing here needs a click to read. No hover rows on this page
@@ -10,9 +10,8 @@ import Base from "../../layouts/Base.astro";
 // Links inside a breakdown (a live site, a repository) still work. Projects
 // are separated by a muted rule, brighter than the hairlines inside each one;
 // from lg each breakdown uses the full page width in two columns (`wide`).
-const projects = (await getCollection("projects")).sort(
-  (a, b) => a.data.order - b.data.order || a.data.title.localeCompare(b.data.title),
-);
+// Hidden projects are left out (src/lib/projects.ts).
+const projects = await getProjects();
 ---
 
 <Base title="Projects" description="School and personal projects by {name}.">

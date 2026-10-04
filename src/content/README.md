@@ -43,6 +43,7 @@ start: "2025-06"
 end: "2025-09"          # leave out while ongoing
 repo: https://github.com/...   # or, while the repo is still private: repoPending: true
 demo: https://...       # optional live site: the page title links to it, plus a "See it live" link (new tab)
+download: https://...   # optional download page (e.g. a desktop app's latest release): a "Download for Windows" link
 featured: true          # shown on Home (up to four, by order)
 order: 1                # lower comes first
 image:                  # the framed plate
@@ -52,6 +53,7 @@ image:                  # the framed plate
   background: "#ffffff"   # optional, logos only: a logo on a solid background; the frame takes that color
 commentary: "Optional personal note."
 placeholder: false
+hidden: false           # true keeps the file but leaves the project off the site entirely
 ---
 
 What you built, in Markdown. Use ## for headings (never #).

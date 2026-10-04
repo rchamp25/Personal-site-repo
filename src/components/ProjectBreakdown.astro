@@ -25,7 +25,7 @@ interface Props {
 const { project, idPrefix = "", level = 2, titleId, wide = false } = Astro.props;
 const labelledBy = (id: string) => (titleId ? `${titleId} ${id}` : id);
 const Label = `h${level}` as "h2" | "h3";
-const { title, summary, problem, role, start, end, stack, repo, repoPending, demo, image, commentary } =
+const { title, summary, problem, role, start, end, stack, repo, repoPending, demo, download, image, commentary } =
   project.data;
 const { Content } = await render(project);
 
@@ -37,6 +37,7 @@ const details = [
 
 const links = [
   { label: "Repo", href: repo },
+  { label: "Download for Windows", href: download },
   { label: "See it live", href: demo },
 ].filter((l): l is { label: string; href: string } => Boolean(l.href));
 // A repo that is not public yet: named in the links row, but not a link.

@@ -1,11 +1,13 @@
 ---
-import { getCollection, type CollectionEntry } from "astro:content";
+import type { CollectionEntry } from "astro:content";
 import Icon from "../../components/Icon.astro";
 import ProjectBreakdown from "../../components/ProjectBreakdown.astro";
 import Base from "../../layouts/Base.astro";
+import { getProjects } from "../../lib/projects";
 
 export async function getStaticPaths() {
-  const projects = await getCollection("projects");
+  // A hidden project gets no page (src/lib/projects.ts).
+  const projects = await getProjects();
   return projects.map((project) => ({ params: { slug: project.id }, props: { project } }));
 }
 
