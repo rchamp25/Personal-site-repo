@@ -39,7 +39,7 @@ Why this stack: one language to maintain, content edited as Markdown, and a stat
 ## Site map
 
 - `/` Home: Ross Champlin, one-line role, short bio, a short personal note, Ross's headshot, up to four featured projects, and "Tools I've used" (official logos with names).
-- `/projects` "At a glance" list first, then every school and personal project's full breakdown on one page (facts first, at most five bullets), each name underlined in oxide; no hover rows.
+- `/projects` "At a glance" list first, then every school and personal project's full breakdown on one page (facts first, at most five bullets), each name underlined in oxide; At a glance rows draw an oxide line under the name on hover.
 - `/projects/[slug]` Problem, what was built, a framed screenshot or logo, role, stack, links, dates, and an optional commentary field.
 - `/experience` Education (degree, major, expected graduation, GPA, honors, involvement; no courses), roles, other life achievements, and a resume button that opens the PDF in a new tab. Entries may include commentary.
 - `/contact` Email, GitHub, LinkedIn, and Resume as logo links, with Ross's framed headshot beside them. No contact form in v1.
@@ -117,3 +117,4 @@ Append decisions here. Date them and name the agent. Do not delete earlier entri
 - 2026-10-04 — Claude (Opus 5.5): Tools I've used: Git swapped for GitHub (white Invertocat), same position.
 - 2026-10-04 — Claude (Opus 5.5): Experience has no margin column or running index (Ross), like Home, Projects, and Contact.
 - 2026-10-04 — Claude (Opus 5.5): /projects reorganized: "At a glance" list, facts strip under each summary, at most five bullets per project (Ross).
+- 2026-10-04 — Claude (Opus 5.5): /projects At a glance: whole-row links with an oxide line drawn under the name on hover, press, or focus.

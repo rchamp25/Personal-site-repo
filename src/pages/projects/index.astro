@@ -24,9 +24,9 @@ const projects = await getProjects();
     <ul class="draw-rule mt-4 border-t border-hairline">
       {
         projects.map(({ id, data }) => (
-          <li class="border-b border-hairline py-4 md:grid md:grid-cols-[minmax(0,16rem)_minmax(0,1fr)_auto] md:items-baseline md:gap-x-8">
-            <a href={`#${id}`} class="font-headline text-2xl leading-tight">
-              {data.title}
+          <li class="glance-row relative border-b border-hairline py-4 md:grid md:grid-cols-[minmax(0,16rem)_minmax(0,1fr)_auto] md:items-baseline md:gap-x-8">
+            <a href={`#${id}`} class="font-headline text-2xl leading-tight after:absolute after:inset-0">
+              <span class="glance-name">{data.title}</span>
             </a>
             <p class="mt-1 md:mt-0">{data.summary}</p>
             {data.start && <p class="mt-1 font-meta text-xs text-muted md:mt-0">{data.start.slice(0, 4)}</p>}
@@ -57,3 +57,53 @@ const projects = await getProjects();
     ))
   }
 </Base>
+
+<style>
+  /* At a glance (Ross, 2026-10-04): the whole row is the link (stretched
+     ::after), and on hover, press, or keyboard focus a 2px oxide line draws
+     in under the name, in place of its thin underline, like the permanent
+     underline on each project name below. Hover only where hover exists;
+     reduced motion shows the line without the draw. */
+  .glance-name {
+    position: relative;
+    display: inline-block;
+    padding-bottom: 0.25rem;
+    /* inline-block stops the link's underline from reaching the text, so the
+       span draws the same underline itself. */
+    text-decoration: inherit;
+    transition: text-decoration-color var(--duration-hover) var(--ease-out-quart);
+  }
+
+  .glance-name::after {
+    content: "";
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    height: 2px;
+    background-color: var(--color-accent);
+    scale: 0 1;
+    transform-origin: left;
+    transition: scale var(--duration-page) var(--ease-out-quart);
+  }
+
+  .glance-row:active .glance-name,
+  .glance-row:has(a:focus-visible) .glance-name {
+    text-decoration-color: transparent;
+  }
+
+  .glance-row:active .glance-name::after,
+  .glance-row:has(a:focus-visible) .glance-name::after {
+    scale: 1 1;
+  }
+
+  @media (hover: hover) {
+    .glance-row:hover .glance-name {
+      text-decoration-color: transparent;
+    }
+
+    .glance-row:hover .glance-name::after {
+      scale: 1 1;
+    }
+  }
+</style>
