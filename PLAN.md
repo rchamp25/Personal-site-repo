@@ -57,4 +57,6 @@ Open:
 - [x] NailsByGabs details, from Ross's write-up (2026-10-03).
 - [x] NailsByGabs link fixed: `https://nailsbygabs.org` (`.com` was a typo).
 - [x] NailsByGabs repo linked (public 2026-10-03).
-- [ ] Bio, personal note, BingMCP details.
+- [x] Bio (2026-10-13).
+- [x] Personal note (2026-10-17).
+- [ ] BingMCP details.

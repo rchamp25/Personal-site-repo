@@ -11,7 +11,7 @@ Rewritten 2026-10-01 into sections; the log below is the history behind it.
 - **Live:** `https://rosschamplin.com` (Vercel, static). `www` redirects to it. Ross commits and pushes; Vercel deploys `main`.
 - **Built (PLAN.md tasks 1–12 and 14 done; 13 deferred by Ross):** Astro 7 static site, TypeScript strict, Tailwind v4 tokens; content collections; Home (identity, Highlights), `/projects` (every project's full breakdown), `/projects/[slug]`, `/experience`, `/contact`; responsive and accessibility passes.
 - **Built beyond the plan, at Ross's request:** motion system (page change, Home first-load sequence, scroll reveals, project row hover and press with a travelling accent); title morph between a project row and its page; running index in the desktop margin with progress fills and drawing rules; logo contact links; education fields and a resume button; sharing basics (favicon, meta, canonical, Open Graph image, sitemap, robots); Vercel Web Analytics; graphite dust background.
-- **Content:** real: name, role line ("CS Student at Binghamton University"), email, GitHub, LinkedIn, Home photo, education (Binghamton University, Webster Schroeder High School), roles (2), achievements (6), the resume button (technical resume), NailsByGabs, IdleShapes, yumyum.io, and Personal Site projects. Hidden from the site: MixTwin (Ross, 2026-10-03; `hidden: true`). Placeholders: bio, personal note, BingMCP. Home photo: Ross's studio headshot (2026-10-02).
+- **Content:** real: name, role line ("CS Student at Binghamton University"), email, GitHub, LinkedIn, Home photo, education (Binghamton University, Webster Schroeder High School), roles (2), achievements (6), the resume button (technical resume), NailsByGabs, IdleShapes, yumyum.io, and Personal Site projects. Hidden from the site: MixTwin (Ross, 2026-10-03; `hidden: true`). Bio (2026-10-13), personal note (2026-10-17). Placeholders: BingMCP. Home photo: Ross's studio headshot (2026-10-02).
 
 ### In progress
 
@@ -19,8 +19,8 @@ None.
 
 ### Next
 
-- Waiting on Ross: a polished, more technical MixTwin before it returns to the site (the file is marked NEEDS REWRITE and `hidden: true`), bio and note, an updated technical resume (the current PDF still lists MixTwin). The Home photo is settled: Ross wants it big and dominant, not pinned while scrolling (2026-10-02). Ross runs `git rm --cached` on the originals (see the 2026-10-02 log). Excluded at Ross's instruction: TOPSoccer (not started), the AP Water Quality project (first on the technical resume), the technical skills list (outdated).
-- Waiting on Ross: bio, personal note, BingMCP details, and the plate images: BingMCP, IdleShapes, and yumyum.io screenshots and the Personal Site logo (IdleShapes' app icon, `public/icon.ico` in its repo, could be its logo instead) (put them in `src/content/images/projects/` and add `src` and `alt` to each entry's `image`). Delete placeholder entries as real ones arrive.
+- Waiting on Ross: a polished, more technical MixTwin before it returns to the site (the file is marked NEEDS REWRITE and `hidden: true`), an updated technical resume (the current PDF still lists MixTwin). The Home photo is settled: Ross wants it big and dominant, not pinned while scrolling (2026-10-02). Ross runs `git rm --cached` on the originals (see the 2026-10-02 log). Excluded at Ross's instruction: TOPSoccer (not started), the AP Water Quality project (first on the technical resume), the technical skills list (outdated).
+- Waiting on Ross: BingMCP details, and the plate images: BingMCP, IdleShapes, and yumyum.io screenshots and the Personal Site logo (IdleShapes' app icon, `public/icon.ico` in its repo, could be its logo instead) (put them in `src/content/images/projects/` and add `src` and `alt` to each entry's `image`). Delete placeholder entries as real ones arrive.
 - Ross to enable Web Analytics in Vercel if not done; set the `www` redirect to 308.
 - PLAN.md task 13 (performance) stays deferred until Ross asks.
 - Not chosen in the visual pass (do not build unless asked): notebook grid, display-size type, footer signature, project hover previews, live readouts.
@@ -594,3 +594,21 @@ None.
 
 - Ross: on /projects, hovering a project in At a glance should bring up the orange accent under its name. [projects/index.astro](src/pages/projects/index.astro): each row is now a whole-row link (like Home's Highlights) and a 2px oxide line draws in under the name on hover, press, or keyboard focus, replacing the thin muted underline while it shows (same look as the permanent underline on each project name below). Recorded in DESIGN.md as the one hover on /projects.
 - Verified in headless Edge at 1440px: at rest all bars `scale 0 1`; hovering row 2's summary text: its bar `scale 1`, underline transparent, other rows unchanged; back after leaving; keyboard focus on row 3 shows its bar; clicking row 4's summary jumps to `#yumyum-io` (80px from the top); reduced motion: bar shows at once (transition 0s). At 390px rows unchanged in layout, no overflow. axe 0 violations; no exceptions. `npm run check` 0/0/0; `npm run build` succeeds. Nothing committed.
+
+### 2026-10-13 — Claude (Opus 5.5)
+
+- Session check (Ross asked how the site looks): `npm run check` 0/0/0, build makes 9 pages; sweep of all pages at 390px and 1440px found no overflow, broken images, stuck reveals, or exceptions, axe 0 violations; rosschamplin.com serves every page and matches commit `adeafb0`. Uncommitted then: the At a glance hover. No custom 404 page exists (`/projects/mixtwin` shows the default); suggested to Ross, not built.
+- Ross supplied his bio. Grammar fixed ("interested", "cybersecurity", "who" pointing at the university, double space) and, at his choice, the repeats of the heading and role line trimmed while keeping cybersecurity: "Hey! I'm a sophomore studying computer science, with an interest in cybersecurity. I enjoy building solutions to everyday problems in ways that make sense for the people who use them. Outside of class, you can find me playing soccer, lifting, adventuring with friends, DJing, or gaming." In [profile.yaml](src/content/profile.yaml) with a source comment.
+- Verified in headless Edge at 390px and 1440px: bio renders under the role line; desktop text column 480px tall beside the 480px photo; no overflow; axe 0 violations; no exceptions. `npm run check` 0/0/0; `npm run build` succeeds. Nothing committed.
+- Scratchpad note: the session scratchpad was reset, so axe-core was reinstalled there (`scratchpad/axe`).
+
+### 2026-10-13 — Claude (Opus 5.5)
+
+- Ross: he is learning the basics of red teaming; add a "right now" line about maintaining NailsByGabs and learning red teaming. Added to the bio in [profile.yaml](src/content/profile.yaml), right after the cybersecurity sentence: "Right now I'm maintaining NailsByGabs and learning the basics of red teaming." (four sentences now). A `sed -i` briefly turned profile.yaml's CRLF into LF; restored to CRLF.
+- Ross asked what to put in the personal note, feeling the bio already covers a lot; options given, nothing written yet.
+- Verified in headless Edge at 390px and 1440px: bio renders, desktop text column fits beside the 480px photo, no overflow, axe 0 violations, no exceptions. `npm run check` 0/0/0; `npm run build` succeeds. Nothing committed.
+
+### 2026-10-17 — Claude (Opus 5.5)
+
+- Ross: the personal note is "Go Bills!". Set in [profile.yaml](src/content/profile.yaml) with a source comment (CRLF kept). It shows in the existing note style under the bio (muted, left hairline). Home's only remaining placeholder is the BingMCP row in Highlights.
+- Verified in headless Edge at 390px and 1440px: note renders under the bio, desktop text column fits beside the 480px photo, no overflow, axe 0 violations, no exceptions. `npm run check` 0/0/0; `npm run build` succeeds. Nothing committed.

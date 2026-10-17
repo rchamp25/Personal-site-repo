@@ -2,8 +2,12 @@
 ross:
   name: Ross Champlin
   role: "CS Student at Binghamton University"
-  bio: "Placeholder: a 2–4 sentence bio goes here. Ross has not written it yet."
-  note: "Placeholder: a short personal note goes here. Ross has not written it yet."
+  # Ross's own words (2026-10-13), grammar fixed, plus his "right now" line.
+  # His name and school are left out because the heading and role line right
+  # above already say them.
+  bio: "Hey! I'm a sophomore studying computer science, with an interest in cybersecurity. Right now I'm maintaining NailsByGabs and learning the basics of red teaming. I enjoy building solutions to everyday problems in ways that make sense for the people who use them. Outside of class, you can find me playing soccer, lifting, adventuring with friends, DJing, or gaming."
+  # Ross's note (2026-10-17).
+  note: "Go Bills!"
   resume:
     # The technical resume (public/Ross-Champlin-Resume.pdf). The general
     # resume is not published; its facts are already on the site.
