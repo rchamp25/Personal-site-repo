@@ -11,7 +11,7 @@ Rewritten 2026-10-01 into sections; the log below is the history behind it.
 - **Live:** `https://rosschamplin.com` (Vercel, static). `www` redirects to it. Ross commits and pushes; Vercel deploys `main`.
 - **Built (PLAN.md tasks 1–12 and 14 done; 13 deferred by Ross):** Astro 7 static site, TypeScript strict, Tailwind v4 tokens; content collections; Home (identity, Highlights), `/projects` (every project's full breakdown), `/projects/[slug]`, `/experience`, `/contact`; responsive and accessibility passes.
 - **Built beyond the plan, at Ross's request:** motion system (page change, Home first-load sequence, scroll reveals, project row hover and press with a travelling accent); title morph between a project row and its page; running index in the desktop margin with progress fills and drawing rules; logo contact links; education fields and a resume button; sharing basics (favicon, meta, canonical, Open Graph image, sitemap, robots); Vercel Web Analytics; graphite dust background.
-- **Content:** real: name, role line ("CS Student at Binghamton University"), email, GitHub, LinkedIn, Home photo, education (Binghamton University, Webster Schroeder High School), roles (2), achievements (6), the resume button (technical resume), NailsByGabs, IdleShapes, yumyum.io, and Personal Site projects. Hidden from the site: MixTwin (Ross, 2026-10-03; `hidden: true`). Bio (2026-10-13), personal note (2026-10-17). Placeholders: BingMCP. Home photo: Ross's studio headshot (2026-10-02).
+- **Content:** real: name, role line ("CS Student at Binghamton University"), email, GitHub, LinkedIn, Home photo, education (Binghamton University, Webster Schroeder High School), roles (3), achievements (6), the resume button (technical resume), NailsByGabs, IdleShapes, yumyum.io, and Personal Site projects. Hidden from the site: MixTwin (Ross, 2026-10-03; `hidden: true`). Bio (2026-10-13), personal note (2026-10-17). BingMCP real since 2026-11-16 (hackathon). No placeholder projects remain. Home photo: Ross's studio headshot (2026-10-02).
 
 ### In progress
 
@@ -19,8 +19,8 @@ None.
 
 ### Next
 
-- Waiting on Ross: a polished, more technical MixTwin before it returns to the site (the file is marked NEEDS REWRITE and `hidden: true`), an updated technical resume (the current PDF still lists MixTwin). The Home photo is settled: Ross wants it big and dominant, not pinned while scrolling (2026-10-02). Ross runs `git rm --cached` on the originals (see the 2026-10-02 log). Excluded at Ross's instruction: TOPSoccer (not started), the AP Water Quality project (first on the technical resume), the technical skills list (outdated).
-- Waiting on Ross: BingMCP details, and the plate images: BingMCP, IdleShapes, and yumyum.io screenshots and the Personal Site logo (IdleShapes' app icon, `public/icon.ico` in its repo, could be its logo instead) (put them in `src/content/images/projects/` and add `src` and `alt` to each entry's `image`). Delete placeholder entries as real ones arrive.
+- Waiting on Ross: a polished, more technical MixTwin before it returns to the site (the file is marked NEEDS REWRITE and `hidden: true`), The Home photo is settled: Ross wants it big and dominant, not pinned while scrolling (2026-10-02). Ross runs `git rm --cached` on the originals (see the 2026-10-02 log). Excluded at Ross's instruction: TOPSoccer (not started), the AP Water Quality project (first on the technical resume), the technical skills list (outdated).
+- Waiting on Ross: the plate images: IdleShapes, and yumyum.io screenshots and the Personal Site logo (IdleShapes' app icon, `public/icon.ico` in its repo, could be its logo instead) (put them in `src/content/images/projects/` and add `src` and `alt` to each entry's `image`). Delete placeholder entries as real ones arrive.
 - Ross to enable Web Analytics in Vercel if not done; set the `www` redirect to 308.
 - PLAN.md task 13 (performance) stays deferred until Ross asks.
 - Not chosen in the visual pass (do not build unless asked): notebook grid, display-size type, footer signature, project hover previews, live readouts.
@@ -612,3 +612,33 @@ None.
 
 - Ross: the personal note is "Go Bills!". Set in [profile.yaml](src/content/profile.yaml) with a source comment (CRLF kept). It shows in the existing note style under the bio (muted, left hairline). Home's only remaining placeholder is the BingMCP row in Highlights.
 - Verified in headless Edge at 390px and 1440px: note renders under the bio, desktop text column fits beside the 480px photo, no overflow, axe 0 violations, no exceptions. `npm run check` 0/0/0; `npm run build` succeeds. Nothing committed.
+
+### 2026-11-16 — Claude (Opus 5.5)
+
+- Ross: bring NailsByGabs up to date; it has changed since the 2026-10-03 write-up. Sources: its `docs/PROJECT_ARCHITECTURE.md` (reviewed 2026-10-27) and the repo's commits through 2026-11-03 (overhaul, new logo, loyalty, cuticle oil, Turnstile, visitor analytics, Thanksgiving theme).
+- [nailsbygabs.md](src/content/projects/nailsbygabs.md): intro mentions the loyalty program, owner tools, and seasonal themes; the five bullets are now Booking (time zone, race-safe PostgreSQL functions, three-booking cap, members-only times), Owner tools (slots, loyalty, in-place editing of services, cuticle oil, and gallery, analytics, Google Calendar), Email (all Resend notices in theme colors, daily cron reminders), Security (row-level security, Turnstile, local attack script, GitHub Actions CI), Portfolio and themes (WebP pipeline 238 MB to 9.4 MB, metadata stripped, three color themes plus scheduled Halloween and Thanksgiving). Stack adds Cloudflare Turnstile and GitHub Actions. The 2026-10-03 exclusions still hold (no-payments reasoning, revenue figure, admin and email setup, town names). The time zone bug anecdote and chart details were dropped to keep five bullets.
+- Plate: [nailsbygabs-logo.png](src/content/images/projects/nailsbygabs-logo.png) replaced, unedited, with the current logo (`public/branding/NailsByGabsLogo.png` in its repo, 1513×1001, opaque white ground; the frame stays `#ffffff`); alt text updated.
+- Verified: `npm run check` 0/0/0; `npm run build` succeeds. Headless Edge at 1440px and in a 390px iframe (headless windows cannot go below about 500px, so a plain 390 window screenshot looks clipped): plate, stack, and bullets render, no overflow. Nothing committed.
+- Flagged to Ross: `src/content/RossChamplin2026Resume.pdf` (general resume, home address) is still tracked, and the GitHub repo is now public. Waiting on his call. Next: Ross is refactoring the technical resume; he wants the site and resume kept in step (generated-from-content approach recommended, not chosen yet).
+
+### 2026-11-16 — Claude (Opus 5.5), BingMCP
+
+- Ross: BingMCP lives in HackBU-2026 (`github.com/mitoiscool/HackBU-2026`, public, a teammate's account; team commits luljaj 31, mitoiscool 9, Ross 1). His part: found and reverse-engineered every campus API with Chrome DevTools, helped scaffold the backend architecture, made the Baxter mascot images (with ChatGPT; the page says "created", no AI mention). Hackathon projects are a separate kind. Link the repo; no image.
+- [content.config.ts](src/content.config.ts): `kind` adds `hackathon`; new optional `event` (where it was built), shown first in the facts strip as "Event" ([ProjectBreakdown.astro](src/components/ProjectBreakdown.astro)). `kind` itself is still not shown anywhere. `/projects` meta description now "School, personal, and hackathon projects". [src/content/README.md](src/content/README.md) documents both.
+- [bingmcp.md](src/content/projects/bingmcp.md): real (`placeholder: false`), `kind: hackathon`, `event: HackBU 2026`, role "Campus API Research and Backend", Mar 2026, stack, repo, no `image` (no plate renders), still featured order 2. Body credits the team for the build and names Ross's part. Facts from the repo's READMEs and code (7 tools, 6 sources, 31 laundry rooms, cache TTLs, 15-minute events poller). No placement known.
+- Verified: `npm run check` 0/0/0; build succeeds; `/projects/bingmcp` at 1440px and in a 390px iframe: Event, Role, Dates, Stack, Repo render, no plate, no overflow. Nothing committed.
+
+### 2026-11-16 — Claude (Opus 5.5), technical resume
+
+- Ross: replace the technical resume with the new PDF in Downloads. Copied `Ross-Champlin-Resume-Technical.pdf` (1 page, Word export, saved 10:54; its `.docx` sits beside it) over [public/Ross-Champlin-Resume.pdf](public/Ross-Champlin-Resume.pdf), same name, so the Experience button and Contact link are unchanged. Read in full first: town only (Webster, NY), phone, personal email, site, GitHub, LinkedIn; no street address. Lists NailsByGabs and BingMCP; MixTwin and the AP Water Quality project are gone.
+- New on the resume, not yet on the site: Binghamton GPA (3.91 cumulative, 4.0 major), Intramural Sports Official at Binghamton Recreation (Sep 2026 to now), a merged NHS and Tri-M line, Best Buddies folded into Community Service, and a skills list. Coursework is on the resume; the site does not show courses (Decisions). Offered to Ross; not changed yet.
+
+### 2026-11-16 — Claude (Opus 5.5), Experience from the new resume
+
+- Ross: add the Binghamton GPA and the officiating job from the new technical resume to Experience; skip courses.
+- [binghamton-university.md](src/content/experience/binghamton-university.md): `gpa: "3.91 cumulative, 4.0 major"` (shows "GPA 3.91 cumulative, 4.0 major" in the meta line).
+- New role [intramural-sports-official.md](src/content/experience/intramural-sports-official.md): Intramural Sports Official, Binghamton Recreation, Sep 2026 to now, two bullets from the resume wording. Role orders: officiating 1, Junior Site Assistant 2, Summer Camp Counselor 3 (newest first).
+- Not changed: the resume's merged NHS and Tri-M line and Best Buddies under Community Service (the site keeps them separate), and coursework (not shown, per Decisions).
+- Verified: `npm run check` 0/0/0; build succeeds; `/experience` at 1440px and in a 390px iframe: GPA and the new role render, no overflow; `/Ross-Champlin-Resume.pdf` returns 200 at 169,730 bytes (the new file). Nothing committed.
+- Ross confirmed Summer Camp Counselor ends Aug 2026 (the site is right). At his request the resume .docx in Downloads was edited ("June 2023 - Present" to "June 2023 - August 2026", the only change) and re-exported to PDF through Word; the new PDF replaced both the Downloads copy and [public/Ross-Champlin-Resume.pdf](public/Ross-Champlin-Resume.pdf). Still one page.
+- Same way, at Ross's request: the camp bullet's "Lead engaging activities" became "Led" (past job). Re-exported through Word (one page) and copied to Downloads and `public/`.

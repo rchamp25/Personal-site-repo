@@ -40,7 +40,7 @@ Open:
 
 - [x] Resume contents sorted into education, roles, and achievements (2026-10-02).
 - [x] Resume PDF published (technical resume) and wired to the Experience button (2026-10-02).
-- [ ] Replace the technical resume when Ross updates it (it is outdated and lacks NailsByGabs).
+- [x] Replace the technical resume when Ross updates it (2026-11-16).
 - [x] New Home photo: Ross's studio headshot (2026-10-02).
 - [x] MixTwin filled in from Ross's description (2026-10-02).
 - [x] MixTwin hidden from the site until Ross polishes it (2026-10-03).

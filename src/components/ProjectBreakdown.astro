@@ -26,11 +26,12 @@ interface Props {
 const { project, idPrefix = "", level = 2, titleId, wide = false } = Astro.props;
 const labelledBy = (id: string) => (titleId ? `${titleId} ${id}` : id);
 const Label = `h${level}` as "h2" | "h3";
-const { title, summary, problem, role, start, end, stack, repo, repoPending, demo, download, image, commentary } =
+const { title, summary, problem, event, role, start, end, stack, repo, repoPending, demo, download, image, commentary } =
   project.data;
 const { Content } = await render(project);
 
 const details = [
+  { label: "Event", value: event },
   { label: "Role", value: role },
   { label: "Dates", value: formatRange(start, end) },
   { label: "Stack", value: stack.length > 0 ? stack.join(", ") : undefined },

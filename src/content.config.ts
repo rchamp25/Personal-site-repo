@@ -80,7 +80,10 @@ const projects = defineCollection({
       .object({
         title: z.string().min(1),
         summary: z.string().min(1),
-        kind: z.enum(["school", "personal"]).optional(),
+        kind: z.enum(["school", "personal", "hackathon"]).optional(),
+        // The event a project was built at, e.g. "HackBU 2026" (hackathons).
+        // Shown as an "Event" fact next to Role.
+        event: z.string().min(1).optional(),
         problem: z.string().min(1),
         role: z.string().optional(),
         stack: z.array(z.string().min(1)).default([]),

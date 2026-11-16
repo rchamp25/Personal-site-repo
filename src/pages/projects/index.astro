@@ -3,7 +3,7 @@ import ProjectBreakdown from "../../components/ProjectBreakdown.astro";
 import Base from "../../layouts/Base.astro";
 import { getProjects } from "../../lib/projects";
 
-// Every project, school and personal, featured or not, each with its full
+// Every project, school, personal, and hackathon, featured or not, each with its full
 // breakdown, so nothing here needs a click to read. No hover rows on this page
 // (Ross's choice): the names are plain headings with a permanent oxide
 // underline. The graphite dust answers the cursor here as on every page.
@@ -16,7 +16,7 @@ import { getProjects } from "../../lib/projects";
 const projects = await getProjects();
 ---
 
-<Base title="Projects" description="School and personal projects by {name}.">
+<Base title="Projects" description="School, personal, and hackathon projects by {name}.">
   <h1 class="text-5xl leading-[1.05] sm:text-6xl">Projects</h1>
 
   <nav aria-labelledby="at-a-glance" class="mt-12 md:mt-16">

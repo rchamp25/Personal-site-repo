@@ -7,6 +7,6 @@ end: "2026-08"
 bullets:
   - Led groups of K-5th grade campers in daily activities
   - CPR and First Aid certified
-order: 2
+order: 3
 placeholder: false
 ---

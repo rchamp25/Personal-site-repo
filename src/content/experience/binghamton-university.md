@@ -6,6 +6,7 @@ degree: Bachelor of Science
 major: Computer Science
 end: "2029-05"
 expected: true
+gpa: "3.91 cumulative, 4.0 major"
 honors:
   - Dean's List (Fall 2025, Spring 2026)
 involvement:

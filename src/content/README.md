@@ -35,7 +35,8 @@ One Markdown file per project. The file name is the web address: `projects/mixtw
 ---
 title: "MixTwin"
 summary: "One line about it."
-kind: personal          # or school
+kind: personal          # or school, or hackathon
+event: "HackBU 2026"    # optional: where it was built (hackathons); shown as "Event"
 problem: "The problem it solved."
 role: "What you did."
 stack: ["Astro", "TypeScript"]
